@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:animated_text_kit/animated_text_kit.dart';
+
+const double iconSize = 80.0;
+const double titleTextSize = 43.0;
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'login_screen';
@@ -9,62 +12,63 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  bool showSpinner = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                SizedBox(
-                  width: 10.0,
+      body: Container(
+        constraints: BoxConstraints.expand(),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 100),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                width: iconSize,
+                height: iconSize,
+                padding: EdgeInsets.all(12),
+                margin: EdgeInsets.only(bottom: 25.0),
+                child: Image.asset('images/logo.png'),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(12.0),
+                  ),
                 ),
-                Container(
-                  child: Image.asset('images/logo.png'),
-                  height: 60.0,
-                ),
-                SizedBox(
-                  width: 15.0,
-                ),
-                TypewriterAnimatedTextKit(
+              ),
+              Expanded(
+                child: TypewriterAnimatedTextKit(
                   text: ['우리안에 기도'],
                   textStyle: TextStyle(
-                    fontSize: 36.0,
+                    color: Colors.white,
+                    fontSize: titleTextSize,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-              ],
-            ),
-            SizedBox(
-              height: 30.0,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Material(
+              ),
+              Material(
                 elevation: 5.0,
                 color: Colors.amber,
                 borderRadius: BorderRadius.circular(30.0),
                 child: MaterialButton(
                   onPressed: () {},
-                  minWidth: 200.0,
-                  height: 42.0,
+                  height: 50.0,
+                  minWidth: double.infinity,
                   child: Text(
-                    '로그인',
+                    '카카오 로그인',
                     style: TextStyle(
-                      color: Colors.white,
+                      fontSize: 15.0,
+                      color: Asset.Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
+        ),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("images/login_bk.png"), fit: BoxFit.cover),
         ),
       ),
     );
