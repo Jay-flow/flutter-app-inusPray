@@ -20,3 +20,21 @@ const kIconBoxStyle = BoxDecoration(
     Radius.circular(12.0),
   ),
 );
+
+const kTextFieldDecoration = InputDecoration(
+  hintText: 'Enter value',
+  contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
+  border: UnderlineInputBorder(),
+  enabledBorder: UnderlineInputBorder(
+    borderSide: BorderSide(
+      color: Colors.amber,
+      width: 1.0,
+    ),
+  ),
+  focusedBorder: UnderlineInputBorder(
+    borderSide: BorderSide(
+      color: Colors.amber,
+      width: 2.0,
+    ),
+  ),
+);

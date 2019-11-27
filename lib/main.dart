@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_inus_pray/screen/login_screen.dart';
+import 'package:flutter_inus_pray/screen/register_screen.dart';
+import 'package:flutter_inus_pray/screen/welcome_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,9 +11,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light().copyWith(),
-      initialRoute: LoginScreen.id,
+      initialRoute: WelcomeScreen.id,
       routes: {
-        LoginScreen.id: (context) => LoginScreen(),
+        WelcomeScreen.id: (context) => WelcomeScreen(),
+        RegisterScreen.id: (context) => RegisterScreen(),
       },
     );
   }

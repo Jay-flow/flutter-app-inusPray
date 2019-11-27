@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_inus_pray/screen/register_screen.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter_inus_pray/utils/constants.dart';
+import 'package:flutter_inus_pray/components/rounded_button.dart';
 
 const double iconSize = 80.0;
 
-class LoginScreen extends StatefulWidget {
-  static const String id = 'login_screen';
-  @override
-  _LoginScreenState createState() => _LoginScreenState();
-}
+class WelcomeScreen extends StatelessWidget {
+  static const String id = 'welcome_screen';
 
-class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         constraints: BoxConstraints.expand(),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 100),
+          padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 30),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              SizedBox(
+                height: 70,
+              ),
               Container(
                 width: iconSize,
                 height: iconSize,
@@ -36,19 +37,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   textStyle: kTitleTextStyle,
                 ),
               ),
-              Material(
-                elevation: 5.0,
-                color: Colors.amber,
-                borderRadius: BorderRadius.circular(30.0),
-                child: MaterialButton(
-                  onPressed: () {},
-                  height: 50.0,
-                  minWidth: double.infinity,
-                  child: Text(
-                    '카카오 로그인',
-                    style: kRoundButtonTextStyle
-                  ),
-                ),
+              RoundedButton(
+                text: '회원가입',
+                buttonColor: Colors.white,
+                onPressed: () =>
+                    Navigator.pushNamed(context, RegisterScreen.id),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              RoundedButton(
+                text: '로그인',
+                buttonColor: Colors.amber,
+                onPressed: () {},
               ),
             ],
           ),
