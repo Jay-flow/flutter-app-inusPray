@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter_inus_pray/utils/constants.dart';
 
 const double iconSize = 80.0;
-const double titleTextSize = 43.0;
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'login_screen';
@@ -27,22 +27,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: iconSize,
                 padding: EdgeInsets.all(12),
                 margin: EdgeInsets.only(bottom: 25.0),
-                child: Image.asset('images/logo.png'),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(12.0),
-                  ),
-                ),
+                child: Asset.Icons.icLogo,
+                decoration: kIconBoxStyle,
               ),
               Expanded(
                 child: TypewriterAnimatedTextKit(
-                  text: ['우리안에 기도'],
-                  textStyle: TextStyle(
-                    color: Colors.white,
-                    fontSize: titleTextSize,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  text: [Asset.Text.appName],
+                  textStyle: kTitleTextStyle,
                 ),
               ),
               Material(
@@ -55,11 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   minWidth: double.infinity,
                   child: Text(
                     '카카오 로그인',
-                    style: TextStyle(
-                      fontSize: 15.0,
-                      color: Asset.Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: kRoundButtonTextStyle
                   ),
                 ),
               ),
@@ -68,7 +55,9 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("images/login_bk.png"), fit: BoxFit.cover),
+            image: Asset.Images.loginScreenBackground,
+            fit: BoxFit.cover,
+          ),
         ),
       ),
     );
