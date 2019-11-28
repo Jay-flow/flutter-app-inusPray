@@ -72,7 +72,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 itemCount: pages.length,
                 onPageChanged: (currentPosition) {
                   setState(() {
-                    DLog.d(currentPosition);
+                    progressValue = (currentPosition + 1) / pages.length;
                   });
                 },
               ),
