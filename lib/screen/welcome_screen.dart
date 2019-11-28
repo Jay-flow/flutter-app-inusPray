@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_inus_pray/screen/login_screen.dart';
 import 'package:flutter_inus_pray/screen/register_screen.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:animated_text_kit/animated_text_kit.dart';
@@ -49,7 +50,7 @@ class WelcomeScreen extends StatelessWidget {
               RoundedButton(
                 text: '로그인',
                 buttonColor: Theme.of(context).primaryColor,
-                onPressed: () {},
+                onPressed: () => Navigator.pushNamed(context, LoginScreen.id),
               ),
             ],
           ),

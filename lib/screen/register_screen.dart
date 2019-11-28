@@ -37,6 +37,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         hintText: '비밀번호를 입력해주세요',
         keyboardType: TextInputType.visiblePassword,
         buttonText: '다음',
+        obscureText: true,
         buttonOnPressed: nextPage,
       ),
     ),

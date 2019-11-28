@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_inus_pray/screen/login_screen.dart';
 import 'package:flutter_inus_pray/screen/register_screen.dart';
 import 'package:flutter_inus_pray/screen/welcome_screen.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
@@ -32,6 +33,9 @@ class _MyAppState extends State<MyApp> {
         primaryColor: Asset.Colors.yellow,
         primaryColorDark: Asset.Colors.blueBlack,
         primaryColorLight: Asset.Colors.green,
+        appBarTheme: AppBarTheme(
+          color: Colors.black,
+        ),
         accentColor: Asset.Colors.mint,
         textTheme: TextTheme(
           title: TextStyle(
@@ -43,6 +47,7 @@ class _MyAppState extends State<MyApp> {
       initialRoute: WelcomeScreen.id,
       routes: {
         WelcomeScreen.id: (context) => WelcomeScreen(),
+        LoginScreen.id: (context) => LoginScreen(),
         RegisterScreen.id: (context) => RegisterScreen(),
       },
     );
