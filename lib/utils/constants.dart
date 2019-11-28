@@ -10,7 +10,7 @@ const kTitleTextStyle = TextStyle(
 
 const kRoundButtonTextStyle = TextStyle(
   fontSize: 15.0,
-  color: Asset.Colors.black,
+  color: Asset.Colors.blueBlack,
   fontWeight: FontWeight.bold,
 );
 
@@ -27,13 +27,13 @@ const kTextFieldDecoration = InputDecoration(
   border: UnderlineInputBorder(),
   enabledBorder: UnderlineInputBorder(
     borderSide: BorderSide(
-      color: Colors.amber,
-      width: 1.0,
+      color: Asset.Colors.yellow,
+      width: 1.5,
     ),
   ),
   focusedBorder: UnderlineInputBorder(
     borderSide: BorderSide(
-      color: Colors.amber,
+      color: Asset.Colors.yellow,
       width: 2.0,
     ),
   ),

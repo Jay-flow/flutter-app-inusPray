@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/input_page.dart';
-import 'package:flutter_inus_pray/utils/logger.dart';
+import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 
 class RegisterScreen extends StatefulWidget {
   static const String id = 'register_screen';
@@ -46,7 +46,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         title: '이름',
         hintText: '이름을 입력해주세요',
         keyboardType: TextInputType.text,
-        buttonText: '다음',
+        buttonText: '완료',
         buttonOnPressed: () {},
       ),
     ),
@@ -62,6 +62,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
           children: <Widget>[
             LinearProgressIndicator(
               value: progressValue,
+              backgroundColor: Theme.of(context).primaryColorLight,
+              valueColor: AlwaysStoppedAnimation<Color>(
+                Theme.of(context).accentColor,
+              ),
             ),
             Expanded(
               child: PageView.builder(

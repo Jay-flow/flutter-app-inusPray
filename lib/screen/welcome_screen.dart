@@ -21,7 +21,7 @@ class WelcomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               SizedBox(
-                height: 70,
+                height: 60,
               ),
               Container(
                 width: iconSize,
@@ -48,7 +48,7 @@ class WelcomeScreen extends StatelessWidget {
               ),
               RoundedButton(
                 text: '로그인',
-                buttonColor: Colors.amber,
+                buttonColor: Theme.of(context).primaryColor,
                 onPressed: () {},
               ),
             ],

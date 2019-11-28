@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/utils/constants.dart';
+import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:flutter_inus_pray/utils/logger.dart';
 
 class InputPage extends StatefulWidget {
@@ -32,9 +33,7 @@ class _InputPageState extends State<InputPage> {
       children: <Widget>[
         Text(
           widget.title,
-          style: TextStyle(
-            fontSize: 45.0,
-          ),
+          style: Theme.of(context).textTheme.title,
         ),
         TextField(
           keyboardType: widget.keyboardType,
@@ -47,9 +46,14 @@ class _InputPageState extends State<InputPage> {
           minWidth: double.infinity,
           height: 50.0,
           child: RaisedButton(
-            color: Colors.amber,
+            color: Theme.of(context).primaryColorDark,
             onPressed: widget.buttonOnPressed,
-            child: Text(widget.buttonText),
+            child: Text(
+              widget.buttonText,
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
           ),
         ),
       ],
