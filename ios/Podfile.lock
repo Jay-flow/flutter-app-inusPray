@@ -9,9 +9,6 @@ PODS:
     - Firebase/Core
     - Firebase/Firestore (~> 6.0)
     - Flutter
-  - Firebase/Auth (6.11.0):
-    - Firebase/CoreOnly
-    - FirebaseAuth (~> 6.3.1)
   - Firebase/Core (6.11.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 6.1.3)
@@ -20,10 +17,6 @@ PODS:
   - Firebase/Firestore (6.11.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 1.6.1)
-  - firebase_auth (0.0.1):
-    - Firebase/Auth (~> 6.0)
-    - Firebase/Core
-    - Flutter
   - firebase_core (0.0.1):
     - Firebase/Core
     - Flutter
@@ -36,12 +29,6 @@ PODS:
     - GoogleUtilities/Network (~> 6.0)
     - "GoogleUtilities/NSData+zlib (~> 6.0)"
     - nanopb (~> 0.3.901)
-  - FirebaseAuth (6.3.1):
-    - FirebaseAuthInterop (~> 1.0)
-    - FirebaseCore (~> 6.2)
-    - GoogleUtilities/AppDelegateSwizzler (~> 6.2)
-    - GoogleUtilities/Environment (~> 6.2)
-    - GTMSessionFetcher/Core (~> 1.1)
   - FirebaseAuthInterop (1.0.0)
   - FirebaseCore (6.3.2):
     - FirebaseCoreDiagnostics (~> 1.0)
@@ -75,6 +62,11 @@ PODS:
     - GoogleUtilities/Environment (~> 6.0)
     - GoogleUtilities/UserDefaults (~> 6.0)
   - Flutter (1.0.0)
+  - flutter_kakao_login (0.0.8):
+    - Flutter
+    - KakaoOpenSDK (~> 1.17.2)
+  - flutter_statusbarcolor (0.0.1):
+    - Flutter
   - GoogleAppMeasurement (6.1.3):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
@@ -119,7 +111,19 @@ PODS:
     - gRPC-Core/Interface (= 1.21.0)
     - nanopb (~> 0.3)
   - gRPC-Core/Interface (1.21.0)
-  - GTMSessionFetcher/Core (1.3.0)
+  - KakaoOpenSDK (1.17.2):
+    - KakaoOpenSDK/KakaoCommon (= 1.17.2)
+    - KakaoOpenSDK/KakaoLink (= 1.17.2)
+    - KakaoOpenSDK/KakaoMessageTemplate (= 1.17.2)
+    - KakaoOpenSDK/KakaoNavi (= 1.17.2)
+    - KakaoOpenSDK/KakaoOpenSDK (= 1.17.2)
+  - KakaoOpenSDK/KakaoCommon (1.17.2)
+  - KakaoOpenSDK/KakaoLink (1.17.2):
+    - KakaoOpenSDK/KakaoCommon
+  - KakaoOpenSDK/KakaoMessageTemplate (1.17.2)
+  - KakaoOpenSDK/KakaoNavi (1.17.2):
+    - KakaoOpenSDK/KakaoCommon
+  - KakaoOpenSDK/KakaoOpenSDK (1.17.2)
   - leveldb-library (1.22)
   - nanopb (0.3.9011):
     - nanopb/decode (= 0.3.9011)
@@ -130,16 +134,16 @@ PODS:
 
 DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
-  - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `.symlinks/flutter/ios`)
+  - flutter_kakao_login (from `.symlinks/plugins/flutter_kakao_login/ios`)
+  - flutter_statusbarcolor (from `.symlinks/plugins/flutter_statusbarcolor/ios`)
 
 SPEC REPOS:
   trunk:
     - BoringSSL-GRPC
     - Firebase
     - FirebaseAnalytics
-    - FirebaseAuth
     - FirebaseAuthInterop
     - FirebaseCore
     - FirebaseCoreDiagnostics
@@ -152,7 +156,7 @@ SPEC REPOS:
     - GoogleUtilities
     - "gRPC-C++"
     - gRPC-Core
-    - GTMSessionFetcher
+    - KakaoOpenSDK
     - leveldb-library
     - nanopb
     - Protobuf
@@ -160,21 +164,21 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   cloud_firestore:
     :path: ".symlinks/plugins/cloud_firestore/ios"
-  firebase_auth:
-    :path: ".symlinks/plugins/firebase_auth/ios"
   firebase_core:
     :path: ".symlinks/plugins/firebase_core/ios"
   Flutter:
     :path: ".symlinks/flutter/ios"
+  flutter_kakao_login:
+    :path: ".symlinks/plugins/flutter_kakao_login/ios"
+  flutter_statusbarcolor:
+    :path: ".symlinks/plugins/flutter_statusbarcolor/ios"
 
 SPEC CHECKSUMS:
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
   cloud_firestore: 2d82a8ddea1ac2f535ec891ed68b5975fe4f9509
   Firebase: bc9cfc7a96c73268656d5aaab453ff1b4b530e0e
-  firebase_auth: 1e3b7bdd37b9fbd4ef75ba1d985b00be09e02d3d
   firebase_core: ae55ea92448ec8675d325da4db22cf3b4d58a54d
   FirebaseAnalytics: 0e3ecff2c5d86070f7d4325e21f1edabfbd558dc
-  FirebaseAuth: b401a012cc33b04df3b52bb308b04e8766f2693e
   FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
   FirebaseCore: beeff42c07c30ea94702471d99db2089b594fbbd
   FirebaseCoreDiagnostics: af29e43048607588c050889d19204f4d7b758c9f
@@ -182,17 +186,19 @@ SPEC CHECKSUMS:
   FirebaseFirestore: bb8315fa13a15ea8977e940496b74ba6ad9071f2
   FirebaseInstanceID: d0eafcd8bdbd3447cd694594734078c3e3e77d8b
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  flutter_kakao_login: 792d15a6f07557cb703f759ffa85ce0206b1fe84
+  flutter_statusbarcolor: 8afb1071ed8c58be929f1e32b36c629771fd2259
   GoogleAppMeasurement: 434cc7be25e71dc04b8d0e3079125127b330e84a
   GoogleDataTransport: 166f9b9f82cbf60a204e8fe2daa9db3e3ec1fb15
   GoogleDataTransportCCTSupport: f6ab1962e9dc05ab1fb938b795e5b310209edeec
   GoogleUtilities: f895fde57977df4e0233edda0dbeac490e3703b6
   "gRPC-C++": 9dfe7b44821e7b3e44aacad2af29d2c21f7cde83
   gRPC-Core: c9aef9a261a1247e881b18059b84d597293c9947
-  GTMSessionFetcher: 43b8b64263023d4f32caa0b40f4c8bfa3c5f36d8
+  KakaoOpenSDK: 1fc43f9025e30a7c1f7c5342bf51744c6c93a500
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   Protobuf: a4dc852ad69c027ca2166ed287b856697814375b
 
-PODFILE CHECKSUM: 64b2109b760ac9073c864e2a8278e6464efaa219
+PODFILE CHECKSUM: f49f6685c37f93de1e6ecd4a1c9b7d66e5817e52
 
 COCOAPODS: 1.8.4

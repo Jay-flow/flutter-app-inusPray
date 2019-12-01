@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 
 class Icons {
   Icons._();
-  static Image icLogo = Image.asset('images/logo.png');
+  static Image icLogo = Image.asset('res/icons/logo.png');
 }
 
 class Images {
   Images._();
-  static AssetImage loginScreenBackground = AssetImage('images/login_bk.png');
+  static AssetImage loginScreenBackground =
+      AssetImage('res/images/login_bk.png');
 }
 
 class Colors {

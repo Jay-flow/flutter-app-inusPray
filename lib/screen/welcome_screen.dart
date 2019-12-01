@@ -5,11 +5,14 @@ import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter_inus_pray/utils/constants.dart';
 import 'package:flutter_inus_pray/components/rounded_button.dart';
+import 'package:flutter_inus_pray/utils/logger.dart';
+import 'package:flutter_kakao_login/flutter_kakao_login.dart';
 
 const double iconSize = 80.0;
 
 class WelcomeScreen extends StatelessWidget {
   static const String id = 'welcome_screen';
+  FlutterKakaoLogin kakaoSignIn = FlutterKakaoLogin();
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +51,32 @@ class WelcomeScreen extends StatelessWidget {
                 height: 20,
               ),
               RoundedButton(
-                text: '로그인',
+                text: '카카오 로그인',
                 buttonColor: Theme.of(context).primaryColor,
-                onPressed: () => Navigator.pushNamed(context, LoginScreen.id),
+                onPressed: () async {
+                  await kakaoSignIn.logIn();
+                  final KakaoLoginResult result = await kakaoSignIn.getUserMe();
+                  if (result != null &&
+                      result.status != KakaoLoginStatus.error) {
+                    final KakaoAccountResult account = result.account;
+                    final userID = account.userID;
+                    final userEmail = account.userEmail;
+                    final userPhoneNumber = account.userPhoneNumber;
+                    final userDisplayID = account.userDisplayID;
+                    final userNickname = account.userNickname;
+                    final userProfileImagePath = account.userProfileImagePath;
+                    final userThumbnailImagePath =
+                        account.userThumbnailImagePath;
+
+                    DLog.d('userID: $userID');
+                    DLog.d('userEmail: $userEmail');
+                    DLog.d('userPhoneNumber: $userPhoneNumber');
+                    DLog.d('userDisplayID: $userDisplayID');
+                    DLog.d('userNickname: $userNickname');
+                    DLog.d('userProfileImagePath: $userProfileImagePath');
+                    DLog.d('userThumbnailImagePath: $userThumbnailImagePath');
+                  }
+                },
               ),
             ],
           ),
