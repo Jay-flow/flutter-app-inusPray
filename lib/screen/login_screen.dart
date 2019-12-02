@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/underline_text_field.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
-import 'package:flutter_inus_pray/utils/logger.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'login_screen';
@@ -53,8 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: RaisedButton(
                 color: Theme.of(context).primaryColorDark,
                 onPressed: () {
-                  DLog.i('Email: $email');
-                  DLog.i('Password: $password');
+                  
                 },
                 child: Text(
                   "로그인",

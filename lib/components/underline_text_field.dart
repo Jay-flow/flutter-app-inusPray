@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/utils/constants.dart';
-import 'package:flutter_inus_pray/utils/logger.dart';
 
 class UnderlineTextField extends StatelessWidget {
   UnderlineTextField(

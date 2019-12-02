@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/input_page.dart';
-import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 
 class RegisterScreen extends StatefulWidget {
   static const String id = 'register_screen';

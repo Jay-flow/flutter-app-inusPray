@@ -1,18 +1,57 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_inus_pray/screen/login_screen.dart';
+import 'package:flutter_inus_pray/models/User.dart';
 import 'package:flutter_inus_pray/screen/register_screen.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter_inus_pray/utils/constants.dart';
 import 'package:flutter_inus_pray/components/rounded_button.dart';
-import 'package:flutter_inus_pray/utils/logger.dart';
 import 'package:flutter_kakao_login/flutter_kakao_login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 const double iconSize = 80.0;
 
-class WelcomeScreen extends StatelessWidget {
+class WelcomeScreen extends StatefulWidget {
   static const String id = 'welcome_screen';
+
+  @override
+  _WelcomeScreenState createState() => _WelcomeScreenState();
+}
+
+class _WelcomeScreenState extends State<WelcomeScreen> {
   FlutterKakaoLogin kakaoSignIn = FlutterKakaoLogin();
+
+  _kakaoLogin() async {
+    await kakaoSignIn.logIn();
+    final KakaoLoginResult result = await kakaoSignIn.getUserMe();
+    if (result != null && result.status != KakaoLoginStatus.error) {
+      final KakaoAccountResult account = result.account;
+      final userEmail = account.userEmail;
+      final userPhoneNumber = account.userPhoneNumber;
+      final userNickname = account.userNickname;
+      final userProfileImagePath = account.userProfileImagePath;
+      final userThumbnailImagePath = account.userThumbnailImagePath;
+
+      final user = User(
+          email: userEmail,
+          name: userNickname,
+          profileImagePath: userProfileImagePath,
+          thumbnailImagePath: userThumbnailImagePath,
+          phonNumber: userPhoneNumber);
+
+          _localUserDataSave(user);
+          _cloudUserDataSave(user);
+    } else {
+
+    }
+  }
+
+  _localUserDataSave(User user) {
+    
+  }
+
+  _cloudUserDataSave(User user) {
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,30 +92,7 @@ class WelcomeScreen extends StatelessWidget {
               RoundedButton(
                 text: '카카오 로그인',
                 buttonColor: Theme.of(context).primaryColor,
-                onPressed: () async {
-                  await kakaoSignIn.logIn();
-                  final KakaoLoginResult result = await kakaoSignIn.getUserMe();
-                  if (result != null &&
-                      result.status != KakaoLoginStatus.error) {
-                    final KakaoAccountResult account = result.account;
-                    final userID = account.userID;
-                    final userEmail = account.userEmail;
-                    final userPhoneNumber = account.userPhoneNumber;
-                    final userDisplayID = account.userDisplayID;
-                    final userNickname = account.userNickname;
-                    final userProfileImagePath = account.userProfileImagePath;
-                    final userThumbnailImagePath =
-                        account.userThumbnailImagePath;
-
-                    DLog.d('userID: $userID');
-                    DLog.d('userEmail: $userEmail');
-                    DLog.d('userPhoneNumber: $userPhoneNumber');
-                    DLog.d('userDisplayID: $userDisplayID');
-                    DLog.d('userNickname: $userNickname');
-                    DLog.d('userProfileImagePath: $userProfileImagePath');
-                    DLog.d('userThumbnailImagePath: $userThumbnailImagePath');
-                  }
-                },
+                onPressed: _kakaoLogin,
               ),
             ],
           ),

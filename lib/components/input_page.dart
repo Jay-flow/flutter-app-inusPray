@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/underline_text_field.dart';
-import 'package:flutter_inus_pray/utils/constants.dart';
 
 class InputPage extends StatefulWidget {
   InputPage({
