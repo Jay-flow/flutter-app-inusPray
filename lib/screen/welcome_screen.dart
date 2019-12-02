@@ -41,16 +41,21 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           _localUserDataSave(user);
           _cloudUserDataSave(user);
     } else {
-
+      // 로그인 실패 처리
     }
   }
 
-  _localUserDataSave(User user) {
-    
+  _localUserDataSave(User user) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('email', user.email);
+      prefs.setString('name', user.name);
+      prefs.setString('profileImagePath', user.profileImagePath);
+      prefs.setString('thumbnailImagePath', user.thumbnailImagePath);
+      prefs.setString('phonNumber', user.phonNumber);
   }
 
   _cloudUserDataSave(User user) {
-
+    
   }
 
   @override
