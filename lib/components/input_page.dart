@@ -9,6 +9,7 @@ class InputPage extends StatefulWidget {
     @required this.buttonText,
     @required this.buttonOnPressed,
     this.obscureText = false,
+    this.textValue
   });
 
   final String title;
@@ -17,6 +18,7 @@ class InputPage extends StatefulWidget {
   final TextInputType keyboardType;
   final Function buttonOnPressed;
   final bool obscureText;
+  final String textValue;
 
   @override
   _InputPageState createState() => _InputPageState();
@@ -40,6 +42,7 @@ class _InputPageState extends State<InputPage> {
           hintText: widget.hintText,
           obscureText: widget.obscureText,
           onChanged: (inputValue) => value = inputValue,
+          textValue: widget.textValue,
         ),
         ButtonTheme(
           minWidth: double.infinity,

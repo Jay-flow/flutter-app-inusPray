@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_inus_pray/models/user_data.dart';
 import 'package:flutter_inus_pray/screen/login_screen.dart';
 import 'package:flutter_inus_pray/screen/register_screen.dart';
 import 'package:flutter_inus_pray/screen/welcome_screen.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
+import 'package:flutter_inus_pray/models/User.dart';
+import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
 
@@ -26,30 +29,33 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: Asset.Text.appName,
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.light().copyWith(
-        primaryColor: Asset.Colors.yellow,
-        primaryColorDark: Asset.Colors.blueBlack,
-        primaryColorLight: Asset.Colors.green,
-        appBarTheme: AppBarTheme(
-          color: Colors.black,
-        ),
-        accentColor: Asset.Colors.mint,
-        textTheme: TextTheme(
-          title: TextStyle(
-            color: Asset.Colors.blueBlack,
-            fontSize: 43,
+    return ChangeNotifierProvider<UserData>.value(
+      value: UserData(),
+      child: MaterialApp(
+        title: Asset.Text.appName,
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData.light().copyWith(
+          primaryColor: Asset.Colors.yellow,
+          primaryColorDark: Asset.Colors.blueBlack,
+          primaryColorLight: Asset.Colors.green,
+          appBarTheme: AppBarTheme(
+            color: Colors.black,
+          ),
+          accentColor: Asset.Colors.mint,
+          textTheme: TextTheme(
+            title: TextStyle(
+              color: Asset.Colors.blueBlack,
+              fontSize: 43,
+            ),
           ),
         ),
+        initialRoute: WelcomeScreen.id,
+        routes: {
+          WelcomeScreen.id: (context) => WelcomeScreen(),
+          LoginScreen.id: (context) => LoginScreen(),
+          RegisterScreen.id: (context) => RegisterScreen(),
+        },
       ),
-      initialRoute: WelcomeScreen.id,
-      routes: {
-        WelcomeScreen.id: (context) => WelcomeScreen(),
-        LoginScreen.id: (context) => LoginScreen(),
-        RegisterScreen.id: (context) => RegisterScreen(),
-      },
     );
   }
 }
