@@ -28,7 +28,7 @@ class UserData extends ChangeNotifier {
   }
 
   void cloudUserDataSave() {
-    Firestore.instance.collection('user').document().setData({
+    Firestore.instance.collection('user').document(user.email).setData({
       'email': user.email,
       'name': user.name,
       'profileImagePath': user.profileImagePath,
