@@ -13,10 +13,10 @@ class Images {
 
 class Colors {
   Colors._();
-  static const blueBlack = Color(0xFF110133);
+  static const blueBlack = Color(0xFF000E2A);
   static const green = Color(0xFF00918E);
   static const mint = Color(0xFF4DD599);
-  static const yellow = Color(0xFFFFDC34);
+  static const yellow = Color(0xFFFFC800);
 }
 
 class Text {

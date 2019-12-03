@@ -4,22 +4,24 @@ import 'package:flutter_inus_pray/components/loading_container.dart';
 
 import 'package:flutter_inus_pray/models/user_data.dart';
 import 'package:provider/provider.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
-class RegisterScreen extends StatefulWidget {
-  static const String id = 'register_screen';
+class Register extends StatefulWidget {
+  static const String id = 'register';
 
   @override
-  _RegisterScreenState createState() => _RegisterScreenState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _RegisterState extends State<Register> {
   final PageController _pageController = PageController();
   String _email;
   String _name;
   String _church;
   bool _isLoading = false;
-
+  
+  // 하드 코딩 해놓음  3 = pages.length.toDouble() 인데... 좋은 방법 찾기
+  double progressValue = 1.0 / 3;
+  
   void nextPage() {
     _pageController.nextPage(
       curve: Curves.easeInOut,
@@ -94,7 +96,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     List<Widget> pages = createPage(context);
-    double progressValue = 1.0 / pages.length.toDouble();
+    
     return Scaffold(
       body: SafeArea(
         child: LoadingContainer(

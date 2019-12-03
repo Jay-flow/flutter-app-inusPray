@@ -7,13 +7,15 @@ class User {
   String thumbnailImagePath;
   String phonNumber; 
   String church;
-  
+  String deviceToken;
+
   User({
     @required this.email,
     @required this.name,
     this.profileImagePath,
     this.thumbnailImagePath,
     this.phonNumber,
-    this.church
+    this.church,
+    this.deviceToken
   });
 }
