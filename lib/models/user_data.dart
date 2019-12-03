@@ -13,6 +13,10 @@ class UserData extends ChangeNotifier {
     notifyListeners();
   }
 
+  setUserChurch(String church) {
+    _user.church = church;
+  }
+
   void localUserDataSave() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('email', user.email);
@@ -20,6 +24,7 @@ class UserData extends ChangeNotifier {
     prefs.setString('profileImagePath', user.profileImagePath);
     prefs.setString('thumbnailImagePath', user.thumbnailImagePath);
     prefs.setString('phonNumber', user.phonNumber);
+    prefs.setString('church', user.church);
   }
 
   void cloudUserDataSave() {
@@ -28,7 +33,8 @@ class UserData extends ChangeNotifier {
       'name': user.name,
       'profileImagePath': user.profileImagePath,
       'thumbnailImagePath': user.thumbnailImagePath,
-      'phonNumber': user.phonNumber
+      'phonNumber': user.phonNumber,
+      'church': user.church,
     });
   }
 }

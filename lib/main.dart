@@ -5,7 +5,6 @@ import 'package:flutter_inus_pray/screen/register_screen.dart';
 import 'package:flutter_inus_pray/screen/welcome_screen.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
-import 'package:flutter_inus_pray/models/User.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
