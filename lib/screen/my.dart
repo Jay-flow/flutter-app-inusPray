@@ -36,49 +36,86 @@ class _MyState extends State<My> {
                     onTap: () {},
                     edgeColor: Colors.red,
                   ),
-                  Container(
-                    color: Colors.purple,
-                    height: 100.0,
+                  EdgeDecorationListTile(
+                    title: Container(
+                      child: Text(
+                        UserMock.prays[0],
+                      ),
+                    ),
+                    onTap: () {},
+                    edgeColor: Colors.purple,
                   ),
-                  Container(
-                    color: Colors.green,
-                    height: 100.0,
+                  EdgeDecorationListTile(
+                    title: Container(
+                      child: Text(
+                        UserMock.prays[0],
+                      ),
+                    ),
+                    onTap: () {},
+                    edgeColor: Colors.green,
                   ),
-                  Container(
-                    color: Colors.orange,
-                    height: 100.0,
+                  EdgeDecorationListTile(
+                    title: Container(
+                      child: Text(
+                        UserMock.prays[0],
+                      ),
+                    ),
+                    onTap: () {},
+                    edgeColor: Colors.orange,
                   ),
-                  Container(
-                    color: Colors.yellow,
-                    height: 100.0,
+                  EdgeDecorationListTile(
+                    title: Container(
+                      child: Text(
+                        UserMock.prays[0],
+                      ),
+                    ),
+                    onTap: () {},
+                    edgeColor: Colors.yellow,
                   ),
-                  Container(
-                    color: Colors.pink,
-                    height: 100.0,
+                  EdgeDecorationListTile(
+                    title: Container(
+                      child: Text(
+                        UserMock.prays[0],
+                      ),
+                    ),
+                    onTap: () {},
+                    edgeColor: Colors.red,
                   ),
-                  Container(
-                    color: Colors.red,
-                    height: 100.0,
+                  EdgeDecorationListTile(
+                    title: Container(
+                      child: Text(
+                        UserMock.prays[0],
+                      ),
+                    ),
+                    onTap: () {},
+                    edgeColor: Colors.green,
                   ),
-                  Container(
-                    color: Colors.purple,
-                    height: 100.0,
+                  EdgeDecorationListTile(
+                    title: Container(
+                      child: Text(
+                        UserMock.prays[0],
+                      ),
+                    ),
+                    onTap: () {},
+                    edgeColor: Colors.orange,
                   ),
-                  Container(
-                    color: Colors.green,
-                    height: 100.0,
+                  EdgeDecorationListTile(
+                    title: Container(
+                      child: Text(
+                        UserMock.prays[0],
+                      ),
+                    ),
+                    onTap: () {},
+                    edgeColor: Colors.yellow,
                   ),
-                  Container(
-                    color: Colors.orange,
-                    height: 100.0,
-                  ),
-                  Container(
-                    color: Colors.yellow,
-                    height: 100.0,
-                  ),
-                  Container(
-                    color: Colors.pink,
-                    height: 100.0,
+                  EdgeDecorationListTile(
+                    title: Container(
+                      child: Text(
+                        UserMock.prays[0],
+                      ),
+                    ),
+                    onTap: () {},
+                    edgeColor: Colors.red,
                   ),
                 ],
               ),

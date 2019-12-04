@@ -4,7 +4,7 @@ class EdgeDecorationListTile extends StatelessWidget {
   EdgeDecorationListTile({
     this.title,
     this.onTap,
-    this.edgeWidth = 5.0,
+    this.edgeWidth = 6.0,
     @required this.edgeColor,
   });
 
@@ -26,6 +26,7 @@ class EdgeDecorationListTile extends StatelessWidget {
             color: edgeColor,
             width: edgeWidth
           ),
+          top: BorderSide(color: Colors.grey[350])
         ),
       ),
     );
