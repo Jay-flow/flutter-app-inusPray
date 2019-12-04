@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/mocks/user_mock.dart';
 import 'package:flutter_inus_pray/components/circle_image.dart';
 import 'package:flutter_inus_pray/components/edge_decoration_list_tile.dart';
-import 'package:flutter_inus_pray/components/circle_icon_button.dart';
+import 'package:flutter_inus_pray/components/circle_button.dart';
+import 'package:flutter_inus_pray/screen/edit_profile.dart';
+import 'package:flutter_inus_pray/screen/pray_add.dart';
 
 class My extends StatefulWidget {
   static const String id = 'my';
@@ -125,7 +127,7 @@ class _MyState extends State<My> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () => Navigator.pushNamed(context, PrayAdd.id),
       ),
     );
   }
@@ -152,12 +154,12 @@ class Profile extends StatelessWidget {
                 ),
                 Positioned(
                   bottom: 0,
-                  right: 0,
-                  child: CircleIconButton(
-                    icon: Icon(
+                  right: -25,
+                  child: CircleButton(
+                    child: Icon(
                       Icons.create,
                     ),
-                    onPressed: () {},
+                    onPressed: () => Navigator.pushNamed(context, EditProfile.id),
                   ),
                 ),
               ],

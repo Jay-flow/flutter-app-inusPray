@@ -2,20 +2,18 @@ import 'package:flutter/material.dart';
 
 class CircleImage extends StatelessWidget {
   final String imagePath;
-  final double width;
-  final double height;
+  final double size;
 
   CircleImage({
     @required this.imagePath,
-    this.width = 140,
-    this.height = 140,
+    this.size = 140,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width,
-      height: height,
+      width: size,
+      height: size,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         image: DecorationImage(

@@ -8,6 +8,7 @@ class UnderlineTextField extends StatefulWidget {
     @required this.onChanged,
     this.textValue,
     this.obscureText = false,
+    this.textAlign = TextAlign.start,
   });
 
   final TextInputType keyboardType;
@@ -15,6 +16,7 @@ class UnderlineTextField extends StatefulWidget {
   final Function onChanged;
   final bool obscureText;
   final String textValue;
+  final TextAlign textAlign;
 
   @override
   _UnderlineTextFieldState createState() => _UnderlineTextFieldState();
@@ -35,6 +37,7 @@ class _UnderlineTextFieldState extends State<UnderlineTextField> {
       controller: _textController,
       style: TextStyle(color: Colors.black),
       obscureText: widget.obscureText,
+      textAlign: widget.textAlign,
       keyboardType: widget.keyboardType,
       decoration: kTextFieldDecoration.copyWith(
         hintText: widget.hintText,

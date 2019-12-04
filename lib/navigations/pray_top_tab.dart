@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_inus_pray/screen/pray_card_view.dart';
-import 'package:flutter_inus_pray/screen/pray_list_view.dart';
+import 'package:flutter_inus_pray/screen/pray_card.dart';
+import 'package:flutter_inus_pray/screen/pray_list.dart';
 
 class PrayTopTab extends StatelessWidget {
   static const String id = 'pray_top_tab';
 
   final List<Widget> prayScreens = [
-    PrayListView(),
-    PrayCardView(),
+    PrayList(),
+    PrayCard(),
   ];
-  
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class PrayListView extends StatelessWidget {
-  static const String id = 'pray_list_view';
+class PrayCard extends StatelessWidget {
+  static const String id = 'pray_card';
   
   @override
   Widget build(BuildContext context) {
