@@ -16,6 +16,7 @@ class EdgeDecorationListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.symmetric(vertical: 7.0),
       child: ListTile(
         title: title,
         onTap: () {},
