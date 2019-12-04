@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/screen/mediator.dart';
 import 'package:flutter_inus_pray/screen/my.dart';
-import 'package:flutter_inus_pray/screen/pray.dart';
+import 'package:flutter_inus_pray/navigations/pray_top_tab.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class BottomTab extends StatefulWidget {
-  static const String id = 'bottom_tab';
+class MainBottomTab extends StatefulWidget {
+  static const String id = 'main_bottom_tab';
 
   @override
-  _BottomTabState createState() => _BottomTabState();
+  _MainBottomTabState createState() => _MainBottomTabState();
 }
 
-class _BottomTabState extends State<BottomTab> {
+class _MainBottomTabState extends State<MainBottomTab> {
   int _currentIndex = 0;
   final List<Widget> _children = [
     My(),
     Mediator(),
-    Pray(),
+    PrayTopTab(),
   ];
 
   void _onTabTabpped(int index) {
