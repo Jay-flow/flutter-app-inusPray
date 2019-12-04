@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/mocks/user_mock.dart';
+import 'package:flutter_inus_pray/components/circle_image.dart';
+import 'package:flutter_inus_pray/components/edge_decoration_list_tile.dart';
+import 'package:flutter_inus_pray/components/circle_icon_button.dart';
 
 class My extends StatefulWidget {
   static const String id = 'my';
@@ -8,19 +11,6 @@ class My extends StatefulWidget {
   _MyState createState() => _MyState();
 }
 
-// Container(
-//   padding:
-//       EdgeInsets.symmetric(horizontal: 12.0, vertical: 3.0),
-//   child: Text(
-//     '비공개',
-//     style: TextStyle(
-//       color: Colors.white,
-//     ),
-//   ),
-//   decoration: BoxDecoration(
-//     color: Colors.red,
-//   ),
-// ),
 class _MyState extends State<My> {
   @override
   Widget build(BuildContext context) {
@@ -37,23 +27,14 @@ class _MyState extends State<My> {
             SliverList(
               delegate: SliverChildListDelegate(
                 [
-                  Container(
-                    child: ListTile(
-                      title: Container(
-                        child: Text(
-                          '부자되게 해주세요! 행복하게 해주세요! 부자되게 해주세요! 행복하게 해주세요! 부자되게 해주세요! 행복하게 해주세요! 부자되게 해주세요! 행복하게 해주세요! 부자되게 해주세요! 행복하게 해주세요! 부자되게 해주세요! 행복하게 해주세요!',
-                        ),
-                      ),
-                      onTap: () {},
-                    ),
-                    decoration: BoxDecoration(
-                      border: Border(
-                        left: BorderSide(
-                          color: Colors.red,
-                          width: 5.0
-                        ),
+                  EdgeDecorationListTile(
+                    title: Container(
+                      child: Text(
+                        UserMock.prays[0],
                       ),
                     ),
+                    onTap: () {},
+                    edgeColor: Colors.red,
                   ),
                   Container(
                     color: Colors.purple,
@@ -129,35 +110,17 @@ class Profile extends StatelessWidget {
           children: <Widget>[
             Stack(
               children: <Widget>[
-                Container(
-                  width: 140,
-                  height: 140,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: NetworkImage(
-                        UserMock.profileImagePath,
-                      ),
-                    ),
-                  ),
+                CircleImage(
+                  imagePath: UserMock.profileImagePath,
                 ),
                 Positioned(
                   bottom: 0,
                   right: 0,
-                  child: Container(
-                    width: 40,
-                    padding: EdgeInsets.all(0),
-                    child: IconButton(
-                      icon: Icon(Icons.create),
-                      iconSize: 27.0,
-                      color: Colors.black,
-                      onPressed: () {},
+                  child: CircleIconButton(
+                    icon: Icon(
+                      Icons.create,
                     ),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-                    ),
+                    onPressed: () {},
                   ),
                 ),
               ],
