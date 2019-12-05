@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/circle_image.dart';
 import 'package:flutter_inus_pray/mocks/user_mock.dart';
-import 'package:flutter_inus_pray/models/mediator_data.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 
 class PrayList extends StatelessWidget {

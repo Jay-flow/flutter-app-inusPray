@@ -27,6 +27,7 @@ class PrayTopTab extends StatelessWidget {
           ),
         ),
         body: TabBarView(
+          physics: NeverScrollableScrollPhysics(),
           children: prayScreens,
         ),
       ),
