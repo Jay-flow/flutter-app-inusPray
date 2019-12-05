@@ -6,6 +6,7 @@ import 'package:flutter_inus_pray/components/underline_text_field.dart';
 import 'dart:async';
 import 'dart:developer' as developer;
 import 'package:camera/camera.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class EditProfile extends StatefulWidget {
   static const String id = 'edit_profile';
@@ -20,12 +21,20 @@ class _EditProfileState extends State<EditProfile> {
   CameraController _controller;
   Future<void> _initializeControllerFuture;
 
+  @override
+  initState() {
+    super.initState();
+    Fluttertoast.showToast(
+      msg: "뒤로가기시 자동으로 수정 내용이 저장됩니다.",
+      toastLength: Toast.LENGTH_LONG,
+    );
+  }
+
   _saveMyProfile() {}
 
   Future<void> _takeCamera() async {
     final cameras = await availableCameras();
     final firstCamera = cameras.first;
-    
   }
 
   _voidPictureChange(context) {
@@ -101,7 +110,7 @@ class _EditProfileState extends State<EditProfile> {
               Container(
                 padding: EdgeInsets.only(top: 15.0),
                 height: 100.0,
-                width: 150.0,
+                width: 90.0,
                 child: UnderlineTextField(
                   textValue: UserMock.name,
                   onChanged: (name) => _name,
