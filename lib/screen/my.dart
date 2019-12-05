@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/mocks/user_mock.dart';
 import 'package:flutter_inus_pray/components/circle_image.dart';
@@ -5,6 +7,7 @@ import 'package:flutter_inus_pray/components/edge_decoration_list_tile.dart';
 import 'package:flutter_inus_pray/components/circle_button.dart';
 import 'package:flutter_inus_pray/screen/edit_profile.dart';
 import 'package:flutter_inus_pray/screen/pray_add.dart';
+import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 
 class My extends StatefulWidget {
   static const String id = 'my';
@@ -14,6 +17,17 @@ class My extends StatefulWidget {
 }
 
 class _MyState extends State<My> {
+  List<Color> colors = [
+    Colors.red,
+    Colors.blue,
+    Colors.purple,
+    Colors.orange,
+    Asset.Colors.blueBlack,
+    Asset.Colors.green,
+    Asset.Colors.yellow,
+    Asset.Colors.mint,
+  ];
+  
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -27,99 +41,19 @@ class _MyState extends State<My> {
               ),
             ),
             SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  EdgeDecorationListTile(
+              delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  return EdgeDecorationListTile(
                     title: Container(
                       child: Text(
                         UserMock.prays[0],
                       ),
                     ),
                     onTap: () {},
-                    edgeColor: Colors.red,
-                  ),
-                  EdgeDecorationListTile(
-                    title: Container(
-                      child: Text(
-                        UserMock.prays[0],
-                      ),
-                    ),
-                    onTap: () {},
-                    edgeColor: Colors.purple,
-                  ),
-                  EdgeDecorationListTile(
-                    title: Container(
-                      child: Text(
-                        UserMock.prays[0],
-                      ),
-                    ),
-                    onTap: () {},
-                    edgeColor: Colors.green,
-                  ),
-                  EdgeDecorationListTile(
-                    title: Container(
-                      child: Text(
-                        UserMock.prays[0],
-                      ),
-                    ),
-                    onTap: () {},
-                    edgeColor: Colors.orange,
-                  ),
-                  EdgeDecorationListTile(
-                    title: Container(
-                      child: Text(
-                        UserMock.prays[0],
-                      ),
-                    ),
-                    onTap: () {},
-                    edgeColor: Colors.yellow,
-                  ),
-                  EdgeDecorationListTile(
-                    title: Container(
-                      child: Text(
-                        UserMock.prays[0],
-                      ),
-                    ),
-                    onTap: () {},
-                    edgeColor: Colors.red,
-                  ),
-                  EdgeDecorationListTile(
-                    title: Container(
-                      child: Text(
-                        UserMock.prays[0],
-                      ),
-                    ),
-                    onTap: () {},
-                    edgeColor: Colors.green,
-                  ),
-                  EdgeDecorationListTile(
-                    title: Container(
-                      child: Text(
-                        UserMock.prays[0],
-                      ),
-                    ),
-                    onTap: () {},
-                    edgeColor: Colors.orange,
-                  ),
-                  EdgeDecorationListTile(
-                    title: Container(
-                      child: Text(
-                        UserMock.prays[0],
-                      ),
-                    ),
-                    onTap: () {},
-                    edgeColor: Colors.yellow,
-                  ),
-                  EdgeDecorationListTile(
-                    title: Container(
-                      child: Text(
-                        UserMock.prays[0],
-                      ),
-                    ),
-                    onTap: () {},
-                    edgeColor: Colors.red,
-                  ),
-                ],
+                    edgeColor: colors[Random().nextInt(8)],
+                  );
+                },
+                childCount: 10,
               ),
             ),
           ],
