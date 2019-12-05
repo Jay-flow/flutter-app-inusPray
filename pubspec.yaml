@@ -24,6 +24,9 @@ dependencies:
   fluttertoast: ^3.1.3
   font_awesome_flutter: ^8.5.0
   flutter_swiper: ^1.1.6
+  camera: ^0.5.7
+  path_provider: ^1.4.5
+  path: ^1.6.4
 
 dev_dependencies:
   flutter_native_splash: ^0.1.9

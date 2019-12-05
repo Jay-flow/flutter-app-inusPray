@@ -14,12 +14,8 @@ class CircleImage extends StatelessWidget {
     return Container(
       width: size,
       height: size,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        image: DecorationImage(
-          fit: BoxFit.fill,
-          image: NetworkImage(imagePath),
-        ),
+      child: CircleAvatar(
+        backgroundImage: NetworkImage(imagePath),
       ),
     );
   }

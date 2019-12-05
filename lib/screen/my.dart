@@ -16,9 +16,9 @@ class My extends StatefulWidget {
 class _MyState extends State<My> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: CustomScrollView(
+    return SafeArea(
+      child: Scaffold(
+        body: CustomScrollView(
           slivers: <Widget>[
             SliverAppBar(
               expandedHeight: 200.0,
@@ -124,10 +124,10 @@ class _MyState extends State<My> {
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () => Navigator.pushNamed(context, PrayAdd.id),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () => Navigator.pushNamed(context, PrayAdd.id),
+        ),
       ),
     );
   }
@@ -159,7 +159,8 @@ class Profile extends StatelessWidget {
                     child: Icon(
                       Icons.create,
                     ),
-                    onPressed: () => Navigator.pushNamed(context, EditProfile.id),
+                    onPressed: () =>
+                        Navigator.pushNamed(context, EditProfile.id),
                   ),
                 ),
               ],

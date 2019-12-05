@@ -25,6 +25,10 @@
 			</array>
 		</dict>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>This app requires camera rights to modify the profile.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app requires microphone permissions to modify the profile.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
