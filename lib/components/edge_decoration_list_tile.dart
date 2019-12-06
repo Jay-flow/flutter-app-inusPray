@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 
 class EdgeDecorationListTile extends StatelessWidget {
   EdgeDecorationListTile({
@@ -23,8 +24,14 @@ class EdgeDecorationListTile extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         border: Border(
-            left: BorderSide(color: edgeColor, width: edgeWidth),
-            top: BorderSide(color: Colors.grey[350])),
+          left: BorderSide(
+            color: edgeColor,
+            width: edgeWidth,
+          ),
+          top: BorderSide(
+            color: Asset.Colors.grey,
+          ),
+        ),
       ),
     );
   }

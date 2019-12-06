@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_inus_pray/screen/pray_card.dart';
+import 'package:flutter_inus_pray/screen/pray_card_screen.dart';
 import 'package:flutter_inus_pray/screen/pray_list.dart';
 
 class PrayTopTab extends StatelessWidget {
@@ -7,7 +7,7 @@ class PrayTopTab extends StatelessWidget {
 
   final List<Widget> prayScreens = [
     PrayList(),
-    PrayCard(),
+    PrayCardScreen(),
   ];
 
   @override

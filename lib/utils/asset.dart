@@ -17,6 +17,7 @@ class Colors {
   static const green = Color(0xFF00918E);
   static const mint = Color(0xFF4DD599);
   static const yellow = Color(0xFFFFC800);
+  static const grey = Color(0xFFE0E0E0);
 }
 
 class Text {

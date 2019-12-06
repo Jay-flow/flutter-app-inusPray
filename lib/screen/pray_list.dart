@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/circle_image.dart';
 import 'package:flutter_inus_pray/mocks/user_mock.dart';
 import 'package:flutter_inus_pray/models/user.dart';
-
+import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 class PrayList extends StatelessWidget {
   static const String id = 'pray_list';
 
@@ -34,7 +34,7 @@ class PrayList extends StatelessWidget {
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
-                color: Colors.grey[350],
+                color: Asset.Colors.grey,
               ),
             ),
           ),

@@ -38,3 +38,11 @@ const kTextFieldDecoration = InputDecoration(
     ),
   ),
 );
+
+const kSubTitleTextStyle = TextStyle(
+  fontSize: 23.0,
+);
+
+const kContentsTextStyle = TextStyle(
+  fontSize: 17.0,
+);

@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
           ),
           accentColor: Asset.Colors.mint,
           textTheme: TextTheme(
-            // body1: TextStyle(color: Asset.Colors.blueBlack),
+            body1: TextStyle(color: Asset.Colors.blueBlack),
             subhead: TextStyle(color: Asset.Colors.blueBlack),
             caption: TextStyle(color: Asset.Colors.blueBlack),
             title: TextStyle(
