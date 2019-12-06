@@ -18,10 +18,10 @@ class _RegisterState extends State<Register> {
   String _name;
   String _church;
   bool _isLoading = false;
-  
+
   // 하드 코딩 해놓음  3 = pages.length.toDouble() 인데... 좋은 방법 찾기
   double progressValue = 1.0 / 3;
-  
+
   void nextPage() {
     _pageController.nextPage(
       curve: Curves.easeInOut,
@@ -96,7 +96,7 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     List<Widget> pages = createPage(context);
-    
+
     return Scaffold(
       body: SafeArea(
         child: LoadingContainer(

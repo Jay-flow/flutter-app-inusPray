@@ -6,6 +6,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_inus_pray/components/pray_card.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:flutter_inus_pray/utils/constants.dart';
+import 'dart:developer' as developer;
 
 class PrayCardScreen extends StatelessWidget {
   static const String id = 'pray_card_screen';
@@ -19,13 +20,23 @@ class PrayCardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final itemWidth = MediaQuery.of(context).size.width - 70.0;
-    final itemHeight = MediaQuery.of(context).size.height - 220.0;
-
+    developer.log(MediaQuery.of(context).size.height.toString());
+    final screenHeight = MediaQuery.of(context).size.height;
+    double itemHeight;
+    double paginationDotPadding;
+    if (screenHeight > 850) {
+      itemHeight = 550;
+      paginationDotPadding = 25.0;
+    } else {
+      itemHeight = screenHeight - 220.0;
+      paginationDotPadding = 10.0;
+    }
     return Container(
-      padding: EdgeInsets.only(bottom: 5.0),
+      padding: EdgeInsets.symmetric(vertical: paginationDotPadding),
       child: Swiper(
         itemCount: _users.length,
         pagination: SwiperPagination(
+          alignment: Alignment.bottomCenter,
           builder: DotSwiperPaginationBuilder(
             color: Asset.Colors.grey,
             activeColor: Colors.blue,
@@ -46,7 +57,7 @@ class PrayCardScreen extends StatelessWidget {
                   style: kContentsTextStyle,
                 ),
               ),
-            ), 
+            ),
           );
         },
       ),

@@ -5,6 +5,8 @@ PODS:
   - BoringSSL-GRPC/Implementation (0.0.3):
     - BoringSSL-GRPC/Interface (= 0.0.3)
   - BoringSSL-GRPC/Interface (0.0.3)
+  - camera (0.0.1):
+    - Flutter
   - cloud_firestore (0.0.1):
     - Firebase/Core
     - Firebase/Firestore (~> 6.0)
@@ -132,17 +134,21 @@ PODS:
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
+  - path_provider (0.0.1):
+    - Flutter
   - Protobuf (3.10.0)
   - shared_preferences (0.0.1):
     - Flutter
 
 DEPENDENCIES:
+  - camera (from `.symlinks/plugins/camera/ios`)
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `.symlinks/flutter/ios`)
   - flutter_kakao_login (from `.symlinks/plugins/flutter_kakao_login/ios`)
   - flutter_statusbarcolor (from `.symlinks/plugins/flutter_statusbarcolor/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
+  - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
 
 SPEC REPOS:
@@ -168,6 +174,8 @@ SPEC REPOS:
     - Protobuf
 
 EXTERNAL SOURCES:
+  camera:
+    :path: ".symlinks/plugins/camera/ios"
   cloud_firestore:
     :path: ".symlinks/plugins/cloud_firestore/ios"
   firebase_core:
@@ -180,11 +188,14 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_statusbarcolor/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
+  path_provider:
+    :path: ".symlinks/plugins/path_provider/ios"
   shared_preferences:
     :path: ".symlinks/plugins/shared_preferences/ios"
 
 SPEC CHECKSUMS:
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
+  camera: 38cc83ae9a5667bb5a71c7d9edaf60a91920fd4e
   cloud_firestore: c6e28e89a1bf98faab7fc8fdec20dc6020799cd1
   Firebase: bc9cfc7a96c73268656d5aaab453ff1b4b530e0e
   firebase_core: ae55ea92448ec8675d325da4db22cf3b4d58a54d
@@ -208,6 +219,7 @@ SPEC CHECKSUMS:
   KakaoOpenSDK: 1fc43f9025e30a7c1f7c5342bf51744c6c93a500
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
+  path_provider: fb74bd0465e96b594bb3b5088ee4a4e7bb1f2a9d
   Protobuf: a4dc852ad69c027ca2166ed287b856697814375b
   shared_preferences: 430726339841afefe5142b9c1f50cb6bd7793e01
 

@@ -27,7 +27,7 @@ class _MyState extends State<My> {
     Asset.Colors.yellow,
     Asset.Colors.mint,
   ];
-  
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -74,41 +74,35 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.black,
-      height: 200,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Stack(
           children: <Widget>[
-            Stack(
-              children: <Widget>[
-                CircleImage(
-                  imagePath: UserMock.profileImagePath,
-                ),
-                Positioned(
-                  bottom: 0,
-                  right: -25,
-                  child: CircleButton(
-                    child: Icon(
-                      Icons.create,
-                    ),
-                    onPressed: () =>
-                        Navigator.pushNamed(context, EditProfile.id),
-                  ),
-                ),
-              ],
+            CircleImage(
+              imagePath: UserMock.profileImagePath,
             ),
-            SizedBox(
-              height: 10,
+            Positioned(
+              bottom: 0,
+              right: -25,
+              child: CircleButton(
+                child: Icon(
+                  Icons.create,
+                ),
+                onPressed: () => Navigator.pushNamed(context, EditProfile.id),
+              ),
             ),
-            Text(
-              UserMock.name,
-              style: TextStyle(fontSize: 20.0),
-            )
           ],
         ),
-      ),
+        SizedBox(
+          height: 10,
+        ),
+        Text(
+          UserMock.name,
+          style: TextStyle(fontSize: 20.0),
+        )
+      ],
     );
   }
 }
