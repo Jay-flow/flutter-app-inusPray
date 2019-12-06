@@ -3,12 +3,13 @@ import 'package:flutter_inus_pray/components/circle_image.dart';
 import 'package:flutter_inus_pray/mocks/user_mock.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
+
 class PrayList extends StatelessWidget {
   static const String id = 'pray_list';
 
   final List<User> _users = [
     User(email: 'army@bagstation.io', name: "아미", church: "우리안에교회"),
-    User(email: 'enhyn@gmail.com', name: "조은현", church: "우리안에교회"),
+    User(email: 'enhyn@gmail.com', name: "조은현", church: "우리안›에교회"),
     User(email: 'choi@gmail.com', name: "최진욱", church: "우리안에교회")
   ];
 

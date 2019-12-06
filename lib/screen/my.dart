@@ -35,7 +35,7 @@ class _MyState extends State<My> {
         body: CustomScrollView(
           slivers: <Widget>[
             SliverAppBar(
-              expandedHeight: 200.0,
+              expandedHeight: 210.0,
               flexibleSpace: FlexibleSpaceBar(
                 background: Profile(),
               ),
@@ -100,7 +100,10 @@ class Profile extends StatelessWidget {
         ),
         Text(
           UserMock.name,
-          style: TextStyle(fontSize: 20.0),
+          style: TextStyle(
+            fontSize: 20.0,
+            color: Colors.white,
+          ),
         )
       ],
     );

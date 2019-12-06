@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 
 class CircleImage extends StatelessWidget {
   final String imagePath;
@@ -11,11 +12,21 @@ class CircleImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: size,
-      height: size,
-      child: CircleAvatar(
-        backgroundImage: NetworkImage(imagePath),
+    // return Container(
+    //   width: size,
+    //   height: size,
+    //   child: CircleAvatar(
+    //     backgroundImage: NetworkImage(
+    //       imagePath,
+    //     ),
+    //   ),
+    // );
+    return ClipOval(
+      child: FadeInImage.assetNetwork(
+        width: size,
+        height: size,
+        placeholder: 'res/images/loding_spinner.gif',
+        image: imagePath,
       ),
     );
   }
