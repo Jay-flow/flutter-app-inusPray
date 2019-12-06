@@ -31,7 +31,12 @@ class MediatorSearch extends SearchDelegate<User> {
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
-      Icon(Icons.clear),
+      IconButton(
+        icon: Icon(
+          Icons.clear,
+        ),
+        onPressed: () {},
+      ),
     ];
   }
 
@@ -52,6 +57,6 @@ class MediatorSearch extends SearchDelegate<User> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return Container();
+    return Text(query);
   }
 }
