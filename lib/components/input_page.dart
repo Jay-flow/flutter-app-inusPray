@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/underline_text_field.dart';
+import 'package:flutter_inus_pray/utils/constants.dart';
 
 class InputPage extends StatefulWidget {
-  InputPage({
-    @required this.title,
-    this.hintText,
-    this.keyboardType,
-    @required this.buttonText,
-    @required this.buttonOnPressed,
-    this.obscureText = false,
-    this.textValue,
-    this.onChange
-  });
+  InputPage(
+      {@required this.title,
+      this.hintText,
+      this.keyboardType,
+      @required this.buttonText,
+      @required this.buttonOnPressed,
+      this.obscureText = false,
+      this.textValue,
+      this.onChange});
 
   final String title;
   final String hintText;
@@ -37,7 +37,10 @@ class _InputPageState extends State<InputPage> {
       children: <Widget>[
         Text(
           widget.title,
-          style: Theme.of(context).textTheme.title,
+          style: kTitleTextStyle.copyWith(
+            color: Theme.of(context).primaryColorDark,
+            fontWeight: FontWeight.normal,
+          ),
         ),
         UnderlineTextField(
           keyboardType: widget.keyboardType,

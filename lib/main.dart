@@ -49,7 +49,6 @@ class _MyAppState extends State<MyApp> {
             caption: TextStyle(color: Asset.Colors.blueBlack),
             title: TextStyle(
               color: Asset.Colors.blueBlack,
-              fontSize: 43,
             ),
           ),
         ),

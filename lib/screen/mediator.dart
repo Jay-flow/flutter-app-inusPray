@@ -30,25 +30,28 @@ class Mediator extends StatelessWidget {
 class MediatorSearch extends SearchDelegate<User> {
   @override
   List<Widget> buildActions(BuildContext context) {
-    // TODO: implement buildActions
-    return null;
+    return [
+      Icon(Icons.clear),
+    ];
   }
 
   @override
   Widget buildLeading(BuildContext context) {
-    // TODO: implement buildLeading
-    return null;
+    return IconButton(
+      icon: Icon(Icons.arrow_back),
+      onPressed: () {
+        close(context, null);
+      },
+    );
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
-    return null;
+    return Container();
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    // TODO: implement buildSuggestions
-    return null;
+    return Container();
   }
 }
