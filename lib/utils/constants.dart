@@ -46,3 +46,26 @@ const kSubTitleTextStyle = TextStyle(
 const kContentsTextStyle = TextStyle(
   fontSize: 17.0,
 );
+
+const kTopBorderRadiusInputDecoration = InputDecoration(
+  hintText: 'Enter value',
+  border: OutlineInputBorder(
+    borderRadius: BorderRadius.only(
+      topLeft: Radius.circular(4.0),
+      topRight: Radius.circular(4.0),
+    ),
+    borderSide: BorderSide(
+      color: Colors.black,
+      width: 1.0,
+    ),
+  ),
+);
+
+const kBottomBorderRadiusStyle = RoundedRectangleBorder(
+  borderRadius: BorderRadius.only(
+    topLeft: Radius.circular(0),
+    topRight: Radius.circular(0),
+    bottomLeft: Radius.circular(4.0),
+    bottomRight: Radius.circular(4.0),
+  ),
+);

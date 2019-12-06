@@ -8,13 +8,16 @@ class PrayCard extends StatelessWidget {
   PrayCard({
     @required this.name,
     @required this.imagePath,
-    @required this.pray,
+    @required this.content,
+    this.isWriting = false,
   });
 
   final String name;
   final String imagePath;
-  final String pray;
+  final Widget content;
+  final bool isWriting;
 
+  
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -44,14 +47,7 @@ class PrayCard extends StatelessWidget {
               width: 100,
               height: 1.0,
             ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Text(
-                  pray,
-                  style: kContentsTextStyle,
-                ),
-              ),
-            ),
+            content,
           ],
         ),
       ),

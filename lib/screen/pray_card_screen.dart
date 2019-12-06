@@ -5,6 +5,7 @@ import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_inus_pray/components/pray_card.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
+import 'package:flutter_inus_pray/utils/constants.dart';
 
 class PrayCardScreen extends StatelessWidget {
   static const String id = 'pray_card_screen';
@@ -38,7 +39,14 @@ class PrayCardScreen extends StatelessWidget {
           return PrayCard(
             name: UserMock.name,
             imagePath: UserMock.profileImagePath,
-            pray: UserMock.prays[0],
+            content: Expanded(
+              child: SingleChildScrollView(
+                child: Text(
+                  UserMock.prays[0],
+                  style: kContentsTextStyle,
+                ),
+              ),
+            ), 
           );
         },
       ),
