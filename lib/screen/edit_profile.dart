@@ -3,9 +3,9 @@ import 'package:flutter_inus_pray/components/circle_button.dart';
 import 'package:flutter_inus_pray/components/circle_image.dart';
 import 'package:flutter_inus_pray/mocks/user_mock.dart';
 import 'package:flutter_inus_pray/components/underline_text_field.dart';
+import 'package:flutter_inus_pray/screen/take_picture.dart';
 import 'dart:async';
 import 'dart:developer' as developer;
-import 'package:camera/camera.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class EditProfile extends StatefulWidget {
@@ -17,25 +17,15 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   String _name;
-  List<CameraDescription> cameras;
-  CameraController _controller;
-  Future<void> _initializeControllerFuture;
-
   @override
   initState() {
     super.initState();
     Fluttertoast.showToast(
       msg: "뒤로가기시 자동으로 수정 내용이 저장됩니다.",
-      toastLength: Toast.LENGTH_LONG,
     );
   }
 
   _saveMyProfile() {}
-
-  Future<void> _takeCamera() async {
-    final cameras = await availableCameras();
-    final firstCamera = cameras.first;
-  }
 
   _voidPictureChange(context) {
     showModalBottomSheet(
@@ -47,7 +37,7 @@ class _EditProfileState extends State<EditProfile> {
                 ListTile(
                   leading: Icon(Icons.camera_alt),
                   title: Text('카메라 찍기'),
-                  onTap: () => _takeCamera,
+                  onTap: () => Navigator.pushNamed(context, TakePicture.id),
                 ),
                 ListTile(
                   leading: Icon(Icons.perm_media),

@@ -5,6 +5,7 @@ import 'package:flutter_inus_pray/screen/edit_profile.dart';
 import 'package:flutter_inus_pray/screen/login.dart';
 import 'package:flutter_inus_pray/screen/pray_add.dart';
 import 'package:flutter_inus_pray/screen/register.dart';
+import 'package:flutter_inus_pray/screen/take_picture.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:provider/provider.dart';
@@ -59,6 +60,7 @@ class _MyAppState extends State<MyApp> {
           MainBottomTab.id: (context) => MainBottomTab(),
           PrayAdd.id: (context) => PrayAdd(),
           EditProfile.id: (context) => EditProfile(),
+          TakePicture.id: (context) => TakePicture(),
         },
       ),
     );
