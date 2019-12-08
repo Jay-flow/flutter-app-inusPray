@@ -48,7 +48,24 @@ class _TakePictureState extends State<TakePicture> {
         future: _setUpCamera(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return CameraPreview(_controller);
+            return Column(
+              children: <Widget>[
+                Center(
+                  child: ClipOval(
+                    child: Container(
+                      width: 230.0,
+                      height: 230.0,
+                      child: CameraPreview(
+                        _controller,
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 100,
+                ),
+              ],
+            );
           } else {
             return Center(
               child: CircularProgressIndicator(),
@@ -67,10 +84,11 @@ class _TakePictureState extends State<TakePicture> {
             );
             await _controller.takePicture(path);
 
-            Navigator.pop(context);
+            Navigator.pop(context, path);
           } catch (e) {}
         },
       ),
     );
   }
 }
+
