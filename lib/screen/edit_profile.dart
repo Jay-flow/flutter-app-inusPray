@@ -5,14 +5,9 @@ import 'package:flutter_inus_pray/components/circle_button.dart';
 import 'package:flutter_inus_pray/components/circle_image.dart';
 import 'package:flutter_inus_pray/mocks/user_mock.dart';
 import 'package:flutter_inus_pray/components/underline_text_field.dart';
-import 'package:flutter_inus_pray/screen/take_picture.dart';
 import 'dart:async';
-import 'dart:developer' as developer;
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:camera/camera.dart';
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
+import 'package:image_picker/image_picker.dart';
 
 class EditProfile extends StatefulWidget {
   static const String id = 'edit_profile';
@@ -23,10 +18,7 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   String _name;
-  bool _isTakePicture = false;
-  String _takeImagePath;
-  CameraController _controller;
-  Future<void> _initializeControllerFuture;
+  File _imageFile;
   final double imageSize = 230.0;
 
   @override
@@ -35,19 +27,6 @@ class _EditProfileState extends State<EditProfile> {
     Fluttertoast.showToast(
       msg: "뒤로가기시 자동으로 수정 내용이 저장됩니다.",
     );
-  }
-
-  Future<void> _setUpCamera() async {
-    final cameras = await availableCameras();
-    // final camera = cameras.first;
-    final camera = cameras[1];
-    _controller = CameraController(
-      camera,
-      ResolutionPreset.medium,
-    );
-    _initializeControllerFuture = _controller.initialize();
-
-    return _initializeControllerFuture;
   }
 
   _saveMyProfile() {}
@@ -62,17 +41,26 @@ class _EditProfileState extends State<EditProfile> {
                 ListTile(
                   leading: Icon(Icons.camera_alt),
                   title: Text('카메라 찍기'),
-                  onTap: () {
-                    Navigator.pop(context);
+                  onTap: () async {
+                    var picture = await ImagePicker.pickImage(
+                        source: ImageSource.camera);
                     setState(() {
-                      _isTakePicture = true;
+                      _imageFile = picture;
                     });
+                    Navigator.pop(context);
                   },
                 ),
                 ListTile(
                   leading: Icon(Icons.perm_media),
                   title: Text('갤러리에서 가져오기'),
-                  onTap: () {},
+                  onTap: () async {
+                    var picture = await ImagePicker.pickImage(
+                        source: ImageSource.gallery);
+                    setState(() {
+                      _imageFile = picture;
+                    });
+                    Navigator.pop(context);
+                  },
                 ),
               ],
             ),
@@ -101,41 +89,22 @@ class _EditProfileState extends State<EditProfile> {
                 child: Stack(
                   children: <Widget>[
                     Center(
-                      child: _isTakePicture
-                          ? FutureBuilder(
-                              future: _setUpCamera(),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.done) {
-                                  return ClipOval(
-                                    child: _takeImagePath == null
-                                        ? Container(
-                                          height: imageSize,
-                                          width: imageSize,
-                                            child: CameraPreview(
-                                              _controller,
-                                            ),
-                                          )
-                                        : Image.file(
-                                            File(_takeImagePath),
-                                            width: imageSize,
-                                            height: imageSize,
-                                            fit: BoxFit.cover,
-                                          ),
-                                  );
-                                } else {
-                                  return CircularProgressIndicator();
-                                }
-                              },
-                            )
-                          : CircleImage(
+                      child: _imageFile == null
+                          ? CircleImage(
                               size: imageSize,
                               imagePath: UserMock.profileImagePath,
+                            )
+                          : ClipOval(
+                              child: Image.file(
+                                _imageFile,
+                                width: imageSize,
+                                height: imageSize,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                     ),
-                    _isTakePicture
-                        ? Container()
-                        : Center(
+                    _imageFile == null
+                        ? Center(
                             child: Container(
                               width: imageSize,
                               height: imageSize,
@@ -151,7 +120,8 @@ class _EditProfileState extends State<EditProfile> {
                                 shape: BoxShape.circle,
                               ),
                             ),
-                          ),
+                          )
+                        : Container(),
                   ],
                 ),
                 onPressed: () => _voidPictureChange(context),
@@ -171,22 +141,6 @@ class _EditProfileState extends State<EditProfile> {
             ],
           ),
         ),
-        floatingActionButton: _isTakePicture
-            ? FloatingActionButton(
-                child: Icon(Icons.camera_alt),
-                onPressed: () async {
-                  try {
-                    await _initializeControllerFuture;
-                    _takeImagePath = join(
-                      (await getTemporaryDirectory()).path,
-                      '${DateTime.now()}.png',
-                    );
-                    await _controller.takePicture(_takeImagePath);
-                    setState(() {});
-                  } catch (e) {}
-                },
-              )
-            : Container(),
       ),
     );
   }

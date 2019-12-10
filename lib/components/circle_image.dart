@@ -11,16 +11,7 @@ class CircleImage extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    // return Container(
-    //   width: size,
-    //   height: size,
-    //   child: CircleAvatar(
-    //     backgroundImage: NetworkImage(
-    //       imagePath,
-    //     ),
-    //   ),
-    // );
+  Widget build(BuildContext context) {    
     return ClipOval(
       child: FadeInImage.assetNetwork(
         width: size,
