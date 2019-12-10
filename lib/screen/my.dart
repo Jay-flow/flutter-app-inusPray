@@ -8,6 +8,7 @@ import 'package:flutter_inus_pray/components/circle_button.dart';
 import 'package:flutter_inus_pray/screen/edit_profile.dart';
 import 'package:flutter_inus_pray/screen/pray_add.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class My extends StatefulWidget {
   static const String id = 'my';
@@ -43,14 +44,32 @@ class _MyState extends State<My> {
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
-                  return EdgeDecorationListTile(
-                    title: Container(
-                      child: Text(
-                        UserMock.prays[0],
+                  return Slidable(
+                    actionPane: SlidableDrawerActionPane(),
+                    actionExtentRatio: 0.25,
+                    child: EdgeDecorationListTile(
+                      title: Container(
+                        child: Text(
+                          UserMock.prays[0],
+                        ),
                       ),
+                      onTap: () {},
+                      edgeColor: colors[Random().nextInt(8)],
                     ),
-                    onTap: () {},
-                    edgeColor: colors[Random().nextInt(8)],
+                    secondaryActions: <Widget>[
+                      IconSlideAction(
+                        caption: '삭제',
+                        color: Theme.of(context).accentColor,
+                        icon: Icons.delete_outline,
+                        onTap: () {},
+                      ),
+                      IconSlideAction(
+                        caption: '수정',
+                        color: Theme.of(context).primaryColorLight,
+                        icon: Icons.mode_edit,
+                        onTap: () {},
+                      ),
+                    ],
                   );
                 },
                 childCount: 10,

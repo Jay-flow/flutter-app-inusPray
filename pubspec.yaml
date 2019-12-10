@@ -24,6 +24,7 @@ dependencies:
   font_awesome_flutter: ^8.5.0
   flutter_swiper: ^1.1.6
   image_picker: any
+  flutter_slidable: "^0.5.4"
 
 dev_dependencies:
   flutter_native_splash: ^0.1.9
