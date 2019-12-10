@@ -1,16 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_inus_pray/models/input_type.dart';
 import 'package:flutter_inus_pray/utils/constants.dart';
-
+import 'package:flutter_inus_pray/models/pray_arguments.dart';
 class PrayAdd extends StatefulWidget {
-  static const String id = 'pray_add';
+  static const String idCreate = 'pray_add_create';
+  static const String idUpdate = 'pray_add_update';
+
+  PrayAdd({@required this.inputType});
+  
+  final InputType inputType;
 
   @override
   _PrayAddState createState() => _PrayAddState();
 }
 
 class _PrayAddState extends State<PrayAdd> {
+  final _textController = TextEditingController();
+
+  _setUpPrayText(BuildContext context) {
+    final PrayArguments args = ModalRoute.of(context).settings.arguments;
+  _textController.text = args.prayText;
+  }
+
   @override
   Widget build(BuildContext context) {
+    if(widget.inputType == InputType.Update) _setUpPrayText(context);
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(50.0),
@@ -24,6 +39,7 @@ class _PrayAddState extends State<PrayAdd> {
           children: <Widget>[
             Expanded(
               child: TextField(
+                controller: _textController,
                 autofocus: true,
                 expands: true,
                 keyboardType: TextInputType.multiline,

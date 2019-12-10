@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_inus_pray/models/input_type.dart';
 import 'package:flutter_inus_pray/models/user_data.dart';
 import 'package:flutter_inus_pray/navigations/main_bottom_tab.dart';
 import 'package:flutter_inus_pray/screen/edit_profile.dart';
@@ -57,7 +58,8 @@ class _MyAppState extends State<MyApp> {
           Login.id: (context) => Login(),
           Register.id: (context) => Register(),
           MainBottomTab.id: (context) => MainBottomTab(),
-          PrayAdd.id: (context) => PrayAdd(),
+          PrayAdd.idCreate: (context) => PrayAdd(inputType: InputType.Create,),
+          PrayAdd.idUpdate: (context) => PrayAdd(inputType: InputType.Update,),
           EditProfile.id: (context) => EditProfile(),
         },
       ),

@@ -9,7 +9,7 @@ import 'package:flutter_inus_pray/screen/edit_profile.dart';
 import 'package:flutter_inus_pray/screen/pray_add.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:flutter_slidable/flutter_slidable.dart';
-
+import 'package:flutter_inus_pray/models/pray_arguments.dart';
 class My extends StatefulWidget {
   static const String id = 'my';
 
@@ -28,6 +28,31 @@ class _MyState extends State<My> {
     Asset.Colors.yellow,
     Asset.Colors.mint,
   ];
+
+  Future _confirmDeletePray(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('기도 삭제'),
+            content: const Text('삭제하신 뒤에는 복구 할 수 없습니다.\n정말 삭제하시겠습니까?'),
+            actions: <Widget>[
+              FlatButton(
+                child: const Text('취소'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              FlatButton(
+                child: const Text('삭제'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,13 +85,13 @@ class _MyState extends State<My> {
                         caption: '삭제',
                         color: Theme.of(context).accentColor,
                         icon: Icons.delete_outline,
-                        onTap: () {},
+                        onTap: () => _confirmDeletePray(context),
                       ),
                       IconSlideAction(
                         caption: '수정',
                         color: Theme.of(context).primaryColorLight,
                         icon: Icons.mode_edit,
-                        onTap: () {},
+                        onTap: () => Navigator.pushNamed(context, PrayAdd.idUpdate, arguments: PrayArguments(prayText: UserMock.prays[0])),
                       ),
                     ],
                   );
@@ -78,7 +103,7 @@ class _MyState extends State<My> {
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
-          onPressed: () => Navigator.pushNamed(context, PrayAdd.id),
+          onPressed: () => Navigator.pushNamed(context, PrayAdd.idCreate),
         ),
       ),
     );
