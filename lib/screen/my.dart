@@ -53,7 +53,6 @@ class _MyState extends State<My> {
                           UserMock.prays[0],
                         ),
                       ),
-                      onTap: () {},
                       edgeColor: colors[Random().nextInt(8)],
                     ),
                     secondaryActions: <Widget>[
