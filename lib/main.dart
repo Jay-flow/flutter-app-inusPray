@@ -53,13 +53,17 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
         ),
-        initialRoute: MainBottomTab.id,
+        initialRoute: Login.id,
         routes: {
           Login.id: (context) => Login(),
           Register.id: (context) => Register(),
           MainBottomTab.id: (context) => MainBottomTab(),
-          PrayAdd.idCreate: (context) => PrayAdd(inputType: InputType.Create,),
-          PrayAdd.idUpdate: (context) => PrayAdd(inputType: InputType.Update,),
+          PrayAdd.idCreate: (context) => PrayAdd(
+                inputType: InputType.Create,
+              ),
+          PrayAdd.idUpdate: (context) => PrayAdd(
+                inputType: InputType.Update,
+              ),
           EditProfile.id: (context) => EditProfile(),
         },
       ),
