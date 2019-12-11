@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/screen/mediator.dart';
 import 'package:flutter_inus_pray/screen/my.dart';
 import 'package:flutter_inus_pray/navigations/pray_top_tab.dart';
-// import 'package:flutter_inus_pray/utils/notification_fcm.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MainBottomTab extends StatefulWidget {
@@ -20,11 +19,6 @@ class _MainBottomTabState extends State<MainBottomTab> {
     PrayTopTab(),
   ];
 
-  @override
-  void initState() {
-    super.initState();
-    // NotificationFCM();
-  }
   void _onTabTabpped(int index) {
     setState(() {
       _currentIndex = index;
