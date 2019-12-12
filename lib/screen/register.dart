@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_inus_pray/components/input_page.dart';
 import 'package:flutter_inus_pray/components/loading_container.dart';
 import 'package:flutter_inus_pray/models/user.dart';
@@ -70,14 +71,14 @@ class _RegisterState extends State<Register> {
 
   _phoneAuthMessage() {
     developer.log(user.phonNumber);
-    _firebaseAuth.verifyPhoneNumber(
-      phoneNumber: user.phonNumber,
-      timeout: Duration(seconds: 60),
-      verificationCompleted: phoneVerificationCompleted,
-      verificationFailed: phoneVerificationFailed,
-      codeSent: phoneCodeSent,
-      codeAutoRetrievalTimeout: phoneCodeAutoRetrievalTimeout,
-    );
+//    _firebaseAuth.verifyPhoneNumber(
+//      phoneNumber: '+82 ${user.phonNumber}',
+//      timeout: Duration(seconds: 60),
+//      verificationCompleted: phoneVerificationCompleted,
+//      verificationFailed: phoneVerificationFailed,
+//      codeSent: phoneCodeSent,
+//      codeAutoRetrievalTimeout: phoneCodeAutoRetrievalTimeout,
+//    );
   }
 
   phoneCodeSent(String verificationId, [int forceResendingToken]) async {
@@ -108,12 +109,24 @@ class _RegisterState extends State<Register> {
         padding: EdgeInsets.all(25.0),
         child: InputPage(
           title: '휴대폰 번호',
+          validator: (value) {
+            return 'FUCK YOU';
+          },
           hintText: '휴대폰 번호를 입력해주세요 (\'-\'제외)',
           keyboardType: TextInputType.phone,
           buttonText: '인증하기',
-          buttonOnPressed: _isPhoneAuth ? _phoneAuthMessage : nextPage,
+          buttonOnPressed: (GlobalKey<FormState> key) {
+            if (_isPhoneAuth) {
+              if (key.currentState.validate()) {
+                _phoneAuthMessage();
+              }
+            } else {
+              nextPage();
+            }
+          },
           textValue: user.phonNumber,
           onChange: (phoneNumber) => user.phonNumber = phoneNumber,
+          inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
         ),
       ),
       Container(
@@ -123,7 +136,11 @@ class _RegisterState extends State<Register> {
           hintText: '이름을 입력해주세요.',
           keyboardType: TextInputType.text,
           buttonText: '다음',
-          buttonOnPressed: nextPage,
+          buttonOnPressed: (GlobalKey<FormState> key) {
+            if (key.currentState.validate()) {
+              nextPage();
+            } else {}
+          },
           textValue: user.name,
           onChange: (name) => user.name = name,
         ),
@@ -135,7 +152,11 @@ class _RegisterState extends State<Register> {
           hintText: '출석 하시는 교회 이름을 입력해주세요.',
           keyboardType: TextInputType.text,
           buttonText: '완료',
-          buttonOnPressed: _validate,
+          buttonOnPressed: (GlobalKey<FormState> key) {
+            if (key.currentState.validate()) {
+              _validate();
+            } else {}
+          },
           textValue: user.church,
           onChange: (church) => user.church = church,
         ),

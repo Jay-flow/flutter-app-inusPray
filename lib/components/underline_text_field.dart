@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_inus_pray/utils/constants.dart';
 
 class UnderlineTextField extends StatefulWidget {
@@ -9,6 +10,8 @@ class UnderlineTextField extends StatefulWidget {
     this.textValue,
     this.obscureText = false,
     this.textAlign = TextAlign.start,
+    this.inputFormatters,
+    this.validator,
   });
 
   final TextInputType keyboardType;
@@ -17,6 +20,8 @@ class UnderlineTextField extends StatefulWidget {
   final bool obscureText;
   final String textValue;
   final TextAlign textAlign;
+  final List<TextInputFormatter> inputFormatters;
+  final Function validator;
 
   @override
   _UnderlineTextFieldState createState() => _UnderlineTextFieldState();
@@ -33,7 +38,8 @@ class _UnderlineTextFieldState extends State<UnderlineTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      validator: widget.validator,
       controller: _textController,
       style: TextStyle(color: Colors.black),
       obscureText: widget.obscureText,
@@ -43,6 +49,7 @@ class _UnderlineTextFieldState extends State<UnderlineTextField> {
         hintText: widget.hintText,
       ),
       onChanged: widget.onChanged,
+      inputFormatters: widget.inputFormatters,
     );
   }
 }
