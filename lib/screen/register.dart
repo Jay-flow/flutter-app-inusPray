@@ -1,11 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/input_page.dart';
 import 'package:flutter_inus_pray/components/loading_container.dart';
 import 'package:flutter_inus_pray/models/user.dart';
-
-import 'package:flutter_inus_pray/models/user_data.dart';
-import 'package:provider/provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:developer' as developer;
 
 class Register extends StatefulWidget {
@@ -17,6 +15,8 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final PageController _pageController = PageController();
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
   User user;
   bool _isPhoneAuth;
   bool _isLoading = false;
@@ -49,9 +49,58 @@ class _RegisterState extends State<Register> {
   }
 
   // 값 비어있는거 걸러내기
-  // _validate() {}
+  _validate() {
+    if (user.name == null ||
+        user.name == '' ||
+        user.church == null ||
+        user.church == '' ||
+        user.phonNumber == null ||
+        user.phonNumber == '') {
+      Fluttertoast.showToast(
+        msg: "모든 항목은 필수 입력사항입니다.\n누락된 부분을 입력해주세요.",
+        gravity: ToastGravity.CENTER,
+      );
+    } else {
+      _loadingStateChange(true);
+      user.cloudUserDataSave();
+      user.localUserDataSave();
+      _loadingStateChange(false);
+    }
+  }
 
-  _phoneAuthMessage() {}
+  _phoneAuthMessage() {
+    developer.log(user.phonNumber);
+    _firebaseAuth.verifyPhoneNumber(
+      phoneNumber: user.phonNumber,
+      timeout: Duration(seconds: 60),
+      verificationCompleted: phoneVerificationCompleted,
+      verificationFailed: phoneVerificationFailed,
+      codeSent: phoneCodeSent,
+      codeAutoRetrievalTimeout: phoneCodeAutoRetrievalTimeout,
+    );
+  }
+
+  phoneCodeSent(String verificationId, [int forceResendingToken]) async {
+    Fluttertoast.showToast(msg: "phoneCodeSent");
+    developer.log(verificationId);
+  }
+
+  phoneCodeAutoRetrievalTimeout(String verificationId) {
+    Fluttertoast.showToast(msg: "phoneCodeAutoRetrievalTimeout");
+  }
+
+  phoneVerificationFailed(AuthException authException) {
+    developer.log(authException.message);
+    Fluttertoast.showToast(msg: "phoneVerificationFailed");
+  }
+
+  phoneVerificationCompleted(AuthCredential auth) {
+    Fluttertoast.showToast(msg: "phoneVerificationCompleted");
+    _firebaseAuth.signInWithCredential(auth).then((AuthResult value) {
+      if (value.user != null) {
+      } else {}
+    }).catchError((error) {});
+  }
 
   List<Widget> createPage() {
     return [
@@ -86,12 +135,7 @@ class _RegisterState extends State<Register> {
           hintText: '출석 하시는 교회 이름을 입력해주세요.',
           keyboardType: TextInputType.text,
           buttonText: '완료',
-          buttonOnPressed: () {
-            _loadingStateChange(true);
-            user.cloudUserDataSave();
-            user.localUserDataSave();
-            _loadingStateChange(false);
-          },
+          buttonOnPressed: _validate,
           textValue: user.church,
           onChange: (church) => user.church = church,
         ),
