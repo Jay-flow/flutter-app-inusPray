@@ -51,6 +51,7 @@ class _InputPageState extends State<InputPage> {
         ),
         ButtonTheme(
           minWidth: double.infinity,
+          splashColor: Theme.of(context).accentColor,
           height: 50.0,
           child: RaisedButton(
             color: Theme.of(context).primaryColorDark,

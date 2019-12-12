@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/input_page.dart';
 import 'package:flutter_inus_pray/components/loading_container.dart';
+import 'package:flutter_inus_pray/models/user.dart';
 
 import 'package:flutter_inus_pray/models/user_data.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:developer' as developer;
 
 class Register extends StatefulWidget {
   static const String id = 'register';
@@ -14,13 +17,25 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final PageController _pageController = PageController();
-  String _email;
-  String _name;
-  String _church;
+  User user;
+  bool _isPhoneAuth;
   bool _isLoading = false;
 
   // 하드 코딩 해놓음  3 = pages.length.toDouble() 인데... 좋은 방법 찾기
   double progressValue = 1.0 / 3;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    user = ModalRoute.of(context).settings.arguments ?? User();
+    _isPhoneAuth =
+        (user.phonNumber == null || user.phonNumber == '') ? true : false;
+  }
 
   void nextPage() {
     _pageController.nextPage(
@@ -36,25 +51,20 @@ class _RegisterState extends State<Register> {
   // 값 비어있는거 걸러내기
   // _validate() {}
 
-  // // 메일 인증 작업 추가하기 (카카오로그인x, 카카오로그인o 메일 없는사람)
-  _mailAuthMessage() {}
+  _phoneAuthMessage() {}
 
-  List<Widget> createPage(context) {
-    final UserData userData = Provider.of<UserData>(context);
-    // bool _isMailAuth = userData.user.email.isEmpty;
-    bool _isMailAuth = false;
-
+  List<Widget> createPage() {
     return [
       Container(
         padding: EdgeInsets.all(25.0),
         child: InputPage(
-          title: '이메일',
-          hintText: '이메일을 입력해주세요',
-          keyboardType: TextInputType.emailAddress,
-          buttonText: '다음',
-          buttonOnPressed: _isMailAuth ? _mailAuthMessage : nextPage,
-          textValue: userData.user.email,
-          onChange: (email) => _email = email,
+          title: '휴대폰 번호',
+          hintText: '휴대폰 번호를 입력해주세요 (\'-\'제외)',
+          keyboardType: TextInputType.phone,
+          buttonText: '인증하기',
+          buttonOnPressed: _isPhoneAuth ? _phoneAuthMessage : nextPage,
+          textValue: user.phonNumber,
+          onChange: (phoneNumber) => user.phonNumber = phoneNumber,
         ),
       ),
       Container(
@@ -65,8 +75,8 @@ class _RegisterState extends State<Register> {
           keyboardType: TextInputType.text,
           buttonText: '다음',
           buttonOnPressed: nextPage,
-          textValue: userData.user.name,
-          onChange: (name) => _name = name,
+          textValue: user.name,
+          onChange: (name) => user.name = name,
         ),
       ),
       Container(
@@ -78,16 +88,12 @@ class _RegisterState extends State<Register> {
           buttonText: '완료',
           buttonOnPressed: () {
             _loadingStateChange(true);
-            userData.user.email = _email;
-            userData.user.name = _name;
-            userData.user.church = _church;
-
-            userData.cloudUserDataSave();
-            userData.localUserDataSave();
+            user.cloudUserDataSave();
+            user.localUserDataSave();
             _loadingStateChange(false);
           },
-          textValue: userData.user.church,
-          onChange: (church) => _church = church,
+          textValue: user.church,
+          onChange: (church) => user.church = church,
         ),
       ),
     ];
@@ -95,7 +101,7 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> pages = createPage(context);
+    List<Widget> pages = createPage();
 
     return Scaffold(
       body: SafeArea(
