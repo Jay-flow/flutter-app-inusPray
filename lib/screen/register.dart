@@ -71,23 +71,29 @@ class _RegisterState extends State<Register> {
 
   _phoneAuthMessage() {
     developer.log(user.phonNumber);
-//    _firebaseAuth.verifyPhoneNumber(
-//      phoneNumber: '+82 ${user.phonNumber}',
-//      timeout: Duration(seconds: 60),
-//      verificationCompleted: phoneVerificationCompleted,
-//      verificationFailed: phoneVerificationFailed,
-//      codeSent: phoneCodeSent,
-//      codeAutoRetrievalTimeout: phoneCodeAutoRetrievalTimeout,
-//    );
+    _firebaseAuth.verifyPhoneNumber(
+      phoneNumber: '+82 ${user.phonNumber}',
+      timeout: Duration(seconds: 30),
+      verificationCompleted: phoneVerificationCompleted,
+      verificationFailed: phoneVerificationFailed,
+      codeSent: phoneCodeSent,
+      codeAutoRetrievalTimeout: phoneCodeAutoRetrievalTimeout,
+    );
   }
 
   phoneCodeSent(String verificationId, [int forceResendingToken]) async {
-    Fluttertoast.showToast(msg: "phoneCodeSent");
+    Fluttertoast.showToast(
+      msg: '인증코드를 메세지로 보냈습니다.\n메시지를 수신시 코드를 입력하지 않아도 자동으로 인증됩니다.',
+      toastLength: Toast.LENGTH_LONG,
+    );
     developer.log(verificationId);
   }
 
   phoneCodeAutoRetrievalTimeout(String verificationId) {
-    Fluttertoast.showToast(msg: "phoneCodeAutoRetrievalTimeout");
+    Fluttertoast.showToast(
+      msg: '인증 시간이 초과 되었습니다. 번호를 확인하신 후 재전송을 원할 경우 인증하기 버튼을 한번 더 클릭 해주세요.',
+      toastLength: Toast.LENGTH_LONG,
+    );
   }
 
   phoneVerificationFailed(AuthException authException) {
@@ -99,8 +105,17 @@ class _RegisterState extends State<Register> {
     Fluttertoast.showToast(msg: "phoneVerificationCompleted");
     _firebaseAuth.signInWithCredential(auth).then((AuthResult value) {
       if (value.user != null) {
-      } else {}
-    }).catchError((error) {});
+        Fluttertoast.showToast(msg: '인증되었습니다.');
+        nextPage();
+      } else {
+        Fluttertoast.showToast(
+          msg: '인증에 실패하였습니다. 번호를 확인하신 후 재전송을 원할 경우 인증하기 버튼을 한번 더 클릭 해주세요.',
+          toastLength: Toast.LENGTH_LONG,
+        );
+      }
+    }).catchError((error) {
+      Fluttertoast.showToast(msg: '인증에 실패하였습니다. 관리자에게 문의해주세요.');
+    });
   }
 
   List<Widget> createPage() {
