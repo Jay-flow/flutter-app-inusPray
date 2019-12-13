@@ -109,8 +109,11 @@ class _RegisterState extends State<Register> {
         padding: EdgeInsets.all(25.0),
         child: InputPage(
           title: '휴대폰 번호',
-          validator: (value) {
-            return 'FUCK YOU';
+          validator: (String value) {
+            if (value == '')
+              return '번호를 입력해주세요';
+            else
+              return null;
           },
           hintText: '휴대폰 번호를 입력해주세요 (\'-\'제외)',
           keyboardType: TextInputType.phone,
@@ -133,6 +136,12 @@ class _RegisterState extends State<Register> {
         padding: EdgeInsets.all(25.0),
         child: InputPage(
           title: '이름',
+          validator: (String value) {
+            if (value.length > 5)
+              return '이름은 너무깁니다. (5자 이하로 입력)';
+            else
+              return null;
+          },
           hintText: '이름을 입력해주세요.',
           keyboardType: TextInputType.text,
           buttonText: '다음',
@@ -149,6 +158,12 @@ class _RegisterState extends State<Register> {
         padding: EdgeInsets.all(25.0),
         child: InputPage(
           title: '교회 이름',
+          validator: (String value) {
+            if (value.length > 15)
+              return '교회 이름이 너무깁니다. (15자 이하로 입력)';
+            else
+              return null;
+          },
           hintText: '출석 하시는 교회 이름을 입력해주세요.',
           keyboardType: TextInputType.text,
           buttonText: '완료',
@@ -183,6 +198,7 @@ class _RegisterState extends State<Register> {
               ),
               Expanded(
                 child: PageView.builder(
+                  physics: NeverScrollableScrollPhysics(),
                   controller: _pageController,
                   itemBuilder: (context, position) {
                     return pages[position];
