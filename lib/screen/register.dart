@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_inus_pray/components/input_page.dart';
 import 'package:flutter_inus_pray/components/loading_container.dart';
 import 'package:flutter_inus_pray/models/user.dart';
+import 'package:flutter_inus_pray/navigations/main_bottom_tab.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:developer' as developer;
 
@@ -50,7 +51,7 @@ class _RegisterState extends State<Register> {
   }
 
   // 값 비어있는거 걸러내기
-  _validate() {
+  _validate() async {
     if (user.name == null ||
         user.name == '' ||
         user.church == null ||
@@ -63,8 +64,8 @@ class _RegisterState extends State<Register> {
       );
     } else {
       _loadingStateChange(true);
-      user.cloudUserDataSave();
-      user.localUserDataSave();
+      await user.cloudUserDataSave();
+      await user.localUserDataSave();
       _loadingStateChange(false);
     }
   }
@@ -106,6 +107,7 @@ class _RegisterState extends State<Register> {
     _firebaseAuth.signInWithCredential(auth).then((AuthResult value) {
       if (value.user != null) {
         Fluttertoast.showToast(msg: '인증되었습니다.');
+        _checkExistUser();
         nextPage();
       } else {
         Fluttertoast.showToast(
@@ -116,6 +118,10 @@ class _RegisterState extends State<Register> {
     }).catchError((error) {
       Fluttertoast.showToast(msg: '인증에 실패하였습니다. 관리자에게 문의해주세요.');
     });
+  }
+
+  _checkExistUser() {
+    //TODO: 기존에 등록된 휴대폰 번호가 있는지 확인, 있으면 가입 없이 그냥 바로 로그인 처리
   }
 
   List<Widget> createPage() {
@@ -182,10 +188,11 @@ class _RegisterState extends State<Register> {
           hintText: '출석 하시는 교회 이름을 입력해주세요.',
           keyboardType: TextInputType.text,
           buttonText: '완료',
-          buttonOnPressed: (GlobalKey<FormState> key) {
+          buttonOnPressed: (GlobalKey<FormState> key) async {
             if (key.currentState.validate()) {
-              _validate();
-            } else {}
+              await _validate();
+              Navigator.pushReplacementNamed(context, MainBottomTab.id);
+            }
           },
           textValue: user.church,
           onChange: (church) => user.church = church,
@@ -213,7 +220,7 @@ class _RegisterState extends State<Register> {
               ),
               Expanded(
                 child: PageView.builder(
-                  physics: NeverScrollableScrollPhysics(),
+//                  physics: NeverScrollableScrollPhysics(),
                   controller: _pageController,
                   itemBuilder: (context, position) {
                     return pages[position];

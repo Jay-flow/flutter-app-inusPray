@@ -22,7 +22,6 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   FlutterKakaoLogin kakaoSignIn = FlutterKakaoLogin();
   bool _isLoading = false;
-
   void _loadingStateChange(isLoading) {
     setState(() => _isLoading = isLoading);
   }

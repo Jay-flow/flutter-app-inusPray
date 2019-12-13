@@ -19,7 +19,7 @@ class User {
       this.church,
       this.deviceToken});
 
-  void localUserDataSave() async {
+  Future localUserDataSave() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('email', email);
     prefs.setString('name', name);
@@ -29,8 +29,8 @@ class User {
     prefs.setString('church', church);
   }
 
-  void cloudUserDataSave() {
-    Firestore.instance.collection('user').document(phonNumber).setData({
+  Future<void> cloudUserDataSave() async {
+    await Firestore.instance.collection('user').document(phonNumber).setData({
       'email': email,
       'name': name,
       'profileImagePath': profileImagePath,
