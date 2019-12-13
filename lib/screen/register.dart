@@ -98,8 +98,7 @@ class _RegisterState extends State<Register> {
   }
 
   phoneVerificationFailed(AuthException authException) {
-    developer.log(authException.message);
-    Fluttertoast.showToast(msg: "phoneVerificationFailed");
+    Fluttertoast.showToast(msg: '인증에 실패하였습니다.\n관리자에게 문의해주세요.');
   }
 
   phoneVerificationCompleted(AuthCredential auth) {
@@ -111,12 +110,13 @@ class _RegisterState extends State<Register> {
         nextPage();
       } else {
         Fluttertoast.showToast(
-          msg: '인증에 실패하였습니다. 번호를 확인하신 후 재전송을 원할 경우 인증하기 버튼을 한번 더 클릭 해주세요.',
+          msg:
+              '인증에 실패하였습니다. 번호를 확인하신 후 재전송을 원할 경우 인증하기 버튼을 한번 더 클릭 해주세요. 계속해서 실패할 경우 관리자에게 문의해주세요.',
           toastLength: Toast.LENGTH_LONG,
         );
       }
     }).catchError((error) {
-      Fluttertoast.showToast(msg: '인증에 실패하였습니다. 관리자에게 문의해주세요.');
+      Fluttertoast.showToast(msg: '인증에 실패하였습니다.\n관리자에게 문의해주세요.');
     });
   }
 
@@ -159,7 +159,7 @@ class _RegisterState extends State<Register> {
           title: '이름',
           validator: (String value) {
             if (value.length > 5)
-              return '이름은 너무깁니다. (5자 이하로 입력)';
+              return '이름이 너무깁니다. (5자 이하로 입력)';
             else
               return null;
           },
@@ -220,7 +220,7 @@ class _RegisterState extends State<Register> {
               ),
               Expanded(
                 child: PageView.builder(
-//                  physics: NeverScrollableScrollPhysics(),
+                  physics: NeverScrollableScrollPhysics(),
                   controller: _pageController,
                   itemBuilder: (context, position) {
                     return pages[position];
