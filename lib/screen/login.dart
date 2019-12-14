@@ -44,7 +44,7 @@ class _LoginState extends State<Login> {
           name: userNickname,
           profileImagePath: userProfileImagePath,
           thumbnailImagePath: userThumbnailImagePath,
-          phonNumber: userPhoneNumber,
+          phoneNumber: userPhoneNumber,
         );
 
         Navigator.pushNamed(context, Register.id, arguments: user);

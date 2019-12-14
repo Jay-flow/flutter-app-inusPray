@@ -36,7 +36,7 @@ class _RegisterState extends State<Register> {
     super.didChangeDependencies();
     user = ModalRoute.of(context).settings.arguments ?? User();
     _isPhoneAuth =
-        (user.phonNumber == null || user.phonNumber == '') ? true : false;
+        (user.phoneNumber == null || user.phoneNumber == '') ? true : false;
   }
 
   void nextPage() {
@@ -56,8 +56,8 @@ class _RegisterState extends State<Register> {
         user.name == '' ||
         user.church == null ||
         user.church == '' ||
-        user.phonNumber == null ||
-        user.phonNumber == '') {
+        user.phoneNumber == null ||
+        user.phoneNumber == '') {
       Fluttertoast.showToast(
         msg: "모든 항목은 필수 입력사항입니다.\n누락된 부분을 입력해주세요.",
         gravity: ToastGravity.CENTER,
@@ -71,9 +71,9 @@ class _RegisterState extends State<Register> {
   }
 
   _phoneAuthMessage() {
-    developer.log(user.phonNumber);
+    developer.log(user.phoneNumber);
     _firebaseAuth.verifyPhoneNumber(
-      phoneNumber: '+82 ${user.phonNumber}',
+      phoneNumber: '+82 ${user.phoneNumber}',
       timeout: Duration(seconds: 30),
       verificationCompleted: phoneVerificationCompleted,
       verificationFailed: phoneVerificationFailed,
@@ -148,8 +148,8 @@ class _RegisterState extends State<Register> {
               nextPage();
             }
           },
-          textValue: user.phonNumber,
-          onChange: (phoneNumber) => user.phonNumber = phoneNumber,
+          textValue: user.phoneNumber,
+          onChange: (phoneNumber) => user.phoneNumber = phoneNumber,
           inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
         ),
       ),

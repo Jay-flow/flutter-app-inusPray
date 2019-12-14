@@ -4,6 +4,8 @@
 <dict>
 	<key>KAKAO_APP_KEY</key>
 	<string>66bcfcb9db530f2dabb3726d4f14dfe7</string>
+	<key>GADApplicationIdentifier</key>
+    <string>ca-app-pub-7723933178431532~7900065733</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>kakao66bcfcb9db530f2dabb3726d4f14dfe7</string>

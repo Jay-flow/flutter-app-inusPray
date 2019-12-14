@@ -6,7 +6,7 @@ class User {
   String name;
   String profileImagePath;
   String thumbnailImagePath;
-  String phonNumber;
+  String phoneNumber;
   String church;
   String deviceToken;
 
@@ -15,7 +15,7 @@ class User {
       this.name,
       this.profileImagePath,
       this.thumbnailImagePath,
-      this.phonNumber,
+      this.phoneNumber,
       this.church,
       this.deviceToken});
 
@@ -25,17 +25,17 @@ class User {
     prefs.setString('name', name);
     prefs.setString('profileImagePath', profileImagePath);
     prefs.setString('thumbnailImagePath', thumbnailImagePath);
-    prefs.setString('phonNumber', phonNumber);
+    prefs.setString('phonNumber', phoneNumber);
     prefs.setString('church', church);
   }
 
   Future<void> cloudUserDataSave() async {
-    await Firestore.instance.collection('user').document(phonNumber).setData({
+    await Firestore.instance.collection('user').document(phoneNumber).setData({
       'email': email,
       'name': name,
       'profileImagePath': profileImagePath,
       'thumbnailImagePath': thumbnailImagePath,
-      'phonNumber': phonNumber,
+      'phonNumber': phoneNumber,
       'church': church,
     });
   }

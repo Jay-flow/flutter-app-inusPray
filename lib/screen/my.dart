@@ -9,7 +9,7 @@ import 'package:flutter_inus_pray/screen/edit_profile.dart';
 import 'package:flutter_inus_pray/screen/pray_add.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:flutter_inus_pray/models/pray_arguments.dart';
+
 class My extends StatefulWidget {
   static const String id = 'my';
 
@@ -91,7 +91,11 @@ class _MyState extends State<My> {
                         caption: '수정',
                         color: Theme.of(context).primaryColorLight,
                         icon: Icons.mode_edit,
-                        onTap: () => Navigator.pushNamed(context, PrayAdd.idUpdate, arguments: PrayArguments(prayText: UserMock.prays[0])),
+                        onTap: () => Navigator.pushNamed(
+                          context,
+                          PrayAdd.idUpdate,
+                          arguments: UserMock.prays[0],
+                        ),
                       ),
                     ],
                   );

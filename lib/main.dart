@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/models/input_type.dart';
 import 'package:flutter_inus_pray/models/user_data.dart';
 import 'package:flutter_inus_pray/navigations/main_bottom_tab.dart';
+import 'package:flutter_inus_pray/screen/ad_banner.dart';
 import 'package:flutter_inus_pray/screen/edit_profile.dart';
 import 'package:flutter_inus_pray/screen/login.dart';
 import 'package:flutter_inus_pray/screen/pray_add.dart';
@@ -65,6 +66,7 @@ class _MyAppState extends State<MyApp> {
                 inputType: InputType.Update,
               ),
           EditProfile.id: (context) => EditProfile(),
+          AdBanner.id: (context) => AdBanner(),
         },
       ),
     );
