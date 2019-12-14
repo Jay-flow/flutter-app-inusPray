@@ -53,7 +53,7 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
         ),
-        initialRoute: Login.id,
+        initialRoute: MainBottomTab.id,
         routes: {
           Login.id: (context) => Login(),
           Register.id: (context) => Register(),

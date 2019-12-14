@@ -17,11 +17,11 @@ class PrayCard extends StatelessWidget {
   final Widget content;
   final bool isWriting;
 
-  
   @override
   Widget build(BuildContext context) {
     return Card(
       color: Colors.grey[50],
+      elevation: 3.0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(8.0)),
         side: BorderSide(
@@ -33,10 +33,7 @@ class PrayCard extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 23.0),
         child: Column(
           children: <Widget>[
-            Text(
-              name,
-              style: kSubTitleTextStyle
-            ),
+            Text(name, style: kSubTitleTextStyle),
             Container(
               margin: EdgeInsets.symmetric(vertical: 10.0),
               child: CircleImage(

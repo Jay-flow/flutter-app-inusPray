@@ -19,9 +19,9 @@ class PrayCardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final itemWidth = MediaQuery.of(context).size.width - 70.0;
+    final itemWidth = MediaQuery.of(context).size.width * 0.8;
     developer.log(MediaQuery.of(context).size.height.toString());
-    final screenHeight = MediaQuery.of(context).size.height;
+    final screenHeight = MediaQuery.of(context).size.height * 0.95;
     double itemHeight;
     double paginationDotPadding;
     if (screenHeight > 850) {
