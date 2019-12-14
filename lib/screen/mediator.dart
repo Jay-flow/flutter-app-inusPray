@@ -40,9 +40,9 @@ class Mediator extends StatelessWidget {
                   ),
                 ),
                 subtitle: Text(UserMock.church),
-                trailing: Icon(
-                  Icons.send,
-                  color: Asset.Colors.green,
+                trailing: Chip(
+                  label: Text('중보자'),
+                  onDeleted: () {},
                 ),
                 onTap: () {},
               ),
