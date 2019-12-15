@@ -3,7 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class LoadingContainer extends StatelessWidget {
   LoadingContainer({this.child, this.isLoading});
-  
+
   final bool isLoading;
   final Widget child;
 
@@ -13,16 +13,16 @@ class LoadingContainer extends StatelessWidget {
       children: <Widget>[
         child,
         isLoading
-        ? Container(
-            color: Colors.black.withOpacity(0.5),
-            child: Center(
-              child: SpinKitWave(
-                color: Colors.white,
-                size: 50.0,
-              ),
-            ),
-          )
-        : Container()  
+            ? Container(
+                color: Colors.black.withOpacity(0.7),
+                child: Center(
+                  child: SpinKitRipple(
+                    color: Colors.white,
+                    size: 100.0,
+                  ),
+                ),
+              )
+            : Container()
       ],
     );
   }

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inus_pray/components/input_page.dart';
 import 'package:flutter_inus_pray/components/loading_container.dart';
+import 'package:flutter_inus_pray/main.dart';
 import 'package:flutter_inus_pray/models/user.dart';
-import 'package:flutter_inus_pray/navigations/main_bottom_tab.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:developer' as developer;
 
@@ -191,7 +191,7 @@ class _RegisterState extends State<Register> {
           buttonOnPressed: (GlobalKey<FormState> key) async {
             if (key.currentState.validate()) {
               await _validate();
-              Navigator.pushReplacementNamed(context, MainBottomTab.id);
+              Navigator.pushReplacementNamed(context, InusPrayApp.id);
             }
           },
           textValue: user.church,
@@ -220,7 +220,7 @@ class _RegisterState extends State<Register> {
               ),
               Expanded(
                 child: PageView.builder(
-                  physics: NeverScrollableScrollPhysics(),
+//                  physics: NeverScrollableScrollPhysics(),
                   controller: _pageController,
                   itemBuilder: (context, position) {
                     return pages[position];

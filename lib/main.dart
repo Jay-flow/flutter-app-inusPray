@@ -1,28 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/models/input_type.dart';
-import 'package:flutter_inus_pray/models/user_data.dart';
+import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/navigations/main_bottom_tab.dart';
 import 'package:flutter_inus_pray/screen/ad_banner.dart';
 import 'package:flutter_inus_pray/screen/edit_profile.dart';
 import 'package:flutter_inus_pray/screen/login.dart';
 import 'package:flutter_inus_pray/screen/pray_add.dart';
 import 'package:flutter_inus_pray/screen/register.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(InusPrayApp());
 
-class MyApp extends StatefulWidget {
+class InusPrayApp extends StatefulWidget {
+  static const String id = 'inus_pray_app';
+
   @override
-  _MyAppState createState() => _MyAppState();
+  _InusPrayAppState createState() => _InusPrayAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _InusPrayAppState extends State<InusPrayApp> {
+  bool _isLoading = true;
+  User _user;
+  String _initialRoute;
+
   @override
   void initState() {
     super.initState();
     _setStatusBarColor();
+    _loginCheck();
+  }
+
+  void _loginCheck() async {
+    final String phoneNumber = await User.getLocalUserData();
+    _initialRoute = (phoneNumber == null) ? Login.id : MainBottomTab.id;
+
+    if (_initialRoute == MainBottomTab.id) {
+      _user = await User.getCloudUserData(phoneNumber);
+    }
+
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   void _setStatusBarColor() async {
@@ -32,43 +53,55 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<UserData>.value(
-      value: UserData(),
-      child: MaterialApp(
-        title: Asset.Text.appName,
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData.light().copyWith(
-          primaryColor: Asset.Colors.yellow,
-          primaryColorDark: Asset.Colors.blueBlack,
-          primaryColorLight: Asset.Colors.green,
-          appBarTheme: AppBarTheme(
-            color: Colors.black,
-          ),
-          accentColor: Asset.Colors.mint,
-          textTheme: TextTheme(
-            body1: TextStyle(color: Asset.Colors.blueBlack),
-            subhead: TextStyle(color: Asset.Colors.blueBlack),
-            caption: TextStyle(color: Asset.Colors.blueBlack),
-            title: TextStyle(
-              color: Asset.Colors.blueBlack,
+    return _isLoading
+        ? MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: Scaffold(
+              backgroundColor: Colors.black,
+              body: SpinKitRipple(
+                color: Colors.white,
+                size: 100.0,
+              ),
             ),
-          ),
-        ),
-        initialRoute: MainBottomTab.id,
-        routes: {
-          Login.id: (context) => Login(),
-          Register.id: (context) => Register(),
-          MainBottomTab.id: (context) => MainBottomTab(),
-          PrayAdd.idCreate: (context) => PrayAdd(
-                inputType: InputType.Create,
+          )
+        : ChangeNotifierProvider<User>.value(
+            value: _user,
+            child: MaterialApp(
+              title: Asset.Text.appName,
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData.light().copyWith(
+                primaryColor: Asset.Colors.yellow,
+                primaryColorDark: Asset.Colors.blueBlack,
+                primaryColorLight: Asset.Colors.green,
+                appBarTheme: AppBarTheme(
+                  color: Colors.black,
+                ),
+                accentColor: Asset.Colors.mint,
+                textTheme: TextTheme(
+                  body1: TextStyle(color: Asset.Colors.blueBlack),
+                  subhead: TextStyle(color: Asset.Colors.blueBlack),
+                  caption: TextStyle(color: Asset.Colors.blueBlack),
+                  title: TextStyle(
+                    color: Asset.Colors.blueBlack,
+                  ),
+                ),
               ),
-          PrayAdd.idUpdate: (context) => PrayAdd(
-                inputType: InputType.Update,
-              ),
-          EditProfile.id: (context) => EditProfile(),
-          AdBanner.id: (context) => AdBanner(),
-        },
-      ),
-    );
+              initialRoute: _initialRoute,
+              routes: {
+                InusPrayApp.id: (context) => InusPrayApp(),
+                Login.id: (context) => Login(),
+                Register.id: (context) => Register(),
+                MainBottomTab.id: (context) => MainBottomTab(),
+                PrayAdd.idCreate: (context) => PrayAdd(
+                      inputType: InputType.Create,
+                    ),
+                PrayAdd.idUpdate: (context) => PrayAdd(
+                      inputType: InputType.Update,
+                    ),
+                EditProfile.id: (context) => EditProfile(),
+                AdBanner.id: (context) => AdBanner(),
+              },
+            ),
+          );
   }
 }

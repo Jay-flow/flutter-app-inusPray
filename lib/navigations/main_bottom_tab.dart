@@ -26,7 +26,7 @@ class _MainBottomTabState extends State<MainBottomTab> {
     NotificationFCM();
   }
 
-  void _onTabTabpped(int index) {
+  void _onTab(int index) {
     setState(() {
       _currentIndex = index;
     });
@@ -38,7 +38,7 @@ class _MainBottomTabState extends State<MainBottomTab> {
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        onTap: _onTabTabpped,
+        onTap: _onTab,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
