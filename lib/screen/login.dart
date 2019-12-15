@@ -85,13 +85,10 @@ class _LoginState extends State<Login> {
                 ),
               ),
               RoundedButton(
-                  text: '회원가입',
-                  buttonColor: Colors.white,
-                  onPressed: () {
-                    final UserData userData = Provider.of<UserData>(context);
-                    userData.user = User();
-                    Navigator.pushNamed(context, Register.id);
-                  }),
+                text: '회원가입',
+                buttonColor: Colors.white,
+                onPressed: () => Navigator.pushNamed(context, Register.id),
+              ),
               SizedBox(
                 height: 20,
               ),

@@ -67,6 +67,7 @@ class _MyState extends State<My> {
                 SliverAppBar(
                   expandedHeight: 210.0,
                   flexibleSpace: FlexibleSpaceBar(
+                    // TODO:: 사진 없는사람 디폴트 사진 지정 현재 에러 뜸!
                     background: CircleEditableProfile(
                       name: user.name,
                       profileImagePath: user.profileImagePath,

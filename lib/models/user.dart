@@ -45,6 +45,7 @@ class User extends ChangeNotifier {
       'church': church,
       'prays': prays,
       'mediators': mediators,
+      'createAt': Timestamp.now(),
     });
   }
 
@@ -68,19 +69,28 @@ class User extends ChangeNotifier {
     this.mediators = userData['mediators'];
   }
 
+  setUpdateDataTime() {
+    userCollection.document(phoneNumber).updateData({
+      'modifyAt': Timestamp.now(),
+    });
+  }
+
   createUserPray(String value) {
+    setUpdateDataTime();
     this.prays = [...this.prays, value];
     userCollection.document(phoneNumber).updateData({'prays': this.prays});
     notifyListeners();
   }
 
   updateUserPray(int index, String value) {
+    setUpdateDataTime();
     this.prays[index] = value;
     userCollection.document(phoneNumber).updateData({'prays': this.prays});
     notifyListeners();
   }
 
   deleteUserPray(int index) {
+    setUpdateDataTime();
     this.prays.removeAt(index);
     userCollection.document(phoneNumber).updateData({
       'prays': this.prays,
