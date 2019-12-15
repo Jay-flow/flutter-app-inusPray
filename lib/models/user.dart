@@ -4,6 +4,7 @@ import 'dart:developer' as developer;
 import 'package:flutter/foundation.dart';
 
 class User extends ChangeNotifier {
+  CollectionReference userCollection = Firestore.instance.collection('users');
   String email;
   String name;
   String profileImagePath;
@@ -23,7 +24,7 @@ class User extends ChangeNotifier {
     this.phoneNumber,
     this.church,
     this.deviceToken,
-    this.prays,
+    this.prays = const [],
     this.mediators,
     this.isPayment = false,
   });
@@ -34,7 +35,7 @@ class User extends ChangeNotifier {
   }
 
   Future<void> cloudUserDataSave() async {
-    await Firestore.instance.collection('users').document(phoneNumber).setData({
+    await userCollection.document(phoneNumber).setData({
       'isPayment': isPayment,
       'email': email,
       'name': name,
@@ -47,26 +48,43 @@ class User extends ChangeNotifier {
     });
   }
 
-  static Future<String> getLocalUserData() async {
+  Future<String> getLocalUserData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    this.phoneNumber = prefs.getString('phoneNumber');
     return prefs.getString('phoneNumber');
   }
 
-  static Future<User> getCloudUserData(String phoneNumber) async {
-    DocumentSnapshot user = await Firestore.instance
-        .collection('users')
-        .document(phoneNumber)
-        .get();
+  Future<void> getCloudUserData() async {
+    DocumentSnapshot user = await userCollection.document(phoneNumber).get();
 
     Map<String, dynamic> userData = user.data;
 
-    return User(
-      name: userData['name'],
-      isPayment: userData['isPayment'],
-      profileImagePath: userData['profileImagePath'],
-      church: userData['church'],
-      prays: userData['prays'],
-      mediators: userData['mediators'],
-    );
+    this.name = userData['name'];
+    this.isPayment = userData['isPayment'];
+    this.profileImagePath = userData['profileImagePath'];
+    this.church = userData['church'];
+    this.prays = userData['prays'].toList();
+    developer.log(this.prays.toString());
+    this.mediators = userData['mediators'];
+  }
+
+  createUserPray(String value) {
+    this.prays = [...this.prays, value];
+    userCollection.document(phoneNumber).updateData({'prays': this.prays});
+    notifyListeners();
+  }
+
+  updateUserPray(int index, String value) {
+    this.prays[index] = value;
+    userCollection.document(phoneNumber).updateData({'prays': this.prays});
+    notifyListeners();
+  }
+
+  deleteUserPray(int index) {
+    this.prays.removeAt(index);
+    userCollection.document(phoneNumber).updateData({
+      'prays': this.prays,
+    });
+    notifyListeners();
   }
 }

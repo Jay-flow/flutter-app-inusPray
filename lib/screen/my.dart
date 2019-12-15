@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_inus_pray/mocks/user_mock.dart';
 import 'package:flutter_inus_pray/components/circle_editable_profile.dart';
 import 'package:flutter_inus_pray/components/edge_decoration_list_tile.dart';
 import 'package:flutter_inus_pray/models/user.dart';
@@ -9,6 +8,7 @@ import 'package:flutter_inus_pray/screen/pray_add.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
+import 'dart:developer' as developer;
 
 class My extends StatefulWidget {
   static const String id = 'my';
@@ -29,7 +29,8 @@ class _MyState extends State<My> {
     Asset.Colors.mint,
   ];
 
-  Future _confirmDeletePray(BuildContext context) {
+  Future _confirmDeletePray(
+      int index, BuildContext context, Function deleteUserPray) {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -46,6 +47,7 @@ class _MyState extends State<My> {
               FlatButton(
                 child: const Text('삭제'),
                 onPressed: () {
+                  deleteUserPray(index);
                   Navigator.of(context).pop();
                 },
               )
@@ -77,7 +79,7 @@ class _MyState extends State<My> {
                       return Slidable(
                         actionPane: SlidableDrawerActionPane(),
                         actionExtentRatio: 0.25,
-                        child: user.prays == null
+                        child: user.prays.length == 0
                             ? ListTile(
                                 title: Text(
                                   '등록된 기도가 없습니다.',
@@ -101,7 +103,11 @@ class _MyState extends State<My> {
                             caption: '삭제',
                             color: Theme.of(context).accentColor,
                             icon: Icons.delete_outline,
-                            onTap: () => _confirmDeletePray(context),
+                            onTap: () => _confirmDeletePray(
+                              index,
+                              context,
+                              user.deleteUserPray,
+                            ),
                           ),
                           IconSlideAction(
                             caption: '수정',
@@ -110,13 +116,16 @@ class _MyState extends State<My> {
                             onTap: () => Navigator.pushNamed(
                               context,
                               PrayAdd.idUpdate,
-                              arguments: UserMock.prays[0],
+                              arguments: {
+                                'pray': user.prays[index],
+                                'index': index,
+                              },
                             ),
                           ),
                         ],
                       );
                     },
-                    childCount: user.prays == null ? 1 : user.prays.length,
+                    childCount: user.prays.length == 0 ? 1 : user.prays.length,
                   ),
                 ),
               ],

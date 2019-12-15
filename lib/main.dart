@@ -34,11 +34,12 @@ class _InusPrayAppState extends State<InusPrayApp> {
   }
 
   void _loginCheck() async {
-    final String phoneNumber = await User.getLocalUserData();
+    _user = User();
+    final String phoneNumber = await _user.getLocalUserData();
     _initialRoute = (phoneNumber == null) ? Login.id : MainBottomTab.id;
 
     if (_initialRoute == MainBottomTab.id) {
-      _user = await User.getCloudUserData(phoneNumber);
+      await _user.getCloudUserData();
     }
 
     setState(() {
