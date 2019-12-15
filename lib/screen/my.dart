@@ -2,13 +2,13 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/mocks/user_mock.dart';
-import 'package:flutter_inus_pray/components/circle_image.dart';
+import 'package:flutter_inus_pray/components/circle_editable_profile.dart';
 import 'package:flutter_inus_pray/components/edge_decoration_list_tile.dart';
-import 'package:flutter_inus_pray/components/circle_button.dart';
-import 'package:flutter_inus_pray/screen/edit_profile.dart';
+import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/screen/pray_add.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:provider/provider.dart';
 
 class My extends StatefulWidget {
   static const String id = 'my';
@@ -58,101 +58,76 @@ class _MyState extends State<My> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: CustomScrollView(
-          slivers: <Widget>[
-            SliverAppBar(
-              expandedHeight: 210.0,
-              flexibleSpace: FlexibleSpaceBar(
-                background: Profile(),
-              ),
-            ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  return Slidable(
-                    actionPane: SlidableDrawerActionPane(),
-                    actionExtentRatio: 0.25,
-                    child: EdgeDecorationListTile(
-                      title: Container(
-                        child: Text(
-                          UserMock.prays[0],
-                        ),
-                      ),
-                      edgeColor: colors[Random().nextInt(8)],
+        body: Consumer<User>(
+          builder: (BuildContext context, User user, Widget widget) {
+            return CustomScrollView(
+              slivers: <Widget>[
+                SliverAppBar(
+                  expandedHeight: 210.0,
+                  flexibleSpace: FlexibleSpaceBar(
+                    background: CircleEditableProfile(
+                      name: user.name,
+                      profileImagePath: user.profileImagePath,
                     ),
-                    secondaryActions: <Widget>[
-                      IconSlideAction(
-                        caption: '삭제',
-                        color: Theme.of(context).accentColor,
-                        icon: Icons.delete_outline,
-                        onTap: () => _confirmDeletePray(context),
-                      ),
-                      IconSlideAction(
-                        caption: '수정',
-                        color: Theme.of(context).primaryColorLight,
-                        icon: Icons.mode_edit,
-                        onTap: () => Navigator.pushNamed(
-                          context,
-                          PrayAdd.idUpdate,
-                          arguments: UserMock.prays[0],
-                        ),
-                      ),
-                    ],
-                  );
-                },
-                childCount: 10,
-              ),
-            ),
-          ],
+                  ),
+                ),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                      return Slidable(
+                        actionPane: SlidableDrawerActionPane(),
+                        actionExtentRatio: 0.25,
+                        child: user.prays == null
+                            ? ListTile(
+                                title: Text(
+                                  '등록된 기도가 없습니다.',
+                                ),
+                                subtitle: Text('우측 하단의 + 버튼을 눌러 기도를 등록해주세요.'),
+                                leading: Icon(
+                                  Icons.info_outline,
+                                  color: Colors.red,
+                                ),
+                              )
+                            : EdgeDecorationListTile(
+                                title: Container(
+                                  child: Text(
+                                    user.prays[index],
+                                  ),
+                                ),
+                                edgeColor: colors[Random().nextInt(8)],
+                              ),
+                        secondaryActions: <Widget>[
+                          IconSlideAction(
+                            caption: '삭제',
+                            color: Theme.of(context).accentColor,
+                            icon: Icons.delete_outline,
+                            onTap: () => _confirmDeletePray(context),
+                          ),
+                          IconSlideAction(
+                            caption: '수정',
+                            color: Theme.of(context).primaryColorLight,
+                            icon: Icons.mode_edit,
+                            onTap: () => Navigator.pushNamed(
+                              context,
+                              PrayAdd.idUpdate,
+                              arguments: UserMock.prays[0],
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                    childCount: user.prays == null ? 1 : user.prays.length,
+                  ),
+                ),
+              ],
+            );
+          },
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: () => Navigator.pushNamed(context, PrayAdd.idCreate),
         ),
       ),
-    );
-  }
-}
-
-class Profile extends StatelessWidget {
-  const Profile({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Stack(
-          children: <Widget>[
-            CircleImage(
-              imagePath: UserMock.profileImagePath,
-            ),
-            Positioned(
-              bottom: 0,
-              right: -25,
-              child: CircleButton(
-                child: Icon(
-                  Icons.create,
-                ),
-                onPressed: () => Navigator.pushNamed(context, EditProfile.id),
-              ),
-            ),
-          ],
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Text(
-          UserMock.name,
-          style: TextStyle(
-            fontSize: 20.0,
-            color: Colors.white,
-          ),
-        )
-      ],
     );
   }
 }

@@ -11,6 +11,9 @@ class User extends ChangeNotifier {
   String phoneNumber;
   String church;
   String deviceToken;
+  bool isPayment;
+  List prays;
+  List mediators;
 
   User({
     this.email,
@@ -20,6 +23,9 @@ class User extends ChangeNotifier {
     this.phoneNumber,
     this.church,
     this.deviceToken,
+    this.prays,
+    this.mediators,
+    this.isPayment = false,
   });
 
   Future localUserDataSave() async {
@@ -29,12 +35,15 @@ class User extends ChangeNotifier {
 
   Future<void> cloudUserDataSave() async {
     await Firestore.instance.collection('users').document(phoneNumber).setData({
+      'isPayment': isPayment,
       'email': email,
       'name': name,
       'profileImagePath': profileImagePath,
       'thumbnailImagePath': thumbnailImagePath,
       'phoneNumber': phoneNumber,
       'church': church,
+      'prays': prays,
+      'mediators': mediators,
     });
   }
 
@@ -53,8 +62,11 @@ class User extends ChangeNotifier {
 
     return User(
       name: userData['name'],
+      isPayment: userData['isPayment'],
       profileImagePath: userData['profileImagePath'],
       church: userData['church'],
+      prays: userData['prays'],
+      mediators: userData['mediators'],
     );
   }
 }
