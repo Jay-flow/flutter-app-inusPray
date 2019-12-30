@@ -8,6 +8,7 @@ import 'package:flutter_inus_pray/components/underline_text_field.dart';
 import 'dart:async';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:image_cropper/image_cropper.dart';
 
 class EditProfile extends StatefulWidget {
   static const String id = 'edit_profile';
@@ -42,11 +43,9 @@ class _EditProfileState extends State<EditProfile> {
                   leading: Icon(Icons.camera_alt),
                   title: Text('카메라 찍기'),
                   onTap: () async {
-                    var picture = await ImagePicker.pickImage(
-                        source: ImageSource.camera);
-                    setState(() {
-                      _imageFile = picture;
-                    });
+                    var picture =
+                        await ImagePicker.pickImage(source: ImageSource.camera);
+                    _updateProfileImage(picture);
                     Navigator.pop(context);
                   },
                 ),
@@ -56,9 +55,7 @@ class _EditProfileState extends State<EditProfile> {
                   onTap: () async {
                     var picture = await ImagePicker.pickImage(
                         source: ImageSource.gallery);
-                    setState(() {
-                      _imageFile = picture;
-                    });
+                    _updateProfileImage(picture);
                     Navigator.pop(context);
                   },
                 ),
@@ -71,6 +68,33 @@ class _EditProfileState extends State<EditProfile> {
   Future<bool> _backPressEvent() {
     _saveMyProfile();
     return Future.value(true);
+  }
+
+  Future<File> _imageCrop(String picturePath) => ImageCropper.cropImage(
+        sourcePath: picturePath,
+        aspectRatioPresets: [
+          CropAspectRatioPreset.square,
+          CropAspectRatioPreset.ratio3x2,
+          CropAspectRatioPreset.original,
+          CropAspectRatioPreset.ratio4x3,
+          CropAspectRatioPreset.ratio16x9
+        ],
+        androidUiSettings: AndroidUiSettings(
+            toolbarTitle: 'Cropper',
+            toolbarColor: Colors.deepOrange,
+            toolbarWidgetColor: Colors.white,
+            initAspectRatio: CropAspectRatioPreset.original,
+            lockAspectRatio: false),
+        iosUiSettings: IOSUiSettings(
+          minimumAspectRatio: 1.0,
+        ),
+      );
+
+  _updateProfileImage(File picture) async {
+    File pictureFile = await _imageCrop(picture.path);
+    setState(() {
+      _imageFile = pictureFile;
+    });
   }
 
   @override

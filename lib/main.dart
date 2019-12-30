@@ -87,7 +87,8 @@ class _InusPrayAppState extends State<InusPrayApp> {
                   ),
                 ),
               ),
-              initialRoute: _initialRoute,
+//              initialRoute: _initialRoute,
+              initialRoute: EditProfile.id,
               routes: {
                 InusPrayApp.id: (context) => InusPrayApp(),
                 Login.id: (context) => Login(),
