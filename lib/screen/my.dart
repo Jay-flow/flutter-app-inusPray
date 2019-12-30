@@ -8,7 +8,6 @@ import 'package:flutter_inus_pray/screen/pray_add.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
-import 'dart:developer' as developer;
 
 class My extends StatefulWidget {
   static const String id = 'my';
@@ -67,10 +66,9 @@ class _MyState extends State<My> {
                 SliverAppBar(
                   expandedHeight: 210.0,
                   flexibleSpace: FlexibleSpaceBar(
-                    // TODO:: 사진 없는사람 디폴트 사진 지정 현재 에러 뜸!
                     background: CircleEditableProfile(
                       name: user.name,
-                      profileImagePath: user.profileImagePath,
+                      profileImagePath: user.profileImage,
                     ),
                   ),
                 ),

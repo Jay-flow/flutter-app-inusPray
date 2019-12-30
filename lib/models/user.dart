@@ -1,10 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:developer' as developer;
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class User extends ChangeNotifier {
   CollectionReference userCollection = Firestore.instance.collection('users');
+  String defaultProfileImagePath =
+      'https://firebasestorage.googleapis.com/v0/b/flutter-inuspray.appspot.com/o/profile_images%2Fdefault.png?alt=media&token=693025b1-27e3-4237-80a7-d1f51d7bf821';
   String email;
   String name;
   String profileImagePath;
@@ -15,6 +18,10 @@ class User extends ChangeNotifier {
   bool isPayment;
   List prays;
   List mediators;
+
+  // 사진이 없는 사람을 위한 기본 사진 경로 설정
+  // 사진 관련 호출시 user.profileImagePath 아닌 아래 profileImage 사용
+  String get profileImage => profileImagePath ?? defaultProfileImagePath;
 
   User({
     this.email,
