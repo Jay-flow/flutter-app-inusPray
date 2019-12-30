@@ -44,10 +44,13 @@ class _EditProfileState extends State<EditProfile> {
                   leading: Icon(Icons.camera_alt),
                   title: Text('카메라 찍기'),
                   onTap: () async {
-                    // TODO: 카메라 선택 후 촬영 안하고 뒤로가기시 예외 처리하기
-                    var picture =
-                        await ImagePicker.pickImage(source: ImageSource.camera);
-                    _updateProfileImage(picture);
+                    var picture = await ImagePicker.pickImage(
+                      source: ImageSource.camera,
+                    );
+                    if (picture != null) {
+                      _updateProfileImage(picture);
+                    }
+
                     Navigator.pop(context);
                   },
                 ),
@@ -55,10 +58,12 @@ class _EditProfileState extends State<EditProfile> {
                   leading: Icon(Icons.perm_media),
                   title: Text('갤러리에서 가져오기'),
                   onTap: () async {
-                    // TODO: 갤러리 가져오기 선택 후 사진 선택 안하고 뒤로가기시 예외 처리하기
                     var picture = await ImagePicker.pickImage(
-                        source: ImageSource.gallery);
-                    _updateProfileImage(picture);
+                      source: ImageSource.gallery,
+                    );
+                    if (picture != null) {
+                      _updateProfileImage(picture);
+                    }
                     Navigator.pop(context);
                   },
                 ),
