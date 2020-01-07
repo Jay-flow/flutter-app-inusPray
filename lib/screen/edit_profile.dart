@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:developer' as developer;
 import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/circle_button.dart';
 import 'package:flutter_inus_pray/components/circle_image.dart';
@@ -33,7 +35,7 @@ class _EditProfileState extends State<EditProfile> {
 
   _saveMyProfile() {}
 
-  _voidPictureChange(context) {
+  _voidPictureChange(context, String phoneNumber) {
     showModalBottomSheet(
         context: context,
         builder: (_) {
@@ -48,7 +50,8 @@ class _EditProfileState extends State<EditProfile> {
                       source: ImageSource.camera,
                     );
                     if (picture != null) {
-                      _updateProfileImage(picture);
+                      var cropPicture = await _updateProfileImage(picture);
+                      _uploadStorage(cropPicture, phoneNumber);
                     }
 
                     Navigator.pop(context);
@@ -62,7 +65,8 @@ class _EditProfileState extends State<EditProfile> {
                       source: ImageSource.gallery,
                     );
                     if (picture != null) {
-                      _updateProfileImage(picture);
+                      var cropPicture = await _updateProfileImage(picture);
+                      _uploadStorage(cropPicture, phoneNumber);
                     }
                     Navigator.pop(context);
                   },
@@ -98,11 +102,22 @@ class _EditProfileState extends State<EditProfile> {
         ),
       );
 
-  _updateProfileImage(File picture) async {
+  Future<File> _updateProfileImage(File picture) async {
     File pictureFile = await _imageCrop(picture.path);
     setState(() {
       _imageFile = pictureFile;
     });
+
+    return pictureFile;
+  }
+
+  _uploadStorage(File picture, String phoneNumber) async {
+    var path = 'profile_images/$phoneNumber';
+    developer.log(path);
+    final StorageReference storageReference =
+        FirebaseStorage().ref().child(path);
+    StorageUploadTask uploadTask = storageReference.putFile(picture);
+    await uploadTask.onComplete;
   }
 
   @override
@@ -158,7 +173,8 @@ class _EditProfileState extends State<EditProfile> {
                             : Container(),
                       ],
                     ),
-                    onPressed: () => _voidPictureChange(context),
+                    onPressed: () =>
+                        _voidPictureChange(context, user.phoneNumber),
                   ),
                   Container(
                     padding: EdgeInsets.only(top: 15.0),
