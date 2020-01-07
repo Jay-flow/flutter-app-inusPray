@@ -13,6 +13,7 @@ class CircleImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipOval(
       child: FadeInImage.assetNetwork(
+        fit: BoxFit.cover,
         width: size,
         height: size,
         placeholder: 'res/images/loding_spinner.gif',

@@ -35,7 +35,7 @@ class _EditProfileState extends State<EditProfile> {
 
   _saveMyProfile() {}
 
-  _voidPictureChange(context, String phoneNumber) {
+  _voidPictureChange(context, User user) {
     showModalBottomSheet(
         context: context,
         builder: (_) {
@@ -50,8 +50,8 @@ class _EditProfileState extends State<EditProfile> {
                       source: ImageSource.camera,
                     );
                     if (picture != null) {
-                      var cropPicture = await _updateProfileImage(picture);
-                      _uploadStorage(cropPicture, phoneNumber);
+                      var cropPicture = await _imageCrop(picture.path);
+                      _uploadStorage(cropPicture, user);
                     }
 
                     Navigator.pop(context);
@@ -65,8 +65,8 @@ class _EditProfileState extends State<EditProfile> {
                       source: ImageSource.gallery,
                     );
                     if (picture != null) {
-                      var cropPicture = await _updateProfileImage(picture);
-                      _uploadStorage(cropPicture, phoneNumber);
+                      var cropPicture = await _imageCrop(picture.path);
+                      _uploadStorage(cropPicture, user);
                     }
                     Navigator.pop(context);
                   },
@@ -102,22 +102,18 @@ class _EditProfileState extends State<EditProfile> {
         ),
       );
 
-  Future<File> _updateProfileImage(File picture) async {
-    File pictureFile = await _imageCrop(picture.path);
-    setState(() {
-      _imageFile = pictureFile;
-    });
-
-    return pictureFile;
-  }
-
-  _uploadStorage(File picture, String phoneNumber) async {
-    var path = 'profile_images/$phoneNumber';
-    developer.log(path);
+  _uploadStorage(File picture, User user) async {
+    var path = 'profile_images/${user.phoneNumber}';
     final StorageReference storageReference =
         FirebaseStorage().ref().child(path);
     StorageUploadTask uploadTask = storageReference.putFile(picture);
     await uploadTask.onComplete;
+    storageReference.getDownloadURL().then((fileURL) {
+      user.updateUserProfileImage(fileURL);
+    });
+    Fluttertoast.showToast(
+      msg: "이미지가 변경되었습니다.",
+    );
   }
 
   @override
@@ -173,8 +169,7 @@ class _EditProfileState extends State<EditProfile> {
                             : Container(),
                       ],
                     ),
-                    onPressed: () =>
-                        _voidPictureChange(context, user.phoneNumber),
+                    onPressed: () => _voidPictureChange(context, user),
                   ),
                   Container(
                     padding: EdgeInsets.only(top: 15.0),

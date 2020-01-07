@@ -1,14 +1,12 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/loading_container.dart';
+import 'package:flutter_inus_pray/components/rounded_button.dart';
 import 'package:flutter_inus_pray/models/user.dart';
-import 'package:flutter_inus_pray/models/user_data.dart';
 import 'package:flutter_inus_pray/screen/register.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter_inus_pray/utils/constants.dart';
-import 'package:flutter_inus_pray/components/rounded_button.dart';
 import 'package:flutter_kakao_login/flutter_kakao_login.dart';
-import 'package:provider/provider.dart';
 
 const double iconSize = 80.0;
 
@@ -22,6 +20,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   FlutterKakaoLogin kakaoSignIn = FlutterKakaoLogin();
   bool _isLoading = false;
+
   void _loadingStateChange(isLoading) {
     setState(() => _isLoading = isLoading);
   }
@@ -46,8 +45,7 @@ class _LoginState extends State<Login> {
           thumbnailImagePath: userThumbnailImagePath,
           phoneNumber: userPhoneNumber,
         );
-
-        Navigator.pushNamed(context, Register.id, arguments: user);
+        Navigator.pushReplacementNamed(context, Register.id, arguments: user);
       }
     } catch (e) {
       // 로그인 에러
@@ -87,7 +85,8 @@ class _LoginState extends State<Login> {
               RoundedButton(
                 text: '회원가입',
                 buttonColor: Colors.white,
-                onPressed: () => Navigator.pushNamed(context, Register.id),
+                onPressed: () =>
+                    Navigator.pushReplacementNamed(context, Register.id),
               ),
               SizedBox(
                 height: 20,

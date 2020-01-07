@@ -96,6 +96,15 @@ class User extends ChangeNotifier {
     notifyListeners();
   }
 
+  updateUserProfileImage(String path) {
+    setUpdateDataTime();
+    this.profileImagePath = path;
+    userCollection
+        .document(phoneNumber)
+        .updateData({'profileImagePath': this.profileImagePath});
+    notifyListeners();
+  }
+
   deleteUserPray(int index) {
     setUpdateDataTime();
     this.prays.removeAt(index);
