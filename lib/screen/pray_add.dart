@@ -3,7 +3,6 @@ import 'package:flutter_inus_pray/models/input_type.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/utils/constants.dart';
 import 'package:provider/provider.dart';
-import 'dart:developer' as developer;
 
 class PrayAdd extends StatefulWidget {
   static const String idCreate = 'pray_add_create';

@@ -105,6 +105,13 @@ class User extends ChangeNotifier {
     notifyListeners();
   }
 
+  updateUserName(String name) {
+    setUpdateDataTime();
+    this.name = name;
+    userCollection.document(phoneNumber).updateData({'name': this.name});
+    notifyListeners();
+  }
+
   deleteUserPray(int index) {
     setUpdateDataTime();
     this.prays.removeAt(index);

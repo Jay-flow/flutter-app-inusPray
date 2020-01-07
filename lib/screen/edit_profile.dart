@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer' as developer;
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
@@ -23,6 +22,7 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
   String _name;
   File _imageFile;
+  User _user;
   final double imageSize = 230.0;
 
   @override
@@ -33,9 +33,13 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  _saveMyProfile() {}
+  _saveMyProfile() {
+    if (_name != null && _user != null) {
+      _user.updateUserName(_name);
+    }
+  }
 
-  _voidPictureChange(context, User user) {
+  _voidPictureChange(context) {
     showModalBottomSheet(
         context: context,
         builder: (_) {
@@ -51,7 +55,7 @@ class _EditProfileState extends State<EditProfile> {
                     );
                     if (picture != null) {
                       var cropPicture = await _imageCrop(picture.path);
-                      _uploadStorage(cropPicture, user);
+                      _uploadStorage(cropPicture);
                     }
 
                     Navigator.pop(context);
@@ -66,7 +70,7 @@ class _EditProfileState extends State<EditProfile> {
                     );
                     if (picture != null) {
                       var cropPicture = await _imageCrop(picture.path);
-                      _uploadStorage(cropPicture, user);
+                      _uploadStorage(cropPicture);
                     }
                     Navigator.pop(context);
                   },
@@ -102,14 +106,14 @@ class _EditProfileState extends State<EditProfile> {
         ),
       );
 
-  _uploadStorage(File picture, User user) async {
-    var path = 'profile_images/${user.phoneNumber}';
+  _uploadStorage(File picture) async {
+    var path = 'profile_images/${_user.phoneNumber}';
     final StorageReference storageReference =
         FirebaseStorage().ref().child(path);
     StorageUploadTask uploadTask = storageReference.putFile(picture);
     await uploadTask.onComplete;
     storageReference.getDownloadURL().then((fileURL) {
-      user.updateUserProfileImage(fileURL);
+      _user.updateUserProfileImage(fileURL);
     });
     Fluttertoast.showToast(
       msg: "이미지가 변경되었습니다.",
@@ -169,7 +173,10 @@ class _EditProfileState extends State<EditProfile> {
                             : Container(),
                       ],
                     ),
-                    onPressed: () => _voidPictureChange(context, user),
+                    onPressed: () {
+                      _user = user;
+                      _voidPictureChange(context);
+                    },
                   ),
                   Container(
                     padding: EdgeInsets.only(top: 15.0),
@@ -177,7 +184,10 @@ class _EditProfileState extends State<EditProfile> {
                     width: 90.0,
                     child: UnderlineTextField(
                       textValue: user.name,
-                      onChanged: (name) => _name,
+                      onChanged: (name) {
+                        _user = user;
+                        _name = name;
+                      },
                       textAlign: TextAlign.center,
                       keyboardType: TextInputType.text,
                       hintText: '이름 입력',
