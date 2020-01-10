@@ -7,6 +7,7 @@ import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'dart:developer' as developer;
 
 class Mediator extends StatefulWidget {
   static const String id = 'mediator';
@@ -36,11 +37,12 @@ class _MediatorState extends State<Mediator> {
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.search),
-              onPressed: () {
+              onPressed: () async {
                 showSearch(
                   context: context,
                   delegate: MediatorSearch(),
                 );
+                // var _mediators = await MediatorModel().findUserName("김");
               },
             )
           ],
