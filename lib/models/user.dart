@@ -72,7 +72,6 @@ class User extends ChangeNotifier {
     this.profileImagePath = userData['profileImagePath'];
     this.church = userData['church'];
     this.prays = userData['prays'].toList();
-    developer.log(this.prays.toString());
     this.mediators = userData['mediators'];
   }
 

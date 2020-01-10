@@ -9,7 +9,7 @@ class PrayList extends StatelessWidget {
 
   final List<User> _users = [
     User(email: 'army@bagstation.io', name: "아미", church: "우리안에교회"),
-    User(email: 'enhyn@gmail.com', name: "박형국", church: "우리안에교회"),
+    User(email: 'enhyn@gmail.com', name: "김유지", church: "우리안에교회"),
     User(email: 'choi@gmail.com', name: "최진욱", church: "우리안에교회")
   ];
 

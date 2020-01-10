@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/circle_button.dart';
 import 'package:flutter_inus_pray/components/circle_image.dart';
+import 'package:flutter_inus_pray/components/loading_container.dart';
 import 'package:flutter_inus_pray/components/underline_text_field.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -23,6 +24,7 @@ class _EditProfileState extends State<EditProfile> {
   String _name;
   File _imageFile;
   User _user;
+  bool _isLoading = false;
   final double imageSize = 230.0;
 
   @override
@@ -39,7 +41,7 @@ class _EditProfileState extends State<EditProfile> {
     }
   }
 
-  _voidPictureChange(context) {
+  _pictureChange(context) {
     showModalBottomSheet(
         context: context,
         builder: (_) {
@@ -107,6 +109,9 @@ class _EditProfileState extends State<EditProfile> {
       );
 
   _uploadStorage(File picture) async {
+    setState(() {
+      _isLoading = true;
+    });
     var path = 'profile_images/${_user.phoneNumber}';
     final StorageReference storageReference =
         FirebaseStorage().ref().child(path);
@@ -114,6 +119,9 @@ class _EditProfileState extends State<EditProfile> {
     await uploadTask.onComplete;
     storageReference.getDownloadURL().then((fileURL) {
       _user.updateUserProfileImage(fileURL);
+    });
+    setState(() {
+      _isLoading = false;
     });
     Fluttertoast.showToast(
       msg: "이미지가 변경되었습니다.",
@@ -129,73 +137,76 @@ class _EditProfileState extends State<EditProfile> {
           title: Text('프로필 수정'),
         ),
         body: SafeArea(
-          child: Consumer<User>(
-            builder: (BuildContext context, User user, Widget widget) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  CircleButton(
-                    child: Stack(
-                      children: <Widget>[
-                        Center(
-                          child: _imageFile == null
-                              ? CircleImage(
-                                  size: imageSize,
-                                  imagePath: user.profileImage,
-                                )
-                              : ClipOval(
-                                  child: Image.file(
-                                    _imageFile,
-                                    width: imageSize,
-                                    height: imageSize,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                        ),
-                        _imageFile == null
-                            ? Center(
-                                child: Container(
-                                  width: imageSize,
-                                  height: imageSize,
-                                  child: Center(
-                                    child: Icon(
-                                      Icons.touch_app,
-                                      size: 30.0,
-                                      color: Colors.white,
+          child: LoadingContainer(
+            isLoading: _isLoading,
+            child: Consumer<User>(
+              builder: (BuildContext context, User user, Widget widget) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    CircleButton(
+                      child: Stack(
+                        children: <Widget>[
+                          Center(
+                            child: _imageFile == null
+                                ? CircleImage(
+                                    size: imageSize,
+                                    imagePath: user.profileImage,
+                                  )
+                                : ClipOval(
+                                    child: Image.file(
+                                      _imageFile,
+                                      width: imageSize,
+                                      height: imageSize,
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
-                                  decoration: BoxDecoration(
-                                    color: Colors.black.withOpacity(0.4),
-                                    shape: BoxShape.circle,
+                          ),
+                          _imageFile == null
+                              ? Center(
+                                  child: Container(
+                                    width: imageSize,
+                                    height: imageSize,
+                                    child: Center(
+                                      child: Icon(
+                                        Icons.touch_app,
+                                        size: 30.0,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.black.withOpacity(0.4),
+                                      shape: BoxShape.circle,
+                                    ),
                                   ),
-                                ),
-                              )
-                            : Container(),
-                      ],
-                    ),
-                    onPressed: () {
-                      _user = user;
-                      _voidPictureChange(context);
-                    },
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(top: 15.0),
-                    height: 100.0,
-                    width: 90.0,
-                    child: UnderlineTextField(
-                      textValue: user.name,
-                      onChanged: (name) {
+                                )
+                              : Container(),
+                        ],
+                      ),
+                      onPressed: () {
                         _user = user;
-                        _name = name;
+                        _pictureChange(context);
                       },
-                      textAlign: TextAlign.center,
-                      keyboardType: TextInputType.text,
-                      hintText: '이름 입력',
                     ),
-                  ),
-                ],
-              );
-            },
+                    Container(
+                      padding: EdgeInsets.only(top: 15.0),
+                      height: 100.0,
+                      width: 90.0,
+                      child: UnderlineTextField(
+                        textValue: user.name,
+                        onChanged: (name) {
+                          _user = user;
+                          _name = name;
+                        },
+                        textAlign: TextAlign.center,
+                        keyboardType: TextInputType.text,
+                        hintText: '이름 입력',
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),
