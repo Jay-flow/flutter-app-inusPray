@@ -32,7 +32,7 @@ class User extends ChangeNotifier {
     this.church,
     this.deviceToken,
     this.prays = const [],
-    this.mediators,
+    this.mediators = const [],
     this.isPayment = false,
   });
 

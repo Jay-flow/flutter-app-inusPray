@@ -12,6 +12,7 @@ class MediatorModel {
     documents.documents.forEach(
       (doc) => _users.add(
         User(
+          phoneNumber: doc['phoneNumber'],
           name: doc["name"],
           profileImagePath: doc["profileImagePath"],
           church: doc["church"],
