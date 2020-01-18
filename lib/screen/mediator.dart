@@ -52,7 +52,7 @@ class _MediatorState extends State<Mediator> {
           child: Consumer<User>(
             builder: (BuildContext context, User user, Widget widget) {
               var mediators = user.mediators;
-              if (mediators == null) {
+              if (mediators.isEmpty) {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
