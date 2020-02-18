@@ -3,11 +3,10 @@ import 'dart:developer' as developer;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_inus_pray/utils/constants.dart';
 
 class User extends ChangeNotifier {
   CollectionReference userCollection = Firestore.instance.collection('users');
-  String defaultProfileImagePath =
-      'https://firebasestorage.googleapis.com/v0/b/flutter-inuspray.appspot.com/o/profile_images%2Fdefault.png?alt=media&token=693025b1-27e3-4237-80a7-d1f51d7bf821';
   String email;
   String name;
   String profileImagePath;

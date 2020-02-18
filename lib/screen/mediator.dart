@@ -1,13 +1,13 @@
+import 'dart:developer' as developer;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/circle_image.dart';
 import 'package:flutter_inus_pray/components/loading_container.dart';
 import 'package:flutter_inus_pray/mocks/user_mock.dart';
-import 'package:flutter_inus_pray/models/mediator_model.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'dart:developer' as developer;
 
 class Mediator extends StatefulWidget {
   static const String id = 'mediator';
@@ -37,7 +37,7 @@ class _MediatorState extends State<Mediator> {
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.search),
-              onPressed: () async {
+              onPressed: () {
                 showSearch(
                   context: context,
                   delegate: MediatorSearch(),
@@ -147,6 +147,8 @@ class _MediatorState extends State<Mediator> {
 }
 
 class MediatorSearch extends SearchDelegate<User> {
+  DateTime currentInputTime;
+
   @override
   String get searchFieldLabel => '이름을 입력해주세요';
 
@@ -181,6 +183,9 @@ class MediatorSearch extends SearchDelegate<User> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    //TODO:: 일정 시간 되면 데이터 요청하기 (연속해서 입력할땐 x)
+    if (query.length >= 2) {}
+
     return Text(query);
   }
 }

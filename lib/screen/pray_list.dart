@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/circle_image.dart';
+import 'package:flutter_inus_pray/models/mediator_model.dart';
 import 'package:flutter_inus_pray/models/pray.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'dart:developer' as developer;
 
 class PrayList extends StatefulWidget {
   static const String id = 'pray_list';
@@ -21,14 +23,32 @@ class _PrayListState extends State<PrayList> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    _requestPrayList();
+  }
+
+  void _requestPrayList() async {
     final _user = Provider.of<User>(context);
-    _user.prays.forEach((value) {
-      Pray _pray = Pray(
-          name: _user.name, profileImage: _user.profileImage, content: value);
-      return _prays.add(_pray);
-    });
+    await _mediatorPrayList(_user);
+    await _myPrayList(_user);
+    developer.log(_prays.toString());
     setState(() {
       _isLoading = false;
+    });
+  }
+
+  _mediatorPrayList(User user) async {
+    List<Pray> _mediatorPrays = await MediatorModel().getMediatorPrays(
+      user.mediators,
+      user.phoneNumber,
+    );
+    _mediatorPrays.forEach((pray) => _prays.add(pray));
+  }
+
+  _myPrayList(User user) {
+    user.prays.forEach((value) {
+      Pray _pray = Pray(
+          name: user.name, profileImage: user.profileImage, content: value);
+      return _prays.add(_pray);
     });
   }
 
