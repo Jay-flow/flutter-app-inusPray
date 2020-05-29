@@ -56,56 +56,57 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: LoadingContainer(
-      isLoading: _isLoading,
-      child: Container(
-        constraints: BoxConstraints.expand(),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(
-                height: 60,
-              ),
-              Container(
-                width: iconSize,
-                height: iconSize,
-                padding: EdgeInsets.all(12),
-                margin: EdgeInsets.only(bottom: 25.0),
-                child: Asset.Icons.icLogo,
-                decoration: kIconBoxStyle,
-              ),
-              Expanded(
-                child: TypewriterAnimatedTextKit(
-                  text: [Asset.Text.appName],
-                  textStyle: kTitleTextStyle,
+      body: LoadingContainer(
+        isLoading: _isLoading,
+        child: Container(
+          constraints: BoxConstraints.expand(),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 30),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(
+                  height: 60,
                 ),
-              ),
-              RoundedButton(
-                text: '회원가입',
-                buttonColor: Colors.white,
-                onPressed: () =>
-                    Navigator.pushReplacementNamed(context, Register.id),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              RoundedButton(
-                text: '카카오 로그인',
-                buttonColor: Theme.of(context).primaryColor,
-                onPressed: () => _kakaoLogin(context),
-              ),
-            ],
+                Container(
+                  width: iconSize,
+                  height: iconSize,
+                  padding: EdgeInsets.all(12),
+                  margin: EdgeInsets.only(bottom: 25.0),
+                  child: Asset.Icons.icLogo,
+                  decoration: kIconBoxStyle,
+                ),
+                Expanded(
+                  child: TypewriterAnimatedTextKit(
+                    text: [Asset.Text.appName],
+                    textStyle: kTitleTextStyle,
+                  ),
+                ),
+                RoundedButton(
+                  text: '회원가입',
+                  buttonColor: Colors.white,
+                  onPressed: () =>
+                      Navigator.pushReplacementNamed(context, Register.id),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                RoundedButton(
+                  text: '카카오 로그인',
+                  buttonColor: Theme.of(context).primaryColor,
+                  onPressed: () => _kakaoLogin(context),
+                ),
+              ],
+            ),
           ),
-        ),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: Asset.Images.loginScreenBackground,
-            fit: BoxFit.cover,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: Asset.Images.loginScreenBackground,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
       ),
-    ));
+    );
   }
 }
