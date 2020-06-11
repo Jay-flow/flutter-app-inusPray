@@ -1,9 +1,7 @@
-import 'dart:developer' as developer;
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_inus_pray/utils/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class User extends ChangeNotifier {
   CollectionReference userCollection = Firestore.instance.collection('users');
@@ -61,11 +59,23 @@ class User extends ChangeNotifier {
     return prefs.getString('phoneNumber');
   }
 
-  Future<void> getCloudUserData() async {
+  Future<bool> getCloudUserData() async {
     DocumentSnapshot user = await userCollection.document(phoneNumber).get();
-
     Map<String, dynamic> userData = user.data;
+    if (userData == null) {
+      _deleteLocalUserData();
+      return false;
+    }
+    _setUser(userData);
+    return true;
+  }
 
+  _deleteLocalUserData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+  }
+
+  _setUser(userData) {
     this.name = userData['name'];
     this.isPayment = userData['isPayment'];
     this.profileImagePath = userData['profileImagePath'];

@@ -7,9 +7,9 @@ import 'package:flutter_inus_pray/screen/edit_profile.dart';
 import 'package:flutter_inus_pray/screen/login.dart';
 import 'package:flutter_inus_pray/screen/pray_add.dart';
 import 'package:flutter_inus_pray/screen/register.dart';
+import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
-import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:provider/provider.dart';
 
 void main() => runApp(InusPrayApp());
@@ -36,11 +36,11 @@ class _InusPrayAppState extends State<InusPrayApp> {
   void _loginCheck() async {
     _user = User();
     final String phoneNumber = await _user.getLocalUserData();
-    _initialRoute = (phoneNumber == null) ? Login.id : MainBottomTab.id;
-
-    if (_initialRoute == MainBottomTab.id) {
-      await _user.getCloudUserData();
+    bool existUserData = false;
+    if (phoneNumber != null) {
+      existUserData = await _user.getCloudUserData();
     }
+    _initialRoute = existUserData ? MainBottomTab.id : Login.id;
 
     setState(() {
       _isLoading = false;

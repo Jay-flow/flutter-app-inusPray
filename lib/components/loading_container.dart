@@ -14,7 +14,7 @@ class LoadingContainer extends StatelessWidget {
         child,
         isLoading
             ? Container(
-                color: Colors.black.withOpacity(0.7),
+                color: Colors.black.withOpacity(0.3),
                 child: Center(
                   child: SpinKitRipple(
                     color: Colors.white,
