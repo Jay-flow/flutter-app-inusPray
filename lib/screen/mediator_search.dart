@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/mediator_item.dart';
 import 'package:flutter_inus_pray/models/mediator_model.dart';
 import 'package:flutter_inus_pray/models/user.dart';
-import 'package:flutter_inus_pray/utils/tools.dart' as Tools;
+import 'package:flutter_inus_pray/utils/settings.dart'
 
 class MediatorSearch extends SearchDelegate<User> {
   @override
@@ -84,7 +84,7 @@ class MediatorSearch extends SearchDelegate<User> {
 
   @override
   ThemeData appBarTheme(BuildContext context) {
-    Tools.setStatusBarColor();
+    Settings().statusBarColor();
     assert(context != null);
     final ThemeData theme = Theme.of(context);
     assert(theme != null);

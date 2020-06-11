@@ -8,7 +8,7 @@ import 'package:flutter_inus_pray/screen/login.dart';
 import 'package:flutter_inus_pray/screen/pray_add.dart';
 import 'package:flutter_inus_pray/screen/register.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
-import 'package:flutter_inus_pray/utils/tools.dart' as Tools;
+import 'package:flutter_inus_pray/utils/settings.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
@@ -29,7 +29,7 @@ class _InusPrayAppState extends State<InusPrayApp> {
   @override
   void initState() {
     super.initState();
-    Tools.setStatusBarColor();
+    Settings().statusBarColor();
     _loginCheck();
   }
 
