@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/mediator_item.dart';
 import 'package:flutter_inus_pray/models/mediator_model.dart';
 import 'package:flutter_inus_pray/models/user.dart';
-import 'package:flutter_inus_pray/utils/settings.dart'
+import 'package:flutter_inus_pray/utils/settings.dart';
 
 class MediatorSearch extends SearchDelegate<User> {
   @override
