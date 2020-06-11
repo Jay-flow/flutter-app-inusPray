@@ -1,13 +1,13 @@
+import 'dart:developer' as developer;
+
 import 'package:flutter/material.dart';
-import 'package:flutter_inus_pray/components/circle_image.dart';
+import 'package:flutter_inus_pray/components/mediator_item.dart';
 import 'package:flutter_inus_pray/models/mediator_model.dart';
 import 'package:flutter_inus_pray/models/pray.dart';
 import 'package:flutter_inus_pray/models/user.dart';
-import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'dart:developer' as developer;
 
 class PrayList extends StatefulWidget {
   static const String id = 'pray_list';
@@ -78,26 +78,10 @@ class _PrayListState extends State<PrayList> {
       return ListView.builder(
         itemCount: _prays.length,
         itemBuilder: (_, index) {
-          return Container(
-            padding: EdgeInsets.symmetric(vertical: 10.0),
-            child: ListTile(
-              leading: CircleImage(
-                size: 50,
-                imagePath: _prays[index].profileImage,
-              ),
-              title: Text(
-                _prays[index].name,
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              subtitle: Text(_prays[index].content),
-            ),
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                  color: Asset.Colors.grey,
-                ),
-              ),
-            ),
+          return MediatorItem(
+            imagePath: _prays[index].profileImage,
+            title: _prays[index].name,
+            subtitle: _prays[index].content,
           );
         },
       );

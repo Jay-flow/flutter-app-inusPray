@@ -10,19 +10,22 @@ class MediatorModel {
 
   Future<List<User>> findUserName(String name) async {
     List<User> _users = [];
+    String myPhoneNumber = await User().getLocalUserData();
     var documents = await _userCollection
         .orderBy("name")
         .startAt([name]).endAt([name + '\uf8ff']).getDocuments();
-    documents.documents.forEach(
-      (doc) => _users.add(
-        User(
-          phoneNumber: doc['phoneNumber'],
-          name: doc["name"],
-          profileImagePath: doc["profileImagePath"],
-          church: doc["church"],
-        ),
-      ),
-    );
+    documents.documents.forEach((doc) {
+      if (myPhoneNumber != doc['phoneNumber']) {
+        _users.add(
+          User(
+            phoneNumber: doc['phoneNumber'],
+            name: doc["name"],
+            profileImagePath: doc["profileImagePath"],
+            church: doc["church"],
+          ),
+        );
+      }
+    });
     return _users;
   }
 

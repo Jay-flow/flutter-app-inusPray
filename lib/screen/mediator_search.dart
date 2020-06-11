@@ -1,13 +1,10 @@
-import 'dart:async';
-import 'dart:developer' as developer;
-
 import 'package:flutter/material.dart';
+import 'package:flutter_inus_pray/components/mediator_item.dart';
 import 'package:flutter_inus_pray/models/mediator_model.dart';
 import 'package:flutter_inus_pray/models/user.dart';
+import 'package:flutter_inus_pray/utils/tools.dart' as Tools;
 
 class MediatorSearch extends SearchDelegate<User> {
-  DateTime currentInputTime = new DateTime.now();
-
   @override
   String get searchFieldLabel => '이름을 입력해주세요';
 
@@ -42,33 +39,60 @@ class MediatorSearch extends SearchDelegate<User> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    if (query.length >= 2) {
-      startInputTimer();
-    }
-    currentInputTime = DateTime.now();
-    return Text(query);
+    return FutureBuilder(
+      builder: (context, snap) {
+        if (query.length >= 2 &&
+            snap.connectionState == ConnectionState.waiting) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "검색중...",
+              style: TextStyle(
+                color: Colors.grey,
+              ),
+            ),
+          );
+        }
+        if (query.length >= 2 && snap.connectionState == ConnectionState.done) {
+          if (snap.data.length == 0) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "'$query'님을 찾을 수 없습니다.",
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
+              ),
+            );
+          }
+          return ListView.builder(
+            itemCount: snap.data.length,
+            itemBuilder: (_, index) {
+              return MediatorItem(
+                imagePath: snap.data[index].profileImage,
+                title: snap.data[index].name,
+                subtitle: snap.data[index].church,
+              );
+            },
+          );
+        }
+        return Container();
+      },
+      future: MediatorModel().findUserName(query),
+    );
   }
 
-  void startInputTimer() {
-    // 문장을 마친 후 1초 뒤에 Request
-    int startNum = 0;
-    new Timer.periodic(new Duration(seconds: 1), (time) {
-      startNum += 1;
-      var inputTime =
-          DateTime.now().difference(currentInputTime).inSeconds.toInt();
-      if (inputTime == 1) {
-        _requestFindMediator(query);
-        time.cancel();
-      }
-      if (startNum == 1 || inputTime > 1) {
-        time.cancel();
-      }
-    });
-  }
-
-  _requestFindMediator(String query) async {
-    developer.log('Request User');
-    List<User> _users = await MediatorModel().findUserName(query);
-    _users.forEach((user) => developer.log(user.name.toString()));
+  @override
+  ThemeData appBarTheme(BuildContext context) {
+    Tools.setStatusBarColor();
+    assert(context != null);
+    final ThemeData theme = Theme.of(context);
+    assert(theme != null);
+    return theme.copyWith(
+      primaryColor: Colors.white,
+      primaryIconTheme: theme.primaryIconTheme.copyWith(color: Colors.grey),
+      primaryColorBrightness: Brightness.light,
+      primaryTextTheme: theme.textTheme,
+    );
   }
 }

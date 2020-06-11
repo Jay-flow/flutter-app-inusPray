@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,7 +8,6 @@ import 'package:flutter_inus_pray/components/loading_container.dart';
 import 'package:flutter_inus_pray/main.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'dart:developer' as developer;
 
 class Register extends StatefulWidget {
   static const String id = 'register';
@@ -75,14 +76,14 @@ class _RegisterState extends State<Register> {
     _firebaseAuth.verifyPhoneNumber(
       phoneNumber: '+82 ${user.phoneNumber}',
       timeout: Duration(seconds: 30),
-      verificationCompleted: phoneVerificationCompleted,
-      verificationFailed: phoneVerificationFailed,
-      codeSent: phoneCodeSent,
-      codeAutoRetrievalTimeout: phoneCodeAutoRetrievalTimeout,
+      verificationCompleted: _phoneVerificationCompleted,
+      verificationFailed: _phoneVerificationFailed,
+      codeSent: _phoneCodeSent,
+      codeAutoRetrievalTimeout: _phoneCodeAutoRetrievalTimeout,
     );
   }
 
-  phoneCodeSent(String verificationId, [int forceResendingToken]) async {
+  _phoneCodeSent(String verificationId, [int forceResendingToken]) async {
     Fluttertoast.showToast(
       msg: '인증코드를 메세지로 보냈습니다.\n메시지를 수신시 코드를 입력하지 않아도 자동으로 인증됩니다.',
       toastLength: Toast.LENGTH_LONG,
@@ -90,18 +91,18 @@ class _RegisterState extends State<Register> {
     developer.log(verificationId);
   }
 
-  phoneCodeAutoRetrievalTimeout(String verificationId) {
+  _phoneCodeAutoRetrievalTimeout(String verificationId) {
     Fluttertoast.showToast(
       msg: '인증 시간이 초과 되었습니다. 번호를 확인하신 후 재전송을 원할 경우 인증하기 버튼을 한번 더 클릭 해주세요.',
       toastLength: Toast.LENGTH_LONG,
     );
   }
 
-  phoneVerificationFailed(AuthException authException) {
+  _phoneVerificationFailed(AuthException authException) {
     Fluttertoast.showToast(msg: '인증에 실패하였습니다.\n관리자에게 문의해주세요.');
   }
 
-  phoneVerificationCompleted(AuthCredential auth) {
+  _phoneVerificationCompleted(AuthCredential auth) {
     Fluttertoast.showToast(msg: "phoneVerificationCompleted");
     _firebaseAuth.signInWithCredential(auth).then((AuthResult value) {
       if (value.user != null) {
