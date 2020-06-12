@@ -6,6 +6,7 @@ import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:share/share.dart';
 
 class MediatorForMe extends StatefulWidget {
   static const String id = 'mediator';
@@ -61,9 +62,11 @@ class _MediatorForMeState extends State<MediatorForMe> {
                     ),
                     RaisedButton(
                       color: Theme.of(context).primaryColorLight,
-                      onPressed: () => {},
+                      onPressed: () => Share.share(
+                        'check out my website https://example.com',
+                      ),
                       child: Text(
-                        '기도 공유하기',
+                        '기도앱 공유하기',
                         style: TextStyle(
                           color: Colors.white,
                         ),

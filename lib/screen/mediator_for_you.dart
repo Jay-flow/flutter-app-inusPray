@@ -32,22 +32,23 @@ class _MediatorForYouState extends State<MediatorForYou> {
     return SafeArea(
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
-            onPressed: () => showSearch(
-                  context: context,
-                  delegate: MediatorSearch(),
-                ),
-            child: Icon(Icons.search)),
+          onPressed: () => showSearch(
+            context: context,
+            delegate: MediatorSearch(),
+          ),
+          child: Icon(Icons.search),
+        ),
         body: LoadingContainer(
           isLoading: _isLoading,
           child: Consumer<User>(
             builder: (BuildContext context, User user, Widget widget) {
               var mediators = user.mediators;
               if (mediators.isEmpty) {
-                return InkWell(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Row(
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    InkWell(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Icon(
@@ -60,18 +61,24 @@ class _MediatorForYouState extends State<MediatorForYou> {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 40,
+                      onTap: () => showSearch(
+                        context: context,
+                        delegate: MediatorSearch(),
                       ),
-                      Text(
-                        '등록된 중보자가 없습니다.\n오른쪽 하단 돋보기 또는 화면을 터치하여\n같이 기도할 중보자를 추가해주세요.',
+                    ),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    InkWell(
+                      child: Text(
+                        '등록된 중보자가 없습니다.\n오른쪽 하단 돋보기 또는 해당글을 터치하여\n같이 기도할 중보자를 추가해주세요.',
                       ),
-                    ],
-                  ),
-                  onTap: () => showSearch(
-                    context: context,
-                    delegate: MediatorSearch(),
-                  ),
+                      onTap: () => showSearch(
+                        context: context,
+                        delegate: MediatorSearch(),
+                      ),
+                    ),
+                  ],
                 );
               } else {
                 return ListView.builder(
