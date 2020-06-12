@@ -3,11 +3,21 @@ import 'package:flutter_inus_pray/components/circle_image.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 
 class MediatorItem extends StatelessWidget {
-  MediatorItem({this.imagePath, this.title, this.subtitle});
+  MediatorItem({
+    @required this.imagePath,
+    @required this.title,
+    @required this.subtitle,
+    this.label,
+    this.onPress,
+    this.chipBackgroundColor,
+  });
 
   final String imagePath;
   final String title;
   final String subtitle;
+  final Text label;
+  final Function onPress;
+  final Color chipBackgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +33,13 @@ class MediatorItem extends StatelessWidget {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         subtitle: Text(this.subtitle),
-        trailing: ActionChip(
-          backgroundColor: Colors.pink,
-          label: Text(
-            '중보하기',
-            style: TextStyle(color: Colors.white),
-          ),
-          onPressed: () {},
-        ),
+        trailing: label != null
+            ? ActionChip(
+                backgroundColor: chipBackgroundColor,
+                label: label,
+                onPressed: onPress,
+              )
+            : null,
       ),
       decoration: BoxDecoration(
         border: Border(

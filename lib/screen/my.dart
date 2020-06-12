@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/circle_editable_profile.dart';
 import 'package:flutter_inus_pray/components/edge_decoration_list_tile.dart';
+import 'package:flutter_inus_pray/components/my_pray_icon_button.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/screen/pray_add.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
@@ -28,8 +29,7 @@ class _MyState extends State<My> {
     Asset.Colors.mint,
   ];
 
-  Future _confirmDeletePray(
-      int index, BuildContext context, Function deleteUserPray) {
+  Future _confirmDeletePray(int index, Function deleteUserPray) {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -100,18 +100,18 @@ class _MyState extends State<My> {
                         secondaryActions: <Widget>[
                           IconSlideAction(
                             caption: '삭제',
-                            color: Theme.of(context).accentColor,
-                            icon: Icons.delete_outline,
-                            onTap: () => _confirmDeletePray(
-                              index,
-                              context,
-                              user.deleteUserPray,
+                            color: Theme.of(context).primaryColorDark,
+                            iconWidget: MyPrayIconButton(
+                              icon: Icons.delete_outline,
                             ),
+                            onTap: () => user.deleteUserPray(index),
                           ),
                           IconSlideAction(
                             caption: '수정',
                             color: Theme.of(context).primaryColorLight,
-                            icon: Icons.mode_edit,
+                            iconWidget: MyPrayIconButton(
+                              icon: Icons.mode_edit,
+                            ),
                             onTap: () => Navigator.pushNamed(
                               context,
                               PrayAdd.idUpdate,
@@ -121,6 +121,22 @@ class _MyState extends State<My> {
                               },
                             ),
                           ),
+//                          IconSlideAction(
+//                            caption: '응답됨',
+//                            color: Colors.pink,
+//                            iconWidget: MyPrayIconButton(
+//                              icon: FontAwesomeIcons.crown,
+//                              padding: EdgeInsets.only(right: 5, bottom: 5),
+//                            ),
+//                            onTap: () => Navigator.pushNamed(
+//                              context,
+//                              PrayAdd.idUpdate,
+//                              arguments: {
+//                                'pray': user.prays[index],
+//                                'index': index,
+//                              },
+//                            ),
+//                          ),
                         ],
                       );
                     },

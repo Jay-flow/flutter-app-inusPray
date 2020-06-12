@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_inus_pray/models/pray.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/utils/constants.dart';
+import 'package:provider/provider.dart';
 
 class MediatorModel {
   CollectionReference _userCollection = Firestore.instance.collection('users');
@@ -27,6 +28,35 @@ class MediatorModel {
       }
     });
     return _users;
+  }
+
+  Future<List<User>> recommendUser(context) async {
+    List<User> _users = [];
+    var documents = await _userCollection.limit(10).getDocuments();
+    documents.documents.forEach((doc) {
+      final _my = Provider.of<User>(context);
+      if (_my.phoneNumber != doc['phoneNumber'] && _isNotMyMediator(doc, _my)) {
+        _users.add(
+          User(
+            phoneNumber: doc['phoneNumber'],
+            name: doc["name"],
+            profileImagePath: doc["profileImagePath"],
+            church: doc["church"],
+          ),
+        );
+      }
+    });
+    return _users;
+  }
+
+  bool _isNotMyMediator(doc, my) {
+    bool _isMyMediator = true;
+    my.mediators.forEach((phoneNumber) {
+      if (doc['phoneNumber'] == phoneNumber) {
+        _isMyMediator = false;
+      }
+    });
+    return _isMyMediator;
   }
 
   Future<List<Pray>> getMediatorPrays(

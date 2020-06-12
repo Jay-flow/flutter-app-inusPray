@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_inus_pray/components/mediator_item.dart';
+import 'package:flutter_inus_pray/components/mediator_list.dart';
+import 'package:flutter_inus_pray/components/mediator_searching_text.dart';
 import 'package:flutter_inus_pray/models/mediator_model.dart';
 import 'package:flutter_inus_pray/models/user.dart';
+import 'package:flutter_inus_pray/screen/mediator_recommend_list.dart';
 import 'package:flutter_inus_pray/utils/settings.dart';
 
 class MediatorSearch extends SearchDelegate<User> {
@@ -26,9 +28,7 @@ class MediatorSearch extends SearchDelegate<User> {
   Widget buildLeading(BuildContext context) {
     return IconButton(
       icon: Icon(Icons.arrow_back),
-      onPressed: () {
-        close(context, null);
-      },
+      onPressed: () => close(context, null),
     );
   }
 
@@ -43,40 +43,19 @@ class MediatorSearch extends SearchDelegate<User> {
       builder: (context, snap) {
         if (query.length >= 2 &&
             snap.connectionState == ConnectionState.waiting) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              "검색중...",
-              style: TextStyle(
-                color: Colors.grey,
-              ),
-            ),
+          return MediatorSearchingText(
+            text: "'$query' 검색중...",
           );
         }
         if (query.length >= 2 && snap.connectionState == ConnectionState.done) {
           if (snap.data.length == 0) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "'$query'님을 찾을 수 없습니다.",
-                style: TextStyle(
-                  color: Colors.grey,
-                ),
-              ),
+            return MediatorSearchingText(
+              text: "'$query'님을 찾을 수 없습니다.",
             );
           }
-          return ListView.builder(
-            itemCount: snap.data.length,
-            itemBuilder: (_, index) {
-              return MediatorItem(
-                imagePath: snap.data[index].profileImage,
-                title: snap.data[index].name,
-                subtitle: snap.data[index].church,
-              );
-            },
-          );
+          return MediatorList(snap: snap, closeMediatorSearch: close);
         }
-        return Container();
+        return MediatorRecommendList();
       },
       future: MediatorModel().findUserName(query),
     );

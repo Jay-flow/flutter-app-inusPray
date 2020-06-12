@@ -15,6 +15,7 @@ class User extends ChangeNotifier {
   bool isPayment;
   List prays;
   List mediators;
+  bool isIAddedMediatorForYou;
 
   // 사진이 없는 사람을 위한 기본 사진 경로 설정
   // 사진 관련 호출시 user.profileImagePath 아닌 아래 profileImage 사용
@@ -31,6 +32,7 @@ class User extends ChangeNotifier {
     this.prays = const [],
     this.mediators = const [],
     this.isPayment = false,
+    this.isIAddedMediatorForYou = false,
   });
 
   Future localUserDataSave() async {
@@ -125,6 +127,27 @@ class User extends ChangeNotifier {
     this.prays.removeAt(index);
     userCollection.document(phoneNumber).updateData({
       'prays': this.prays,
+    });
+    notifyListeners();
+  }
+
+  updateMediators(String phoneNumber) {
+    setUpdateDataTime();
+    this.mediators = [...this.mediators, phoneNumber];
+    userCollection
+        .document(this.phoneNumber)
+        .updateData({'mediators': this.mediators});
+    notifyListeners();
+  }
+
+  deleteMediators(String phoneNumber) {
+    setUpdateDataTime();
+    this.mediators = this
+        .mediators
+        .where((mediatorPhoneNumber) => mediatorPhoneNumber != phoneNumber)
+        .toList();
+    userCollection.document(this.phoneNumber).updateData({
+      'mediators': this.mediators,
     });
     notifyListeners();
   }
