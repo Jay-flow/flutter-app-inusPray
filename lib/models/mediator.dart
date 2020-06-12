@@ -1,12 +1,25 @@
 import 'dart:developer' as developer;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_inus_pray/models/pray.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/utils/constants.dart';
 import 'package:provider/provider.dart';
 
-class Mediator {
+class Mediator extends ChangeNotifier {
+  User myUser;
+
+  Mediator([User myUser]) {
+    this.myUser = myUser;
+    _set_mediators();
+  }
+
+  void _set_mediators() {
+    // TODO:: Provdeir! 적용 여기서 mediators 유저 정보 가져오기
+    myUser.mediators.forEach((phoneNumber) {});
+  }
+
   CollectionReference _userCollection = Firestore.instance.collection('users');
 
   Future<List<User>> findUserName(String name) async {

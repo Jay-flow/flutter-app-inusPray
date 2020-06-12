@@ -60,8 +60,12 @@ class _InusPrayAppState extends State<InusPrayApp> {
               ),
             ),
           )
-        : ChangeNotifierProvider<User>.value(
-            value: _user,
+        : MultiProvider(
+            providers: [
+              ChangeNotifierProvider<User>.value(
+                value: _user,
+              ),
+            ],
             child: MaterialApp(
               title: Asset.Text.appName,
               debugShowCheckedModeBanner: false,
