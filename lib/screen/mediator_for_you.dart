@@ -8,14 +8,14 @@ import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-class Mediator extends StatefulWidget {
+class MediatorForYou extends StatefulWidget {
   static const String id = 'mediator';
 
   @override
-  _MediatorState createState() => _MediatorState();
+  _MediatorForYouState createState() => _MediatorForYouState();
 }
 
-class _MediatorState extends State<Mediator> {
+class _MediatorForYouState extends State<MediatorForYou> {
   bool _isMediator = false;
   bool _isLoading = true;
 
@@ -31,49 +31,47 @@ class _MediatorState extends State<Mediator> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('중보자 찾기'),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {
-                showSearch(
+        floatingActionButton: FloatingActionButton(
+            onPressed: () => showSearch(
                   context: context,
                   delegate: MediatorSearch(),
-                );
-                // var _mediators = await MediatorModel().findUserName("김");
-              },
-            )
-          ],
-        ),
+                ),
+            child: Icon(Icons.search)),
         body: LoadingContainer(
           isLoading: _isLoading,
           child: Consumer<User>(
             builder: (BuildContext context, User user, Widget widget) {
               var mediators = user.mediators;
               if (mediators.isEmpty) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(
-                          FontAwesomeIcons.child,
-                          size: 100,
-                        ),
-                        Icon(
-                          FontAwesomeIcons.child,
-                          size: 100,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 40,
-                    ),
-                    Text(
-                        '등록된 중보자가 없습니다.\n상단 오른쪽 돋보기 또는 해당 문구를\n클릭하여 같이 기도할 중보자를 추가해주세요.'),
-                  ],
+                return InkWell(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            FontAwesomeIcons.child,
+                            size: 100,
+                          ),
+                          Icon(
+                            FontAwesomeIcons.child,
+                            size: 100,
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      Text(
+                        '등록된 중보자가 없습니다.\n오른쪽 하단 돋보기 또는 화면을 터치하여\n같이 기도할 중보자를 추가해주세요.',
+                      ),
+                    ],
+                  ),
+                  onTap: () => showSearch(
+                    context: context,
+                    delegate: MediatorSearch(),
+                  ),
                 );
               } else {
                 return ListView.builder(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_inus_pray/navigations/mediator_top_tab.dart';
 import 'package:flutter_inus_pray/navigations/pray_top_tab.dart';
-import 'package:flutter_inus_pray/screen/mediator.dart';
 import 'package:flutter_inus_pray/screen/my.dart';
 import 'package:flutter_inus_pray/utils/notification_fcm.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -16,7 +16,7 @@ class _MainBottomTabState extends State<MainBottomTab> {
   int _currentIndex = 0;
   final List<Widget> _children = [
     My(),
-    Mediator(),
+    MediatorTopTab(),
     PrayTopTab(),
   ];
 
@@ -52,7 +52,7 @@ class _MainBottomTabState extends State<MainBottomTab> {
           BottomNavigationBarItem(
             icon: Icon(Icons.person_add),
             title: Text(
-              '중보자 찾기',
+              '중보자',
               style: TextStyle(
                 color: Theme.of(context).primaryColorDark,
               ),
