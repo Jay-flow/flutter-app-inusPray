@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/mediator_list.dart';
 import 'package:flutter_inus_pray/components/mediator_searching_text.dart';
-import 'package:flutter_inus_pray/models/mediator_model.dart';
+import 'package:flutter_inus_pray/models/mediator.dart';
 
 class MediatorRecommendList extends StatelessWidget {
   @override
@@ -35,7 +35,7 @@ class MediatorRecommendList extends StatelessWidget {
               ),
               Expanded(
                 child: MediatorList(
-                  snap: snap,
+                  users: snap.data,
                 ),
               ),
             ],
@@ -43,7 +43,7 @@ class MediatorRecommendList extends StatelessWidget {
         }
         return Container();
       },
-      future: MediatorModel().recommendUser(context),
+      future: Mediator().recommendUser(context),
     );
   }
 }

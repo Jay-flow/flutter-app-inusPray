@@ -1,8 +1,6 @@
-import 'dart:developer' as developer;
-
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/mediator_item.dart';
-import 'package:flutter_inus_pray/models/mediator_model.dart';
+import 'package:flutter_inus_pray/models/mediator.dart';
 import 'package:flutter_inus_pray/models/pray.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -30,14 +28,13 @@ class _PrayListState extends State<PrayList> {
     final _user = Provider.of<User>(context);
     await _mediatorPrayList(_user);
     await _myPrayList(_user);
-    developer.log(_prays.toString());
     setState(() {
       _isLoading = false;
     });
   }
 
   _mediatorPrayList(User user) async {
-    List<Pray> _mediatorPrays = await MediatorModel().getMediatorPrays(
+    List<Pray> _mediatorPrays = await Mediator().getMediatorPrays(
       user.mediators,
       user.phoneNumber,
     );

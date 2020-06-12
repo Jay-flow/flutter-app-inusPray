@@ -6,11 +6,11 @@ import 'package:provider/provider.dart';
 
 class MediatorList extends StatefulWidget {
   MediatorList({
-    this.snap,
+    this.users,
     this.closeMediatorSearch,
   });
 
-  final AsyncSnapshot<dynamic> snap;
+  final List<User> users;
   final Function closeMediatorSearch;
 
   @override
@@ -18,8 +18,8 @@ class MediatorList extends StatefulWidget {
 }
 
 class _MediatorListState extends State<MediatorList> {
-  void _checkMyMediators(my, users) {
-    for (User user in users) {
+  void _checkMyMediators(my) {
+    for (User user in widget.users) {
       for (String myMediatorPhoneNumber in my.mediators) {
         if (user.phoneNumber == myMediatorPhoneNumber) {
           user.isIAddedMediatorForYou = true;
@@ -52,10 +52,10 @@ class _MediatorListState extends State<MediatorList> {
 
   @override
   Widget build(BuildContext context) {
-    List<User> users = widget.snap.data;
+    List<User> users = widget.users;
     return Consumer<User>(
       builder: (BuildContext context, User my, Widget widget) {
-        _checkMyMediators(my, users);
+        _checkMyMediators(my);
         return ListView.builder(
           itemCount: users.length,
           itemBuilder: (_, index) {

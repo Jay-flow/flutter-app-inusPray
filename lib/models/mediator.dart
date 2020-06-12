@@ -6,7 +6,7 @@ import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/utils/constants.dart';
 import 'package:provider/provider.dart';
 
-class MediatorModel {
+class Mediator {
   CollectionReference _userCollection = Firestore.instance.collection('users');
 
   Future<List<User>> findUserName(String name) async {
