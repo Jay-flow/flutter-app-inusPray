@@ -19,33 +19,40 @@ class PrayCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.grey[50],
-      elevation: 3.0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-        side: BorderSide(
-          width: 0.5,
-          color: Asset.Colors.grey,
+    double deviceWidth = MediaQuery.of(context).size.width;
+    double deviceHeight = MediaQuery.of(context).size.height;
+
+    return Container(
+      width: deviceWidth - 80,
+      height: deviceHeight -190,
+      child: Card(
+        color: Colors.grey[50],
+        elevation: 3.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          side: BorderSide(
+            width: 0.5,
+            color: Asset.Colors.grey,
+          ),
         ),
-      ),
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 23.0),
-        child: Column(
-          children: <Widget>[
-            Text(name, style: kSubTitleTextStyle),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 10.0),
-              child: CircleImage(
-                imagePath: imagePath,
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 23.0),
+          child: Column(
+            children: <Widget>[
+              Text(name, style: kSubTitleTextStyle),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 10.0),
+                child: CircleImage(
+                  imagePath: imagePath,
+                ),
               ),
-            ),
-            Line(
-              width: 100,
-              height: 1.0,
-            ),
-            content,
-          ],
+              Line(
+                width: 100,
+                height: 1.0,
+              ),
+              content,
+            ],
+          ),
         ),
       ),
     );
