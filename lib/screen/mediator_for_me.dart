@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_inus_pray/components/mediator_list.dart';
 import 'package:flutter_inus_pray/models/mediator.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class MediatorForMe extends StatefulWidget {
   static const String id = 'mediator';
@@ -13,24 +15,43 @@ class MediatorForMe extends StatefulWidget {
 }
 
 class _MediatorForMeState extends State<MediatorForMe> {
+  bool _isLoading = true;
   User myUser;
+  List<User> users;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     myUser = Provider.of<User>(context);
+    _findPrayForMe();
+  }
+
+  _findPrayForMe() async {
+    users = await Mediator.findUsers(myUser.whoPrayForMe);
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: myUser.mediators.isEmpty ? NoExistMediatorsForMe() :Container()
+        body: myUser.whoPrayForMe.isEmpty
+            ? NoExistMediatorsForMe()
+            : _isLoading
+                ? Container(
+                    child: SpinKitFadingCircle(
+                      color: Colors.black,
+                    ),
+                  )
+                : MediatorList(
+                    mediators: users,
+                  ),
       ),
     );
   }
 }
-
 
 class NoExistMediatorsForMe extends StatelessWidget {
   @override

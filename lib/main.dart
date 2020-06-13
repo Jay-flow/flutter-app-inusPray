@@ -50,6 +50,7 @@ class _InusPrayAppState extends State<InusPrayApp> {
   Future<void> _checkCloudUserData(phoneNumber) async {
     Map<String, dynamic> userData = await _user.getCloudUserData(phoneNumber);
     if (userData != null) {
+      _user.setUserListener(phoneNumber);
       _user.setUser(userData);
       _initialRoute = MainBottomTab.id;
       _mediator = Mediator();

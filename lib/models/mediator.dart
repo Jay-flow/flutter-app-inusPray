@@ -13,10 +13,15 @@ class Mediator extends ChangeNotifier {
   List<User> users;
 
   Future<void> setMediators(User myUser) async {
-    this.users = [];
-    await Future.forEach(myUser.mediators, (phoneNumber) async {
+    this.users = await findUsers(myUser.mediators);
+    notifyListeners();
+  }
+
+  static Future<List<User>> findUsers(users) async {
+    List<User> _users = [];
+    await Future.forEach(users, (phoneNumber) async {
       DocumentSnapshot _mediator =
-          await _userCollection.document(phoneNumber).get();
+      await _userCollection.document(phoneNumber).get();
       Map<String, dynamic> _mediatorData = _mediator.data;
       if (_mediatorData != null) {
         User _mediatorUser = User(
@@ -27,10 +32,10 @@ class Mediator extends ChangeNotifier {
           prays: _mediatorData['prays'].toList(),
           mediators: _mediatorData['mediators'],
         );
-        this.users.add(_mediatorUser);
+        _users.add(_mediatorUser);
       }
     });
-    notifyListeners();
+    return _users;
   }
 
   Future<List<User>> findUserName(String name) async {

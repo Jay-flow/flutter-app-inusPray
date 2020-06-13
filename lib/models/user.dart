@@ -67,6 +67,14 @@ class User extends ChangeNotifier {
     return user.data;
   }
 
+  setUserListener(phoneNumber) async {
+    DocumentSnapshot user = await userCollection.document(phoneNumber).get();
+    user.reference.snapshots().listen((event) {
+      setUser(event.data);
+      notifyListeners();
+    });
+  }
+
   deleteLocalUserData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.clear();
