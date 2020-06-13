@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 class MediatorList extends StatefulWidget {
   MediatorList({
-    this.mediators,
+    @required this.mediators,
     this.closeMediatorSearch,
   });
 

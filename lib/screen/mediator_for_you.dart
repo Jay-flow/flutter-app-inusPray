@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_inus_pray/models/mediator.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/screen/mediator_search.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_inus_pray/components/mediator_list.dart';
 
 class MediatorForYou extends StatefulWidget {
   static const String id = 'mediator';
@@ -12,8 +14,6 @@ class MediatorForYou extends StatefulWidget {
 }
 
 class _MediatorForYouState extends State<MediatorForYou> {
-  bool _isLoading = true;
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -25,13 +25,15 @@ class _MediatorForYouState extends State<MediatorForYou> {
           ),
           child: Icon(Icons.search),
         ),
-        body: Consumer<User>(
-          builder: (BuildContext context, User user, Widget widget) {
-            var mediators = user.mediators;
-            if (mediators.isEmpty) {
+        body: Consumer2<User, Mediator>(
+          builder: (BuildContext context, User user, Mediator mediator, Widget widget) {
+            user.checkMyMediators(mediators: mediator.users);
+            if (mediator.users.isEmpty) {
               return NoExistMediators();
             } else {
-              return Container();
+              return MediatorList(
+                mediators: mediator.users,
+              );
             }
           },
         ),

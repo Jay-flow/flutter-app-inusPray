@@ -25,7 +25,7 @@ class _EditProfileState extends State<EditProfile> {
   File _imageFile;
   User _user;
   bool _isLoading = false;
-  final double imageSize = 230.0;
+  final double imageSize = 210.0;
 
   @override
   initState() {

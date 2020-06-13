@@ -8,7 +8,8 @@ import 'package:flutter_inus_pray/utils/constants.dart';
 import 'package:provider/provider.dart';
 
 class Mediator extends ChangeNotifier {
-  CollectionReference _userCollection = Firestore.instance.collection('users');
+  static CollectionReference _userCollection =
+      Firestore.instance.collection('users');
   List<User> users;
 
   Future<void> setMediators(User myUser) async {

@@ -15,6 +15,7 @@ class User extends ChangeNotifier {
   bool isPayment;
   List prays;
   List mediators;
+  List whoPrayForMe;
   bool isIAddedMediatorForYou;
 
   // 사진이 없는 사람을 위한 기본 사진 경로 설정
@@ -31,6 +32,7 @@ class User extends ChangeNotifier {
     this.deviceToken,
     this.prays = const [],
     this.mediators = const [],
+    this.whoPrayForMe = const [],
     this.isPayment = false,
     this.isIAddedMediatorForYou = false,
   });
@@ -78,6 +80,7 @@ class User extends ChangeNotifier {
     this.church = userData['church'];
     this.prays = userData['prays'];
     this.mediators = userData['mediators'];
+    this.whoPrayForMe = userData['whoPrayForMe'];
   }
 
   setUpdateDataTime() {
@@ -127,15 +130,36 @@ class User extends ChangeNotifier {
 
   updateMediators(mediatorPhoneNumber) {
     setUpdateDataTime();
+    _updateMyMediators(mediatorPhoneNumber);
+    _updateMediatorWhoPrayForMe(mediatorPhoneNumber);
+    notifyListeners();
+  }
+
+  void _updateMyMediators(mediatorPhoneNumber) {
     this.mediators = [...this.mediators, mediatorPhoneNumber];
     userCollection
         .document(this.phoneNumber)
         .updateData({'mediators': this.mediators});
-    notifyListeners();
+  }
+
+  _updateMediatorWhoPrayForMe(mediatorPhoneNumber) async {
+    DocumentSnapshot mediatorUser =
+        await userCollection.document(mediatorPhoneNumber).get();
+    List whoPrayForMe = mediatorUser.data['whoPrayForMe'] ?? [];
+    whoPrayForMe = [...whoPrayForMe, this.phoneNumber];
+    userCollection
+        .document(mediatorPhoneNumber)
+        .updateData({'whoPrayForMe': whoPrayForMe});
   }
 
   deleteMediators(mediatorPhoneNumber) {
     setUpdateDataTime();
+    _deleteMyMediators(mediatorPhoneNumber);
+    _deleteMediatorWhoPrayForMe(mediatorPhoneNumber);
+    notifyListeners();
+  }
+
+  _deleteMyMediators(mediatorPhoneNumber) {
     this.mediators = this
         .mediators
         .where((phoneNumber) => phoneNumber != mediatorPhoneNumber)
@@ -143,7 +167,20 @@ class User extends ChangeNotifier {
     userCollection.document(this.phoneNumber).updateData({
       'mediators': this.mediators,
     });
-    notifyListeners();
+  }
+
+  _deleteMediatorWhoPrayForMe(mediatorPhoneNumber) async {
+    DocumentSnapshot mediatorUser =
+        await userCollection.document(mediatorPhoneNumber).get();
+    List whoPrayForMe = mediatorUser.data['whoPrayForMe'];
+    if (whoPrayForMe != null) {
+      whoPrayForMe = whoPrayForMe
+          .where((phoneNumber) => phoneNumber != this.phoneNumber)
+          .toList();
+      userCollection
+          .document(mediatorPhoneNumber)
+          .updateData({'whoPrayForMe': whoPrayForMe});
+    }
   }
 
   void checkMyMediators({List<User> mediators}) {
