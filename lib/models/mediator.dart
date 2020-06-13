@@ -1,11 +1,8 @@
 import 'dart:async';
-import 'dart:developer' as developer;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_inus_pray/models/pray.dart';
 import 'package:flutter_inus_pray/models/user.dart';
-import 'package:flutter_inus_pray/utils/constants.dart';
 import 'package:provider/provider.dart';
 
 class Mediator extends ChangeNotifier {
