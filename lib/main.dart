@@ -25,6 +25,7 @@ class InusPrayApp extends StatefulWidget {
 class _InusPrayAppState extends State<InusPrayApp> {
   bool _isLoading = true;
   User _user;
+  Mediator _mediator;
   String _initialRoute;
 
   @override
@@ -51,7 +52,8 @@ class _InusPrayAppState extends State<InusPrayApp> {
     if (userData != null) {
       _user.setUser(userData);
       _initialRoute = MainBottomTab.id;
-      Mediator().set_mediators(_user);
+      _mediator = Mediator();
+      await _mediator.setMediators(_user);
     } else {
       _user.deleteLocalUserData();
     }
@@ -74,6 +76,9 @@ class _InusPrayAppState extends State<InusPrayApp> {
             providers: [
               ChangeNotifierProvider<User>.value(
                 value: _user,
+              ),
+              ChangeNotifierProvider<Mediator>.value(
+                value: _mediator,
               ),
             ],
             child: MaterialApp(

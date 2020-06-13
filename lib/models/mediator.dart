@@ -8,11 +8,29 @@ import 'package:flutter_inus_pray/utils/constants.dart';
 import 'package:provider/provider.dart';
 
 class Mediator extends ChangeNotifier {
-  void set_mediators(User myUser) {
-    myUser.mediators.forEach((phoneNumber) {});
-  }
-
   CollectionReference _userCollection = Firestore.instance.collection('users');
+  List<User> users;
+
+  Future<void> setMediators(User myUser) async {
+    this.users = [];
+    await Future.forEach(myUser.mediators, (phoneNumber) async {
+      DocumentSnapshot _mediator =
+          await _userCollection.document(phoneNumber).get();
+      Map<String, dynamic> _mediatorData = _mediator.data;
+      if (_mediatorData != null) {
+        User _mediatorUser = User(
+          phoneNumber: _mediatorData['phoneNumber'],
+          name: _mediatorData['name'],
+          profileImagePath: _mediatorData['profileImagePath'],
+          church: _mediatorData['church'],
+          prays: _mediatorData['prays'].toList(),
+          mediators: _mediatorData['mediators'],
+        );
+        this.users.add(_mediatorUser);
+      }
+    });
+    notifyListeners();
+  }
 
   Future<List<User>> findUserName(String name) async {
     List<User> _users = [];

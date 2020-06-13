@@ -76,7 +76,7 @@ class User extends ChangeNotifier {
     this.isPayment = userData['isPayment'];
     this.profileImagePath = userData['profileImagePath'];
     this.church = userData['church'];
-    this.prays = userData['prays'].toList();
+    this.prays = userData['prays'];
     this.mediators = userData['mediators'];
   }
 

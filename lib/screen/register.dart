@@ -53,6 +53,9 @@ class _RegisterState extends State<Register> {
 
   // 값 비어있는거 걸러내기
   _validate() async {
+    user.name = user.name.trim();
+    user.church = user.church.trim();
+    user.phoneNumber = user.phoneNumber.trim();
     if (user.name == null ||
         user.name == '' ||
         user.church == null ||

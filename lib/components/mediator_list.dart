@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/mediator_item.dart';
+import 'package:flutter_inus_pray/models/mediator.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
@@ -35,6 +36,7 @@ class _MediatorListState extends State<MediatorList> {
 
   void _addMediator(my, user) {
     my.updateMediators(user.phoneNumber);
+    Provider.of<Mediator>(context).setMediators(my);
     setState(() {
       user.isIAddedMediatorForYou = true;
     });
@@ -45,6 +47,7 @@ class _MediatorListState extends State<MediatorList> {
 
   void _deleteMediator(my, user) {
     my.deleteMediators(user.phoneNumber);
+    Provider.of<Mediator>(context).setMediators(my);
     setState(() {
       user.isIAddedMediatorForYou = false;
     });
