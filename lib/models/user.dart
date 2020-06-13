@@ -57,27 +57,21 @@ class User extends ChangeNotifier {
 
   Future<String> getLocalUserData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    this.phoneNumber = prefs.getString('phoneNumber');
     return prefs.getString('phoneNumber');
   }
 
-  Future<bool> getCloudUserData() async {
+  Future<Map<String, dynamic>> getCloudUserData(phoneNumber) async {
     DocumentSnapshot user = await userCollection.document(phoneNumber).get();
-    Map<String, dynamic> userData = user.data;
-    if (userData == null) {
-      _deleteLocalUserData();
-      return false;
-    }
-    _setUser(userData);
-    return true;
+    return user.data;
   }
 
-  _deleteLocalUserData() async {
+  deleteLocalUserData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.clear();
   }
 
-  _setUser(userData) {
+  setUser(userData) {
+    this.phoneNumber = userData['phoneNumber'];
     this.name = userData['name'];
     this.isPayment = userData['isPayment'];
     this.profileImagePath = userData['profileImagePath'];

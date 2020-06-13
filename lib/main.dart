@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/models/input_type.dart';
+import 'package:flutter_inus_pray/models/mediator.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/navigations/main_bottom_tab.dart';
 import 'package:flutter_inus_pray/screen/ad_banner.dart';
@@ -30,21 +31,30 @@ class _InusPrayAppState extends State<InusPrayApp> {
   void initState() {
     super.initState();
     Settings().statusBarColor();
-    _loginCheck();
+    _checkLocalUserData();
   }
 
-  void _loginCheck() async {
+  void _checkLocalUserData() async {
     _user = User();
+    _initialRoute = Login.id;
     final String phoneNumber = await _user.getLocalUserData();
-    bool existUserData = false;
     if (phoneNumber != null) {
-      existUserData = await _user.getCloudUserData();
+      await _checkCloudUserData(phoneNumber);
     }
-    _initialRoute = existUserData ? MainBottomTab.id : Login.id;
-
     setState(() {
       _isLoading = false;
     });
+  }
+
+  Future<void> _checkCloudUserData(phoneNumber) async {
+    Map<String, dynamic> userData = await _user.getCloudUserData(phoneNumber);
+    if (userData != null) {
+      _user.setUser(userData);
+      _initialRoute = MainBottomTab.id;
+      Mediator().set_mediators(_user);
+    } else {
+      _user.deleteLocalUserData();
+    }
   }
 
   @override

@@ -8,15 +8,7 @@ import 'package:flutter_inus_pray/utils/constants.dart';
 import 'package:provider/provider.dart';
 
 class Mediator extends ChangeNotifier {
-  User myUser;
-
-  Mediator([User myUser]) {
-    this.myUser = myUser;
-    _set_mediators();
-  }
-
-  void _set_mediators() {
-    // TODO:: Provdeir! 적용 여기서 mediators 유저 정보 가져오기
+  void set_mediators(User myUser) {
     myUser.mediators.forEach((phoneNumber) {});
   }
 
