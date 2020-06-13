@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/mediator_list.dart';
 import 'package:flutter_inus_pray/components/mediator_searching_text.dart';
 import 'package:flutter_inus_pray/models/mediator.dart';
+import 'package:flutter_inus_pray/models/user.dart';
+import 'package:provider/provider.dart';
 
 class MediatorRecommendList extends StatelessWidget {
   @override
@@ -34,8 +36,20 @@ class MediatorRecommendList extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: MediatorList(
-                  users: snap.data,
+                child: Consumer<User>(
+                  builder: (
+                    BuildContext context,
+                    User myUser,
+                    Widget widget,
+                  ) {
+                    Mediator.checkMyMediators(
+                      myUser: myUser,
+                      mediators: snap.data,
+                    );
+                    return MediatorList(
+                      mediators: snap.data,
+                    );
+                  },
                 ),
               ),
             ],

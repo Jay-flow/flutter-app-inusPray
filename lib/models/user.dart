@@ -125,20 +125,20 @@ class User extends ChangeNotifier {
     notifyListeners();
   }
 
-  updateMediators(String phoneNumber) {
+  updateMediators(mediatorPhoneNumber) {
     setUpdateDataTime();
-    this.mediators = [...this.mediators, phoneNumber];
+    this.mediators = [...this.mediators, mediatorPhoneNumber];
     userCollection
         .document(this.phoneNumber)
         .updateData({'mediators': this.mediators});
     notifyListeners();
   }
 
-  deleteMediators(String phoneNumber) {
+  deleteMediators(mediatorPhoneNumber) {
     setUpdateDataTime();
     this.mediators = this
         .mediators
-        .where((mediatorPhoneNumber) => mediatorPhoneNumber != phoneNumber)
+        .where((phoneNumber) => phoneNumber != mediatorPhoneNumber)
         .toList();
     userCollection.document(this.phoneNumber).updateData({
       'mediators': this.mediators,

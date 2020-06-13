@@ -7,11 +7,11 @@ import 'package:provider/provider.dart';
 
 class MediatorList extends StatefulWidget {
   MediatorList({
-    this.users,
+    this.mediators,
     this.closeMediatorSearch,
   });
 
-  final List<User> users;
+  final List<User> mediators;
   final Function closeMediatorSearch;
 
   @override
@@ -19,14 +19,12 @@ class MediatorList extends StatefulWidget {
 }
 
 class _MediatorListState extends State<MediatorList> {
-  void _checkMyMediators(my) {
-    for (User user in widget.users) {
-      for (String myMediatorPhoneNumber in my.mediators) {
-        if (user.phoneNumber == myMediatorPhoneNumber) {
-          user.isIAddedMediatorForYou = true;
-        }
-      }
-    }
+  User myUser;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    myUser = Provider.of<User>(context);
   }
 
   void _infoMessage(isIAddedMediatorForYou) {
@@ -34,63 +32,58 @@ class _MediatorListState extends State<MediatorList> {
     Fluttertoast.showToast(msg: msg);
   }
 
-  void _addMediator(my, user) {
-    my.updateMediators(user.phoneNumber);
-    Provider.of<Mediator>(context).setMediators(my);
+  void _addMediator(User mediator) {
+    myUser.updateMediators(mediator.phoneNumber);
+    Provider.of<Mediator>(context).setMediators(myUser);
     setState(() {
-      user.isIAddedMediatorForYou = true;
+      mediator.isIAddedMediatorForYou = true;
     });
     if (widget.closeMediatorSearch != null) {
       widget.closeMediatorSearch(context, null);
     }
   }
 
-  void _deleteMediator(my, user) {
-    my.deleteMediators(user.phoneNumber);
-    Provider.of<Mediator>(context).setMediators(my);
+  void _deleteMediator(User mediator) {
+    myUser.deleteMediators(mediator.phoneNumber);
+    Provider.of<Mediator>(context).setMediators(myUser);
     setState(() {
-      user.isIAddedMediatorForYou = false;
+      mediator.isIAddedMediatorForYou = false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    List<User> users = widget.users;
-    return Consumer<User>(
-      builder: (BuildContext context, User my, Widget widget) {
-        _checkMyMediators(my);
-        return ListView.builder(
-          itemCount: users.length,
-          itemBuilder: (_, index) {
-            User _user = users[index];
-            return MediatorItem(
-              imagePath: _user.profileImage,
-              title: _user.name,
-              subtitle: _user.church,
-              chipBackgroundColor:
-                  _user.isIAddedMediatorForYou ? Colors.grey : Colors.pink,
-              label: _user.isIAddedMediatorForYou
-                  ? Text(
-                      '중보취소',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    )
-                  : Text(
-                      '중보하기',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-              onPress: () {
-                if (_user.isIAddedMediatorForYou) {
-                  _deleteMediator(my, _user);
-                } else {
-                  _addMediator(my, _user);
-                }
-                _infoMessage(_user.isIAddedMediatorForYou);
-              },
-            );
+    List<User> mediators = widget.mediators;
+    return ListView.builder(
+      itemCount: mediators.length,
+      itemBuilder: (_, index) {
+        User mediator = mediators[index];
+        return MediatorItem(
+          imagePath: mediator.profileImage,
+          title: mediator.name,
+          subtitle: mediator.church,
+          chipBackgroundColor:
+              mediator.isIAddedMediatorForYou ? Colors.grey : Colors.pink,
+          label: mediator.isIAddedMediatorForYou
+              ? Text(
+                  '중보취소',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                )
+              : Text(
+                  '중보하기',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+          onPress: () {
+            if (mediator.isIAddedMediatorForYou) {
+              _deleteMediator(mediator);
+            } else {
+              _addMediator(mediator);
+            }
+            _infoMessage(mediator.isIAddedMediatorForYou);
           },
         );
       },

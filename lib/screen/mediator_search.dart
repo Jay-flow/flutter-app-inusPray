@@ -5,6 +5,7 @@ import 'package:flutter_inus_pray/models/mediator.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/screen/mediator_recommend_list.dart';
 import 'package:flutter_inus_pray/utils/settings.dart';
+import 'package:provider/provider.dart';
 
 class MediatorSearch extends SearchDelegate<User> {
   @override
@@ -53,7 +54,22 @@ class MediatorSearch extends SearchDelegate<User> {
               text: "'$query'님을 찾을 수 없습니다.",
             );
           }
-          return MediatorList(users: snap.data, closeMediatorSearch: close);
+          return Consumer<User>(
+            builder: (
+              BuildContext context,
+              User myUser,
+              Widget widget,
+            ) {
+              Mediator.checkMyMediators(
+                myUser: myUser,
+                mediators: snap.data,
+              );
+              return MediatorList(
+                mediators: snap.data,
+                closeMediatorSearch: close,
+              );
+            },
+          );
         }
         return MediatorRecommendList();
       },
