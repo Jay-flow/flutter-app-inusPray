@@ -55,9 +55,16 @@ class _InusPrayAppState extends State<InusPrayApp> {
       _initialRoute = MainBottomTab.id;
       _mediator = Mediator();
       await _mediator.setMediators(_user);
+      _setMediatorListener();
     } else {
       _user.deleteLocalUserData();
     }
+  }
+
+  _setMediatorListener() {
+    _user.mediators.forEach((phoneNumber) {
+      _mediator.setMediatorListener(phoneNumber);
+    });
   }
 
   @override

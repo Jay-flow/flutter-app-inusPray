@@ -35,6 +35,7 @@ class _MediatorListState extends State<MediatorList> {
   void _addMediator(User mediator) {
     myUser.updateMediators(mediator.phoneNumber);
     Provider.of<Mediator>(context).setMediators(myUser);
+    Provider.of<Mediator>(context).setMediatorListener(mediator.phoneNumber);
     setState(() {
       mediator.isIAddedMediatorForYou = true;
     });
@@ -46,6 +47,7 @@ class _MediatorListState extends State<MediatorList> {
   void _deleteMediator(User mediator) {
     myUser.deleteMediators(mediator.phoneNumber);
     Provider.of<Mediator>(context).setMediators(myUser);
+    Provider.of<Mediator>(context).cancelMediatorListener(mediator.phoneNumber);
     setState(() {
       mediator.isIAddedMediatorForYou = false;
     });
