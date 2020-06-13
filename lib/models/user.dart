@@ -145,4 +145,14 @@ class User extends ChangeNotifier {
     });
     notifyListeners();
   }
+
+  void checkMyMediators({List<User> mediators}) {
+    for (User user in mediators) {
+      for (String myMediatorPhoneNumber in this.mediators) {
+        if (user.phoneNumber == myMediatorPhoneNumber) {
+          user.isIAddedMediatorForYou = true;
+        }
+      }
+    }
+  }
 }

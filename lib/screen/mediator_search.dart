@@ -60,8 +60,7 @@ class MediatorSearch extends SearchDelegate<User> {
               User myUser,
               Widget widget,
             ) {
-              Mediator.checkMyMediators(
-                myUser: myUser,
+              myUser.checkMyMediators(
                 mediators: snap.data,
               );
               return MediatorList(

@@ -82,16 +82,6 @@ class Mediator extends ChangeNotifier {
     return _isMyMediator;
   }
 
-  static void checkMyMediators({User myUser, List<User> mediators}) {
-    for (User user in mediators) {
-      for (String myMediatorPhoneNumber in myUser.mediators) {
-        if (user.phoneNumber == myMediatorPhoneNumber) {
-          user.isIAddedMediatorForYou = true;
-        }
-      }
-    }
-  }
-
   Future<List<Pray>> getMediatorPrays(
       List<dynamic> mediatorsPhoneNumbers, String userPhoneNumber) async {
     List<Pray> prays = [];
