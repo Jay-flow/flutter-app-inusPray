@@ -75,7 +75,6 @@ class _RegisterState extends State<Register> {
   }
 
   _phoneAuthMessage() {
-    developer.log(user.phoneNumber);
     _firebaseAuth.verifyPhoneNumber(
       phoneNumber: '+82 ${user.phoneNumber}',
       timeout: Duration(seconds: 30),
@@ -124,8 +123,13 @@ class _RegisterState extends State<Register> {
     });
   }
 
-  _checkExistUser() {
-    //TODO: 기존에 등록된 휴대폰 번호가 있는지 확인, 있으면 가입 없이 그냥 바로 로그인 처리
+  _checkExistUser() async {
+    Fluttertoast.showToast(
+          msg:"이미 가입된 회원 정보가 있습니다.",
+          toastLength: Toast.LENGTH_LONG,
+    );
+    await user.localUserDataSave();
+    Navigator.pushReplacementNamed(context, InusPrayApp.id);
   }
 
   List<Widget> createPage() {
@@ -146,7 +150,8 @@ class _RegisterState extends State<Register> {
           buttonOnPressed: (GlobalKey<FormState> key) {
             if (_isPhoneAuth) {
               if (key.currentState.validate()) {
-                _phoneAuthMessage();
+                _checkExistUser();
+                // _phoneAuthMessage();
               }
             } else {
               nextPage();

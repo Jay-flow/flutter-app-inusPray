@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_inus_pray/components/no_exist_pray.dart';
 import 'package:flutter_inus_pray/models/mediator.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:provider/provider.dart';
@@ -41,7 +42,7 @@ class _PrayCardsState extends State<PrayCards> {
     double cardFeedbackWidth = cardWidth - CARD_HORIZONTAL_PADDING * 2;
     double cardHeight = MediaQuery.of(context).size.height - 210;
 
-    List<User> users = [...this._mediator.users, this._user];
+    List<User> users = [this._user, ...this._mediator.users];
     for (int userIndex = 0; userIndex < users.length; userIndex++) {
       String name = users[userIndex].name;
       String imagePath = users[userIndex].profileImage;
@@ -89,29 +90,34 @@ class _PrayCardsState extends State<PrayCards> {
 
   @override
   Widget build(BuildContext context) {
-    return (this._prayCards.length == 0)
-        ? Center(
-            child: Text('기도 카드가 모두 소진되었습니다.'),
-          )
-        : Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: CARD_HORIZONTAL_PADDING,
+    if (this._prayCards.isEmpty) {
+      return NoExistPrays();
+    } else {
+      return (this._prayCards.length == 0)
+          ? Center(
+              child: Text('기도 카드가 모두 소진되었습니다.'),
+            )
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: CARD_HORIZONTAL_PADDING,
+                  ),
+                  child: Stack(
+                    children: this._prayCards,
+                  ),
                 ),
-                child: Stack(
-                  children: this._prayCards,
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.only(top: 12),
-                child: Text(
-                  "${this._prayCards.length.toString()}/$_pratCardTotal",
-                ),
-              )
-            ],
-          );
+                Container(
+                  padding: EdgeInsets.only(top: 12),
+                  child: Text(
+                    "${this._prayCards.length.toString()}/$_pratCardTotal",
+                  ),
+                )
+              ],
+            );
+    }
   }
 }
+
