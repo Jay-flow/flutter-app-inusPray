@@ -28,7 +28,13 @@ class _MediatorForMeState extends State<MediatorForMe> {
 
   // TODO:: whoPrayForMe 중보자 추가 한다음에 없애야 됨... 방법 생각해보기
   _findPrayForMe() async {
-    users = await Mediator.findUsers(myUser.whoPrayForMe);
+    List<String> whoPrayForMePhoneNumber = List();
+    myUser.whoPrayForMe.forEach((phoneNumber) {
+      if (!myUser.mediators.contains(phoneNumber)) {
+        whoPrayForMePhoneNumber.add(phoneNumber);
+      }
+    });
+    users = await Mediator.findUsers(whoPrayForMePhoneNumber);
     setState(() {
       _isLoading = false;
     });
