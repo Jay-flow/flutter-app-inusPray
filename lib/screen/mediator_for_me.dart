@@ -81,9 +81,11 @@ class NoExistMediatorsForMe extends StatelessWidget {
         ),
         RaisedButton(
           color: Theme.of(context).primaryColorLight,
-          onPressed: () => Share.share(
-            'check out my website https://example.com',
-          ),
+          onPressed: () {
+            Share.share(
+              'check out my website https://example.com',
+            );
+          },
           child: Text(
             '기도앱 공유하기',
             style: TextStyle(

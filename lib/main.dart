@@ -12,6 +12,7 @@ import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:flutter_inus_pray/utils/settings.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_inus_pray/utils/notification_fcm.dart';
 
 void main() => runApp(InusPrayApp());
 
@@ -56,6 +57,7 @@ class _InusPrayAppState extends State<InusPrayApp> {
       _mediator = Mediator();
       await _mediator.setMediators(_user);
       _setMediatorListener();
+      NotificationFCM(userData['deviceToken']);
     } else {
       _user.deleteLocalUserData();
     }

@@ -29,31 +29,31 @@ class _MyState extends State<My> {
     Asset.Colors.mint,
   ];
 
-  Future _confirmDeletePray(int index, Function deleteUserPray) {
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('기도 삭제'),
-            content: const Text('삭제하신 뒤에는 복구 할 수 없습니다.\n정말 삭제하시겠습니까?'),
-            actions: <Widget>[
-              FlatButton(
-                child: const Text('취소'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              FlatButton(
-                child: const Text('삭제'),
-                onPressed: () {
-                  deleteUserPray(index);
-                  Navigator.of(context).pop();
-                },
-              )
-            ],
-          );
-        });
-  }
+  // Future _confirmDeletePray(int index, Function deleteUserPray) {
+  //   return showDialog(
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         return AlertDialog(
+  //           title: const Text('기도 삭제'),
+  //           content: const Text('삭제하신 뒤에는 복구 할 수 없습니다.\n정말 삭제하시겠습니까?'),
+  //           actions: <Widget>[
+  //             FlatButton(
+  //               child: const Text('취소'),
+  //               onPressed: () {
+  //                 Navigator.of(context).pop();
+  //               },
+  //             ),
+  //             FlatButton(
+  //               child: const Text('삭제'),
+  //               onPressed: () {
+  //                 deleteUserPray(index);
+  //                 Navigator.of(context).pop();
+  //               },
+  //             )
+  //           ],
+  //         );
+  //       });
+  // }
 
   @override
   Widget build(BuildContext context) {

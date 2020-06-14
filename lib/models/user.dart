@@ -52,6 +52,7 @@ class User extends ChangeNotifier {
       'phoneNumber': phoneNumber,
       'church': church,
       'prays': prays,
+      'whoPrayForMe': whoPrayForMe,
       'mediators': mediators,
       'createAt': Timestamp.now(),
     });
@@ -86,9 +87,9 @@ class User extends ChangeNotifier {
     this.isPayment = userData['isPayment'];
     this.profileImagePath = userData['profileImagePath'];
     this.church = userData['church'];
-    this.prays = userData['prays'];
-    this.mediators = userData['mediators'];
-    this.whoPrayForMe = userData['whoPrayForMe'];
+    this.prays = userData['prays'].toList();
+    this.mediators = userData['mediators'].toList();
+    this.whoPrayForMe = userData['whoPrayForMe'].toList();
   }
 
   setUpdateDataTime() {

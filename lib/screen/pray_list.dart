@@ -14,6 +14,7 @@ class PrayList extends StatefulWidget {
 
 class _PrayListState extends State<PrayList> {
   List<User> users;
+  bool isPraysEmpty = true;
 
   @override
   void didChangeDependencies() {
@@ -21,29 +22,30 @@ class _PrayListState extends State<PrayList> {
     Mediator mediator = Provider.of<Mediator>(context);
     User myUser = Provider.of<User>(context);
     users = [...mediator.users, myUser];
+    users.forEach((user) {
+      if (user.prays.isNotEmpty) isPraysEmpty = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (users.isEmpty) {
-      return NoExistPrays();
-    } else {
-      return ListView.builder(
-          itemCount: users.length,
-          itemBuilder: (_, userIndex) {
-            User user = users[userIndex];
-            return ListView.builder(
-                shrinkWrap: true,
-                physics: ScrollPhysics(),
-                itemCount: user.prays.length,
-                itemBuilder: (_, indexPray) {
-                  return MediatorItem(
-                    imagePath: user.profileImage,
-                    title: user.name,
-                    subtitle: user.prays[indexPray],
-                  );
-                });
-          });
-    }
+    return isPraysEmpty
+        ? NoExistPrays()
+        : ListView.builder(
+            itemCount: users.length,
+            itemBuilder: (_, userIndex) {
+              User user = users[userIndex];
+              return ListView.builder(
+                  shrinkWrap: true,
+                  physics: ScrollPhysics(),
+                  itemCount: user.prays.length,
+                  itemBuilder: (_, indexPray) {
+                    return MediatorItem(
+                      imagePath: user.profileImage,
+                      title: user.name,
+                      subtitle: user.prays[indexPray],
+                    );
+                  });
+            });
   }
 }
