@@ -73,10 +73,9 @@ class _InusPrayAppState extends State<InusPrayApp> {
         ? MaterialApp(
             debugShowCheckedModeBanner: false,
             home: Scaffold(
-              backgroundColor: Colors.black,
-              body: SpinKitRipple(
-                color: Colors.white,
-                size: 100.0,
+              backgroundColor: Colors.white,
+              body: SpinKitFadingCircle(
+                color: Colors.black,
               ),
             ),
           )

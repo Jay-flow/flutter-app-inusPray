@@ -16,9 +16,8 @@ class LoadingContainer extends StatelessWidget {
             ? Container(
                 color: Colors.black.withOpacity(0.3),
                 child: Center(
-                  child: SpinKitRipple(
+                  child: SpinKitFadingCircle(
                     color: Colors.white,
-                    size: 100.0,
                   ),
                 ),
               )

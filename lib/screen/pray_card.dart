@@ -7,14 +7,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_inus_pray/components/pray_cards.dart';
 
-class PrayCardScreen extends StatefulWidget {
+class PrayCard extends StatefulWidget {
   static const String id = 'pray_card_screen';
 
   @override
-  _PrayCardScreenState createState() => _PrayCardScreenState();
+  _PrayCardState createState() => _PrayCardState();
 }
 
-class _PrayCardScreenState extends State<PrayCardScreen> {
+class _PrayCardState extends State<PrayCard> {
   @override
   Widget build(BuildContext context) {
     return Consumer2<User, Mediator>(
