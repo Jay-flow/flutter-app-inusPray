@@ -105,11 +105,10 @@ class _RegisterState extends State<Register> {
   }
 
   _phoneVerificationCompleted(AuthCredential auth) {
-    Fluttertoast.showToast(msg: "phoneVerificationCompleted");
-    _firebaseAuth.signInWithCredential(auth).then((AuthResult value) {
+    _firebaseAuth.signInWithCredential(auth).then((AuthResult value) async {
       if (value.user != null) {
         Fluttertoast.showToast(msg: '인증되었습니다.');
-        _checkExistUser();
+        if (await _isExistUser()) return _alreadyRegistedUserHandling();
         nextPage();
       } else {
         Fluttertoast.showToast(
@@ -123,7 +122,15 @@ class _RegisterState extends State<Register> {
     });
   }
 
-  _checkExistUser() async {
+  Future<bool> _isExistUser() async {
+    Map<String, dynamic>userData = await user.getCloudUserData(user.phoneNumber);
+    if (userData != null) {
+      return true; 
+    }
+    return false;
+  }
+
+  _alreadyRegistedUserHandling() async {
     Fluttertoast.showToast(
           msg:"이미 가입된 회원 정보가 있습니다.",
           toastLength: Toast.LENGTH_LONG,
@@ -150,8 +157,7 @@ class _RegisterState extends State<Register> {
           buttonOnPressed: (GlobalKey<FormState> key) {
             if (_isPhoneAuth) {
               if (key.currentState.validate()) {
-                _checkExistUser();
-                // _phoneAuthMessage();
+                _phoneAuthMessage();
               }
             } else {
               nextPage();
@@ -229,6 +235,7 @@ class _RegisterState extends State<Register> {
               ),
               Expanded(
                 child: PageView.builder(
+                  // TODO:: 스와이프 방지 주석 꼭 풀기!!
 //                  physics: NeverScrollableScrollPhysics(),
                   controller: _pageController,
                   itemBuilder: (context, position) {
