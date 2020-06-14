@@ -72,7 +72,7 @@ class MediatorSearch extends SearchDelegate<User> {
         }
         return MediatorRecommendList();
       },
-      future: Mediator().findUserName(query),
+      future: Mediator().findUserName(query.trim()),
     );
   }
 

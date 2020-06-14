@@ -82,12 +82,11 @@ class Mediator extends ChangeNotifier {
     return _users;
   }
 
-  Future<List<User>> recommendUser(context) async {
+  Future<List<User>> recommendUser(myUser) async {
     List<User> _users = [];
     var documents = await _userCollection.limit(10).getDocuments();
     documents.documents.forEach((doc) {
-      final _my = Provider.of<User>(context);
-      if (_my.phoneNumber != doc['phoneNumber'] && _isNotMyMediator(doc, _my)) {
+      if (myUser.phoneNumber != doc['phoneNumber'] && _isNotMyMediator(doc, myUser)) {
         _users.add(
           User(
             phoneNumber: doc['phoneNumber'],

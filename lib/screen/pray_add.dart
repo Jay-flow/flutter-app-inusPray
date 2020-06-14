@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/models/input_type.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/utils/constants.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class PrayAdd extends StatefulWidget {
@@ -35,7 +36,14 @@ class _PrayAddState extends State<PrayAdd> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (inputType == InputType.Update) _setUpUpdatePrayText(context);
+  }
+
+  bool _validate(String inputText) {
+    if (inputText == '') {
+      Fluttertoast.showToast(msg: '공백은 입력하실 수 없습니다.');
+      return false;
+    }
+    return true;
   }
 
   @override
@@ -54,14 +62,19 @@ class _PrayAddState extends State<PrayAdd> {
             Expanded(
               child: TextField(
                 controller: _textController,
+                maxLength: 200,
                 autofocus: true,
                 expands: true,
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
+                minLines: null,
                 decoration: kTopBorderRadiusInputDecoration.copyWith(
                   hintText: '여기에 기도 내용을 입력해주세요.',
                 ),
               ),
+            ),
+            SizedBox(
+              height: 10.0,
             ),
             Consumer<User>(
               builder: (BuildContext context, User user, Widget widget) {
@@ -72,12 +85,16 @@ class _PrayAddState extends State<PrayAdd> {
                     shape: kBottomBorderRadiusStyle,
                     color: Theme.of(context).primaryColor,
                     onPressed: () {
-                      if (inputType == InputType.Update) {
-                        user.updateUserPray(index, _textController.text);
-                      } else {
-                        user.createUserPray(_textController.text);
+                      String inputText = _textController.text.trim();
+                      inputText = inputText.replaceAll(RegExp(r"\n\n+"), "\n\n");
+                      if (_validate(inputText)) {
+                        if (inputType == InputType.Update) {
+                          user.updateUserPray(index, inputText);
+                        } else {
+                          user.createUserPray(inputText);
+                        }
+                        Navigator.pop(context);
                       }
-                      Navigator.pop(context);
                     },
                     child: Text(
                       '저장',

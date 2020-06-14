@@ -84,8 +84,24 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   Future<bool> _backPressEvent() {
-    _saveMyProfile();
-    return Future.value(true);
+    _name = _name.trim();
+    if(_validate()) {
+      _saveMyProfile();
+      return Future.value(true);
+    }
+    return Future.value(false);
+  }
+
+  bool _validate() {
+    if (_name.length > 10) {
+      Fluttertoast.showToast(msg: "이름이 너무깁니다. (10자 이하로 입력)");
+      return false;
+    }
+    if (_name == '') {
+      Fluttertoast.showToast(msg: "이름은 공백으로 둘 수 없습니다.");
+      return false;
+    }
+    return true;
   }
 
   Future<File> _imageCrop(String picturePath) => ImageCropper.cropImage(

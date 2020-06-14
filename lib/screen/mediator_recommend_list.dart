@@ -5,7 +5,20 @@ import 'package:flutter_inus_pray/models/mediator.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:provider/provider.dart';
 
-class MediatorRecommendList extends StatelessWidget {
+class MediatorRecommendList extends StatefulWidget {
+  @override
+  _MediatorRecommendListState createState() => _MediatorRecommendListState();
+}
+
+class _MediatorRecommendListState extends State<MediatorRecommendList> {
+  User myUser;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    myUser = Provider.of<User>(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -56,7 +69,7 @@ class MediatorRecommendList extends StatelessWidget {
         }
         return Container();
       },
-      future: Mediator().recommendUser(context),
+      future: Mediator().recommendUser(myUser),
     );
   }
 }

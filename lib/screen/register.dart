@@ -164,7 +164,7 @@ class _RegisterState extends State<Register> {
             }
           },
           textValue: user.phoneNumber,
-          onChange: (phoneNumber) => user.phoneNumber = phoneNumber,
+          onChange: (phoneNumber) => user.phoneNumber = phoneNumber.trim(),
           inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
         ),
       ),
@@ -173,8 +173,9 @@ class _RegisterState extends State<Register> {
         child: InputPage(
           title: '이름',
           validator: (String value) {
-            if (value.length > 5)
-              return '이름이 너무깁니다. (5자 이하로 입력)';
+            if(value == '') return '이름을 공백으로 둘 수는 없습니다.';
+            if (value.length > 10)
+              return '이름이 너무깁니다. (10자 이하로 입력)';
             else
               return null;
           },
@@ -187,7 +188,7 @@ class _RegisterState extends State<Register> {
             } else {}
           },
           textValue: user.name,
-          onChange: (name) => user.name = name,
+          onChange: (name) => user.name = name.trim(),
         ),
       ),
       Container(
@@ -195,6 +196,7 @@ class _RegisterState extends State<Register> {
         child: InputPage(
           title: '교회 이름',
           validator: (String value) {
+            if(value == '') return '교회 이름을 공백으로 둘 수는 없습니다.';
             if (value.length > 15)
               return '교회 이름이 너무깁니다. (15자 이하로 입력)';
             else
@@ -210,7 +212,7 @@ class _RegisterState extends State<Register> {
             }
           },
           textValue: user.church,
-          onChange: (church) => user.church = church,
+          onChange: (church) => user.church = church.trim(),
         ),
       ),
     ];
