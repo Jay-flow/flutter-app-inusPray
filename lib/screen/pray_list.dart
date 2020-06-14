@@ -4,6 +4,7 @@ import 'package:flutter_inus_pray/models/mediator.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:provider/provider.dart';
 
+// TODO:: 내 기도 제목 노출하게 구현
 class PrayList extends StatefulWidget {
   static const String id = 'pray_list';
 

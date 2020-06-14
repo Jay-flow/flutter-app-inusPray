@@ -10,21 +10,23 @@ class PrayCard extends StatelessWidget {
     @required this.imagePath,
     @required this.content,
     this.isWriting = false,
+    this.cardWidth,
+    this.cardHeight
   });
 
   final String name;
   final String imagePath;
   final Widget content;
   final bool isWriting;
+  final double cardWidth;
+  final double cardHeight;
 
   @override
   Widget build(BuildContext context) {
-    double deviceWidth = MediaQuery.of(context).size.width;
-    double deviceHeight = MediaQuery.of(context).size.height;
-
+    
     return Container(
-      width: deviceWidth - 80,
-      height: deviceHeight -190,
+      width: cardWidth,
+      height: cardHeight,
       child: Card(
         color: Colors.grey[50],
         elevation: 3.0,
