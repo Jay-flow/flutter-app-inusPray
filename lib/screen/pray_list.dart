@@ -4,7 +4,6 @@ import 'package:flutter_inus_pray/models/mediator.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:provider/provider.dart';
 
-// TODO:: 내 기도 제목 노출하게 구현
 class PrayList extends StatefulWidget {
   static const String id = 'pray_list';
 
@@ -13,28 +12,34 @@ class PrayList extends StatefulWidget {
 }
 
 class _PrayListState extends State<PrayList> {
+  List<User> users;
+  // TODO:: 내 기도 제목 노출하게 구현
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    Mediator mediator = Provider.of<Mediator>(context);
+    User myUser = Provider.of<User>(context);
+    users = [myUser, ...mediator.users];
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Consumer<Mediator>(
-      builder: (BuildContext context, Mediator mediator, Widget widget) {
-        return ListView.builder(
-            itemCount: mediator.users.length,
-            itemBuilder: (_, userIndex) {
-              User user = mediator.users[userIndex];
-              return ListView.builder(
-                  shrinkWrap: true,
-                  physics: ScrollPhysics(),
-                  itemCount: user.prays.length,
-                  itemBuilder: (_, indexPray) {
-                    return MediatorItem(
-                      imagePath: user.profileImage,
-                      title: user.name,
-                      subtitle: user.prays[indexPray],
-                    );
-                  });
-            });
-      },
-    );
+    return ListView.builder(
+        itemCount: users.length,
+        itemBuilder: (_, userIndex) {
+          User user = users[userIndex];
+          return ListView.builder(
+              shrinkWrap: true,
+              physics: ScrollPhysics(),
+              itemCount: user.prays.length,
+              itemBuilder: (_, indexPray) {
+                return MediatorItem(
+                  imagePath: user.profileImage,
+                  title: user.name,
+                  subtitle: user.prays[indexPray],
+                );
+              });
+        });
   }
 }
 
