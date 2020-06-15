@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/navigations/mediator_top_tab.dart';
 import 'package:flutter_inus_pray/navigations/pray_top_tab.dart';
+import 'package:flutter_inus_pray/screen/etc.dart';
 import 'package:flutter_inus_pray/screen/my.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -17,6 +18,7 @@ class _MainBottomTabState extends State<MainBottomTab> {
     My(),
     MediatorTopTab(),
     PrayTopTab(),
+    Etc(),
   ];
 
   @override
@@ -35,6 +37,12 @@ class _MainBottomTabState extends State<MainBottomTab> {
     return Scaffold(
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        selectedFontSize: 12.0,
+        unselectedFontSize: 12.0,
+        showUnselectedLabels: true,
+        selectedItemColor: Theme.of(context).primaryColor,
+        unselectedItemColor: Colors.grey,
         currentIndex: _currentIndex,
         onTap: _onTab,
         items: [
@@ -70,7 +78,16 @@ class _MainBottomTabState extends State<MainBottomTab> {
                 color: Theme.of(context).primaryColorDark,
               ),
             ),
-          )
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.more_horiz),
+            title: Text(
+              '기타',
+              style: TextStyle(
+                color: Theme.of(context).primaryColorDark,
+              ),
+            ),
+          ),
         ],
       ),
     );
