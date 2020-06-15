@@ -8,11 +8,13 @@ import 'package:provider/provider.dart';
 class MediatorList extends StatefulWidget {
   MediatorList({
     @required this.mediators,
-    this.closeMediatorSearch,
+    this.deleteMediator,
+    this.addMediator,
   });
 
   final List<User> mediators;
-  final Function closeMediatorSearch;
+  final Function deleteMediator;
+  final Function addMediator;
 
   @override
   _MediatorListState createState() => _MediatorListState();
@@ -30,27 +32,6 @@ class _MediatorListState extends State<MediatorList> {
   void _infoMessage(isIAddedMediatorForYou) {
     String msg = isIAddedMediatorForYou ? '중보자가 등록되었습니다.' : '중보자가 삭제되었습니다.';
     Fluttertoast.showToast(msg: msg);
-  }
-
-  void _addMediator(User mediator) {
-    myUser.updateMediators(mediator.phoneNumber);
-    Provider.of<Mediator>(context).setMediators(myUser);
-    Provider.of<Mediator>(context).setMediatorListener(mediator.phoneNumber);
-    setState(() {
-      mediator.isIAddedMediatorForYou = true;
-    });
-    if (widget.closeMediatorSearch != null) {
-      widget.closeMediatorSearch(context, null);
-    }
-  }
-
-  void _deleteMediator(User mediator) {
-    myUser.deleteMediators(mediator.phoneNumber);
-    Provider.of<Mediator>(context).setMediators(myUser);
-    Provider.of<Mediator>(context).cancelMediatorListener(mediator.phoneNumber);
-    setState(() {
-      mediator.isIAddedMediatorForYou = false;
-    });
   }
 
   @override
@@ -81,9 +62,9 @@ class _MediatorListState extends State<MediatorList> {
                 ),
           onPress: () {
             if (mediator.isIAddedMediatorForYou) {
-              _deleteMediator(mediator);
+              widget.deleteMediator(context, mediator);
             } else {
-              _addMediator(mediator);
+              widget.addMediator(context, mediator);
             }
             _infoMessage(mediator.isIAddedMediatorForYou);
           },

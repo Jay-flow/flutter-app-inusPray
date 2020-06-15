@@ -14,6 +14,13 @@ class MediatorForYou extends StatefulWidget {
 }
 
 class _MediatorForYouState extends State<MediatorForYou> {
+  void _deleteMediator(User mediator, User myUser) {
+    myUser.deleteMediators(mediator.phoneNumber);
+    Provider.of<Mediator>(context).setMediators(myUser);
+    Provider.of<Mediator>(context).cancelMediatorListener(mediator.phoneNumber);
+    mediator.isIAddedMediatorForYou = false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -33,6 +40,9 @@ class _MediatorForYouState extends State<MediatorForYou> {
             } else {
               return MediatorList(
                 mediators: mediator.users,
+                deleteMediator: (BuildContext context, User mediator) {
+                  _deleteMediator(mediator, user);
+                },
               );
             }
           },

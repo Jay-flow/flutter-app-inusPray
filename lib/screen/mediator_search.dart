@@ -8,6 +8,13 @@ import 'package:flutter_inus_pray/utils/settings.dart';
 import 'package:provider/provider.dart';
 
 class MediatorSearch extends SearchDelegate<User> {
+  _addMediator(BuildContext context, User mediator, User myUser) {
+    myUser.updateMediators(mediator.phoneNumber);
+    Provider.of<Mediator>(context).setMediators(myUser);
+    Provider.of<Mediator>(context).setMediatorListener(mediator.phoneNumber);
+    mediator.isIAddedMediatorForYou = true;
+  }
+
   @override
   String get searchFieldLabel => '이름을 입력해주세요';
 
@@ -38,6 +45,7 @@ class MediatorSearch extends SearchDelegate<User> {
     return Container();
   }
 
+
   @override
   Widget buildSuggestions(BuildContext context) {
     return FutureBuilder(
@@ -65,7 +73,10 @@ class MediatorSearch extends SearchDelegate<User> {
               );
               return MediatorList(
                 mediators: snap.data,
-                closeMediatorSearch: close,
+                addMediator: (BuildContext context, User mediator) {
+                  _addMediator(context, mediator, myUser);
+                  close(context, null);
+                },
               );
             },
           );

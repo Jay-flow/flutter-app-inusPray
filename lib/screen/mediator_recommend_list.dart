@@ -19,6 +19,15 @@ class _MediatorRecommendListState extends State<MediatorRecommendList> {
     myUser = Provider.of<User>(context);
   }
 
+  _addMediator(BuildContext context, User mediator) {
+    myUser.updateMediators(mediator.phoneNumber);
+    Provider.of<Mediator>(context).setMediators(myUser);
+    Provider.of<Mediator>(context).setMediatorListener(mediator.phoneNumber);
+    setState(() {
+      mediator.isIAddedMediatorForYou = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -60,6 +69,7 @@ class _MediatorRecommendListState extends State<MediatorRecommendList> {
                     );
                     return MediatorList(
                       mediators: snap.data,
+                      addMediator: _addMediator,
                     );
                   },
                 ),
