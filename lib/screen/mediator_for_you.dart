@@ -18,7 +18,6 @@ class _MediatorForYouState extends State<MediatorForYou> {
     myUser.deleteMediators(mediator.phoneNumber);
     Provider.of<Mediator>(context).setMediators(myUser);
     Provider.of<Mediator>(context).cancelMediatorListener(mediator.phoneNumber);
-    mediator.isIAddedMediatorForYou = false;
   }
 
   @override
@@ -34,13 +33,12 @@ class _MediatorForYouState extends State<MediatorForYou> {
         ),
         body: Consumer2<User, Mediator>(
           builder: (BuildContext context, User user, Mediator mediator, Widget widget) {
-            user.checkMyMediators(mediators: mediator.users);
             if (mediator.users.isEmpty) {
               return NoExistMediators();
             } else {
               return MediatorList(
                 mediators: mediator.users,
-                deleteMediator: (BuildContext context, User mediator) {
+                deleteMediator: (User mediator) {
                   _deleteMediator(mediator, user);
                 },
               );

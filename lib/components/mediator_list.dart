@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/mediator_item.dart';
-import 'package:flutter_inus_pray/models/mediator.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
@@ -30,13 +29,14 @@ class _MediatorListState extends State<MediatorList> {
   }
 
   void _infoMessage(isIAddedMediatorForYou) {
-    String msg = isIAddedMediatorForYou ? '중보자가 등록되었습니다.' : '중보자가 삭제되었습니다.';
+    String msg = isIAddedMediatorForYou ?  '중보자가 삭제되었습니다.': '중보자가 등록되었습니다.';
     Fluttertoast.showToast(msg: msg);
   }
 
   @override
   Widget build(BuildContext context) {
     List<User> mediators = widget.mediators;
+    myUser.checkMyMediators(mediators: mediators);
     return ListView.builder(
       itemCount: mediators.length,
       itemBuilder: (_, index) {
@@ -62,7 +62,7 @@ class _MediatorListState extends State<MediatorList> {
                 ),
           onPress: () {
             if (mediator.isIAddedMediatorForYou) {
-              widget.deleteMediator(context, mediator);
+              widget.deleteMediator(mediator);
             } else {
               widget.addMediator(context, mediator);
             }

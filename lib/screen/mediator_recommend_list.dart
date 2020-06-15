@@ -23,9 +23,6 @@ class _MediatorRecommendListState extends State<MediatorRecommendList> {
     myUser.updateMediators(mediator.phoneNumber);
     Provider.of<Mediator>(context).setMediators(myUser);
     Provider.of<Mediator>(context).setMediatorListener(mediator.phoneNumber);
-    setState(() {
-      mediator.isIAddedMediatorForYou = true;
-    });
   }
 
   @override
@@ -64,9 +61,6 @@ class _MediatorRecommendListState extends State<MediatorRecommendList> {
                     User myUser,
                     Widget widget,
                   ) {
-                    myUser.checkMyMediators(
-                      mediators: snap.data,
-                    );
                     return MediatorList(
                       mediators: snap.data,
                       addMediator: _addMediator,

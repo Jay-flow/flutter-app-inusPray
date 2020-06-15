@@ -12,7 +12,6 @@ class MediatorSearch extends SearchDelegate<User> {
     myUser.updateMediators(mediator.phoneNumber);
     Provider.of<Mediator>(context).setMediators(myUser);
     Provider.of<Mediator>(context).setMediatorListener(mediator.phoneNumber);
-    mediator.isIAddedMediatorForYou = true;
   }
 
   @override
@@ -68,9 +67,6 @@ class MediatorSearch extends SearchDelegate<User> {
               User myUser,
               Widget widget,
             ) {
-              myUser.checkMyMediators(
-                mediators: snap.data,
-              );
               return MediatorList(
                 mediators: snap.data,
                 addMediator: (BuildContext context, User mediator) {

@@ -26,34 +26,47 @@ class _MediatorForMeState extends State<MediatorForMe> {
     _findPrayForMe();
   }
 
-  // TODO:: whoPrayForMe 중보자 추가 한다음에 없애야 됨... 방법 생각해보기
   _findPrayForMe() async {
-    List<String> whoPrayForMePhoneNumber = List();
-    myUser.whoPrayForMe.forEach((phoneNumber) {
-      if (!myUser.mediators.contains(phoneNumber)) {
-        whoPrayForMePhoneNumber.add(phoneNumber);
-      }
-    });
-    users = await Mediator.findUsers(whoPrayForMePhoneNumber);
+    // List<String> whoPrayForMePhoneNumbers = List();
+    // myUser.whoPrayForMe.forEach((phoneNumber) {
+    //   if (!myUser.mediators.contains(phoneNumber)) {
+    //     whoPrayForMePhoneNumbers.add(phoneNumber);
+    //   }
+    // });
+    users = await Mediator.findUsers(myUser.whoPrayForMe);
     setState(() {
       _isLoading = false;
     });
+  }
+
+  _addMediator(BuildContext context, User mediator) {
+    myUser.updateMediators(mediator.phoneNumber);
+    Provider.of<Mediator>(context).setMediators(myUser);
+    Provider.of<Mediator>(context).setMediatorListener(mediator.phoneNumber);
+  }
+
+  void _deleteMediator(User mediator) {
+    myUser.deleteMediators(mediator.phoneNumber);
+    Provider.of<Mediator>(context).setMediators(myUser);
+    Provider.of<Mediator>(context).cancelMediatorListener(mediator.phoneNumber);
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: myUser.whoPrayForMe.isEmpty
-            ? NoExistMediatorsForMe()
-            : _isLoading
-                ? Container(
-                    child: SpinKitFadingCircle(
-                      color: Colors.black,
-                    ),
-                  )
+        body: _isLoading
+            ? Container(
+                child: SpinKitFadingCircle(
+                  color: Colors.black,
+                ),
+              )
+            : users.isEmpty
+                ? NoExistMediatorsForMe()
                 : MediatorList(
                     mediators: users,
+                    addMediator: _addMediator,
+                    deleteMediator: _deleteMediator,
                   ),
       ),
     );
