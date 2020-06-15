@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/mediator_list.dart';
 import 'package:flutter_inus_pray/models/mediator.dart';
+import 'package:flutter_inus_pray/models/settings.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -62,7 +63,7 @@ class _MediatorForMeState extends State<MediatorForMe> {
                 ),
               )
             : users.isEmpty
-                ? NoExistMediatorsForMe()
+                ? NoExistMediatorsForMe(myUser:myUser)
                 : MediatorList(
                     mediators: users,
                     addMediator: _addMediator,
@@ -74,6 +75,20 @@ class _MediatorForMeState extends State<MediatorForMe> {
 }
 
 class NoExistMediatorsForMe extends StatelessWidget {
+  NoExistMediatorsForMe({this.myUser});
+  
+  final User myUser;
+
+  _shareButtonOnPress() async {
+    var urls =  await Settings().getStoreURL();
+    Share.share(
+      "${myUser.name}님이 기도제목을 공유하기 원합니다.\n"+
+      "함께 기도해주세요\n\n"+
+      "안드로이드 다운로드: ${urls['androidStore']}\n\n"+
+      "아이폰 다운로드: ${urls['iosStore']}"
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -101,11 +116,7 @@ class NoExistMediatorsForMe extends StatelessWidget {
         ),
         RaisedButton(
           color: Theme.of(context).primaryColorLight,
-          onPressed: () {
-            Share.share(
-              'check out my website https://example.com',
-            );
-          },
+          onPressed: _shareButtonOnPress,
           child: Text(
             '기도앱 공유하기',
             style: TextStyle(
