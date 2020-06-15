@@ -4,6 +4,7 @@ import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/utils/constants.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_inus_pray/api/notification_fcm.dart';
 
 class PrayAdd extends StatefulWidget {
   static const String idCreate = 'pray_add_create';
@@ -98,6 +99,10 @@ class _PrayAddState extends State<PrayAdd> {
                         } else {
                           user.createUserPray(inputText);
                         }
+                        NotificationFCM().sendMediator(
+                          userID: user.phoneNumber,
+                          pray: inputText,
+                        );
                         Navigator.pop(context);
                       }
                     },
