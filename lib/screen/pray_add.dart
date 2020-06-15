@@ -21,10 +21,13 @@ class _PrayAddState extends State<PrayAdd> {
   final _textController = TextEditingController();
   InputType inputType;
   int index;
-  _setUpUpdatePrayText(BuildContext context) {
-    final args = ModalRoute.of(context).settings.arguments as Map;
-    _textController.text = args['pray'];
-    index = args['index'];
+
+  _setUpUpdatePrayText() {
+    if (inputType == InputType.Update) {
+      final args = ModalRoute.of(context).settings.arguments as Map;
+      _textController.text = args['pray'];
+      index = args['index'];
+    }
   }
 
   @override
@@ -36,6 +39,7 @@ class _PrayAddState extends State<PrayAdd> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    _setUpUpdatePrayText();
   }
 
   bool _validate(String inputText) {
@@ -86,7 +90,8 @@ class _PrayAddState extends State<PrayAdd> {
                     color: Theme.of(context).primaryColor,
                     onPressed: () {
                       String inputText = _textController.text.trim();
-                      inputText = inputText.replaceAll(RegExp(r"\n\n+"), "\n\n");
+                      inputText =
+                          inputText.replaceAll(RegExp(r"\n\n+"), "\n\n");
                       if (_validate(inputText)) {
                         if (inputType == InputType.Update) {
                           user.updateUserPray(index, inputText);

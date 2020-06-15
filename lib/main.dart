@@ -57,7 +57,7 @@ class _InusPrayAppState extends State<InusPrayApp> {
       _mediator = Mediator();
       await _mediator.setMediators(_user);
       _setMediatorListener();
-      NotificationFCM(userData['deviceToken']);
+      NotificationFCM(_user);
     } else {
       _user.deleteLocalUserData();
     }

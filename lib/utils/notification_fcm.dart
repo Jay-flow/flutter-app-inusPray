@@ -1,6 +1,8 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'dart:io';
 
+import 'package:flutter_inus_pray/models/user.dart';
+
 // Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) {
 //   if (message.containsKey('data')) {
 //     // Handle data message
@@ -17,13 +19,14 @@ import 'dart:io';
 
 class NotificationFCM {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  User user;
+  String deviceToken;
 
-  NotificationFCM(deviceToken) {
+  NotificationFCM(User user) {
+    this.user = user;
     if (Platform.isIOS) _iOSPermission();
-    if (deviceToken == null) {
-      _getDeviceToken();
-      _firebaseConfigure();
-    }
+    _getDeviceToken();
+    _firebaseConfigure();
   }
 
   void _firebaseConfigure() {
@@ -42,9 +45,9 @@ class NotificationFCM {
   }
 
   void _getDeviceToken() {
-    _firebaseMessaging.getToken().then((token) {
-      
-      print('Token: $token');
+    _firebaseMessaging.getToken().then((deviceToken) {
+      this.user.saveDeviceTokenInCloudFirestore(deviceToken);
+      print('Token: $deviceToken');
     });
   }
 

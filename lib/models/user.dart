@@ -192,6 +192,10 @@ class User extends ChangeNotifier {
     }
   }
 
+  void saveDeviceTokenInCloudFirestore(String deviceToken) {
+    userCollection.document(this.phoneNumber).updateData({'deviceToken': deviceToken});
+  }
+
   void checkMyMediators({List<User> mediators}) {
     for (User user in mediators) {
       for (String myMediatorPhoneNumber in this.mediators) {
