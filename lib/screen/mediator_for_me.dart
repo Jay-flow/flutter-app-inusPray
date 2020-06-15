@@ -63,7 +63,7 @@ class _MediatorForMeState extends State<MediatorForMe> {
                 ),
               )
             : users.isEmpty
-                ? NoExistMediatorsForMe(myUser:myUser)
+                ? NoExistMediatorsForMe(myUser: myUser)
                 : MediatorList(
                     mediators: users,
                     addMediator: _addMediator,
@@ -76,17 +76,13 @@ class _MediatorForMeState extends State<MediatorForMe> {
 
 class NoExistMediatorsForMe extends StatelessWidget {
   NoExistMediatorsForMe({this.myUser});
-  
+
   final User myUser;
 
   _shareButtonOnPress() async {
-    var urls =  await Settings().getStoreURL();
+    String dowonloadUrl = await Settings().getStoreURL();
     Share.share(
-      "${myUser.name}님이 기도제목을 공유하기 원합니다.\n"+
-      "함께 기도해주세요\n\n"+
-      "안드로이드 다운로드: ${urls['androidStore']}\n\n"+
-      "아이폰 다운로드: ${urls['iosStore']}"
-    );
+        "${myUser.name}님이 기도제목을 공유하기 원합니다.\n" + "함께 기도해주세요\n\n" + dowonloadUrl);
   }
 
   @override

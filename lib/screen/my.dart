@@ -4,11 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/circle_editable_profile.dart';
 import 'package:flutter_inus_pray/components/edge_decoration_list_tile.dart';
 import 'package:flutter_inus_pray/components/my_pray_icon_button.dart';
+import 'package:flutter_inus_pray/models/settings.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/screen/pray_add.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:share/share.dart';
 
 class My extends StatefulWidget {
   static const String id = 'my';
@@ -55,6 +58,20 @@ class _MyState extends State<My> {
   //       });
   // }
 
+  _shareMyPrays(User user) async {
+    if (user.prays.isEmpty) {
+      Fluttertoast.showToast(msg: '공유가능한 기도제목이 없습니다.');
+    } else {
+      String downloadURL = await Settings().getStoreURL();
+      String prays = "# ${user.name}님의 기도제목\n\n";
+      for (int i = 0; i < user.prays.length; i++) {
+        prays += "${i + 1}. ${user.prays[i]}\n";
+      }
+      prays += "\n$downloadURL";
+      Share.share(prays);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -66,9 +83,41 @@ class _MyState extends State<My> {
                 SliverAppBar(
                   expandedHeight: 210.0,
                   flexibleSpace: FlexibleSpaceBar(
-                    background: CircleEditableProfile(
-                      name: user.name,
-                      profileImagePath: user.profileImage,
+                    background: Stack(
+                      children: <Widget>[
+                        Align(
+                          alignment: Alignment.center,
+                          child: CircleEditableProfile(
+                            name: user.name,
+                            profileImagePath: user.profileImage,
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: InkWell(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(
+                                    '기도공유',
+                                    style: TextStyle(
+                                        color: Theme.of(context).primaryColor),
+                                  ),
+                                  Icon(
+                                    Icons.send,
+                                    color: Theme.of(context).primaryColor,
+                                    size: 10.0,
+                                  )
+                                ],
+                              ),
+                            ),
+                            onTap: () => _shareMyPrays(user),
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ),
