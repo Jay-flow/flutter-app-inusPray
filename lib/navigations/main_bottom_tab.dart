@@ -18,7 +18,7 @@ class _MainBottomTabState extends State<MainBottomTab> {
     My(),
     MediatorTopTab(),
     PrayTopTab(),
-    Etc(),
+    // Etc(),
   ];
 
   @override
@@ -79,15 +79,15 @@ class _MainBottomTabState extends State<MainBottomTab> {
               ),
             ),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.more_horiz),
-            title: Text(
-              '기타',
-              style: TextStyle(
-                color: Theme.of(context).primaryColorDark,
-              ),
-            ),
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.more_horiz),
+          //   title: Text(
+          //     '기타',
+          //     style: TextStyle(
+          //       color: Theme.of(context).primaryColorDark,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

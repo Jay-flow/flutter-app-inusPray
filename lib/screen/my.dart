@@ -60,7 +60,9 @@ class _MyState extends State<My> {
 
   _shareMyPrays(User user) async {
     if (user.prays.isEmpty) {
-      Fluttertoast.showToast(msg: '공유가능한 기도제목이 없습니다.');
+      Fluttertoast.showToast(
+        msg: '공유가능한 기도제목이 없습니다.',
+      );
     } else {
       String downloadURL = await Settings().getStoreURL();
       String prays = "# ${user.name}님의 기도제목\n\n";

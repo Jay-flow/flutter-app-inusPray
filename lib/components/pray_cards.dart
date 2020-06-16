@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_inus_pray/components/is_exist_prays.dart';
 import 'package:flutter_inus_pray/components/no_exist_pray.dart';
 import 'package:flutter_inus_pray/models/mediator.dart';
 import 'package:flutter_inus_pray/models/user.dart';
@@ -18,17 +19,23 @@ class _PrayCardsState extends State<PrayCards> {
   Mediator _mediator;
   List<Widget> _prayCards = List();
   int _pratCardTotal;
+  bool isRemoveCard = false;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _user = Provider.of<User>(context);
     _mediator = Provider.of<Mediator>(context);
+    _setPrayCards();
+  }
+
+  _setPrayCards() {
     _getPrayCards();
     _pratCardTotal = this._prayCards.length;
   }
 
   _removePrayCard() {
+    isRemoveCard = true;
     setState(() {
       this._prayCards.removeLast();
     });
@@ -90,34 +97,47 @@ class _PrayCardsState extends State<PrayCards> {
 
   @override
   Widget build(BuildContext context) {
-    if (this._prayCards.isEmpty) {
+    if (this._prayCards.isEmpty && !isRemoveCard) {
       return NoExistPrays();
+    } else if (this._prayCards.isEmpty && isRemoveCard) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text('기도 카드가 더 이상 없습니다.'),
+            IconButton(
+              icon: Icon(Icons.refresh),
+              tooltip: '되돌리기',
+              onPressed: () {
+                setState(() {
+                  _setPrayCards();
+                });
+              },
+            ),
+          ],
+        ),
+      );
     } else {
-      return (this._prayCards.length == 0)
-          ? Center(
-              child: Text('기도 카드가 모두 소진되었습니다.'),
-            )
-          : Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: CARD_HORIZONTAL_PADDING,
-                  ),
-                  child: Stack(
-                    children: this._prayCards,
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: 12),
-                  child: Text(
-                    "${this._prayCards.length.toString()}/$_pratCardTotal",
-                  ),
-                )
-              ],
-            );
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: CARD_HORIZONTAL_PADDING,
+            ),
+            child: Stack(
+              children: this._prayCards,
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 12),
+            child: Text(
+              "${this._prayCards.length.toString()}/$_pratCardTotal",
+            ),
+          )
+        ],
+      );
     }
   }
 }
-

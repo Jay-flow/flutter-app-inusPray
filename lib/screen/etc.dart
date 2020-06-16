@@ -17,7 +17,7 @@ class Etc extends StatefulWidget {
 }
 
 class _EtcState extends State<Etc> {
-  bool _isLoading = false;
+  bool _isLoading = true;
 
   @override
   Widget build(BuildContext context) {
