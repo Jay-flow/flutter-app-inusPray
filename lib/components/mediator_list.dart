@@ -46,16 +46,16 @@ class _MediatorListState extends State<MediatorList> {
           title: mediator.name,
           subtitle: mediator.church,
           chipBackgroundColor:
-              mediator.isIAddedMediatorForYou ? Colors.grey : Colors.pink,
+              mediator.isIAddedMediatorForYou ? Colors.grey : Theme.of(context).primaryColorLight,
           label: mediator.isIAddedMediatorForYou
               ? Text(
-                  '중보취소',
+                  '기도취소',
                   style: TextStyle(
                     color: Colors.white,
                   ),
                 )
               : Text(
-                  '중보하기',
+                  '기도하기',
                   style: TextStyle(
                     color: Colors.white,
                   ),

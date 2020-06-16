@@ -73,3 +73,12 @@ const kBottomBorderRadiusStyle = RoundedRectangleBorder(
 
 const defaultProfileImagePath =
     'https://firebasestorage.googleapis.com/v0/b/flutter-inuspray.appspot.com/o/profile_images%2Fdefault.png?alt=media&token=693025b1-27e3-4237-80a7-d1f51d7bf821';
+
+BoxDecoration kCardContainerBoxDecoration = BoxDecoration(
+  border: Border.all(
+    width: 1,
+    color: Colors.grey,
+  ),
+  color: Colors.white,
+  borderRadius: BorderRadius.circular(12),
+);

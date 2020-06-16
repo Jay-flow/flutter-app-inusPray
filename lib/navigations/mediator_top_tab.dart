@@ -25,7 +25,7 @@ class MediatorTopTab extends StatelessWidget {
                   height: 46,
                   child: Center(
                     child: Text(
-                      '내가 중보중인 사람',
+                      '내가 기도 중인 사람',
                     ),
                   ),
                 ),
@@ -33,7 +33,7 @@ class MediatorTopTab extends StatelessWidget {
                   height: 46,
                   child: Center(
                     child: Text(
-                      '나를 중보해주는 사람',
+                      '나를 기도 해주는 사람',
                     ),
                   ),
                 ),

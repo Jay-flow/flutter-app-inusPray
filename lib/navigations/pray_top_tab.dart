@@ -6,8 +6,8 @@ class PrayTopTab extends StatelessWidget {
   static const String id = 'pray_top_tab';
 
   final List<Widget> prayScreens = [
-    PrayList(),
     PrayCard(),
+    PrayList(),
   ];
 
   @override
@@ -21,8 +21,8 @@ class PrayTopTab extends StatelessWidget {
             bottom: TabBar(
               indicatorWeight: 4.0,
               tabs: <Widget>[
-                Tab(icon: Icon(Icons.list)),
                 Tab(icon: Icon(Icons.filter_none)),
+                Tab(icon: Icon(Icons.list)),
               ],
             ),
           ),
