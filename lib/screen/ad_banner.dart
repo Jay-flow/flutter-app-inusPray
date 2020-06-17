@@ -27,7 +27,7 @@ class _AdBannerState extends State<AdBanner> {
   BannerAd createBannerAd() {
     return BannerAd(
       adUnitId: BannerAd.testAdUnitId,
-      size: AdSize.banner,
+      size: AdSize.mediumRectangle,
       targetingInfo: targetingInfo,
       listener: (MobileAdEvent event) {
         print("BannerAd event $event");
@@ -95,7 +95,7 @@ class _AdBannerState extends State<AdBanner> {
                       _bannerAd ??= createBannerAd();
                       _bannerAd
                         ..load()
-                        ..show(horizontalCenterOffset: -50, anchorOffset: 100);
+                        ..show(horizontalCenterOffset: 0, anchorOffset: 500);
                     }),
                 RaisedButton(
                     child: const Text('REMOVE BANNER'),

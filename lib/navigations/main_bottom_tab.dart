@@ -4,6 +4,7 @@ import 'package:flutter_inus_pray/navigations/pray_top_tab.dart';
 import 'package:flutter_inus_pray/screen/etc.dart';
 import 'package:flutter_inus_pray/screen/my.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_inus_pray/screen/ad_banner.dart';
 
 class MainBottomTab extends StatefulWidget {
   static const String id = 'main_bottom_tab';
@@ -18,7 +19,8 @@ class _MainBottomTabState extends State<MainBottomTab> {
     My(),
     MediatorTopTab(),
     PrayTopTab(),
-    // Etc(),
+    Etc(),
+    // AdBanner(),
   ];
 
   @override
@@ -79,15 +81,15 @@ class _MainBottomTabState extends State<MainBottomTab> {
               ),
             ),
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.more_horiz),
-          //   title: Text(
-          //     '기타',
-          //     style: TextStyle(
-          //       color: Theme.of(context).primaryColorDark,
-          //     ),
-          //   ),
-          // ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.more_horiz),
+            title: Text(
+              '기타',
+              style: TextStyle(
+                color: Theme.of(context).primaryColorDark,
+              ),
+            ),
+          ),
         ],
       ),
     );
