@@ -1,4 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/loading_container.dart';
 import 'package:flutter_inus_pray/components/rounded_button.dart';
@@ -61,12 +62,12 @@ class _LoginState extends State<Login> {
         child: Container(
           constraints: BoxConstraints.expand(),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 30),
+            padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 SizedBox(
-                  height: 60,
+                  height: 20,
                 ),
                 Container(
                   width: iconSize,
@@ -82,19 +83,38 @@ class _LoginState extends State<Login> {
                     textStyle: kTitleTextStyle,
                   ),
                 ),
-                RoundedButton(
-                  text: '회원가입',
-                  buttonColor: Colors.white,
-                  onPressed: () =>
-                      Navigator.pushReplacementNamed(context, Register.id),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                RoundedButton(
-                  text: '카카오 로그인',
-                  buttonColor: Theme.of(context).primaryColor,
-                  onPressed: () => _kakaoLogin(context),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text:
+                                '로그인을 누르시면 이용약관 및 개인정보 취급 방침에 동의하는 것으로 간주됩니다.',
+                                recognizer: TapGestureRecognizer()
+                                ..onTap = () => print('HEY')
+                          ),
+                        ],
+                      ),
+                    ),
+                    RoundedButton(
+                      text: '회원가입',
+                      buttonColor: Colors.white,
+                      onPressed: () =>
+                          Navigator.pushReplacementNamed(context, Register.id),
+                    ),
+                    RoundedButton(
+                      text: '카카오 로그인',
+                      buttonColor: Theme.of(context).primaryColor,
+                      onPressed: () => _kakaoLogin(context),
+                    ),
+                    RoundedButton(
+                      text: 'Apple로 로그인',
+                      buttonColor: Colors.white,
+                      onPressed: () => _kakaoLogin(context),
+                    ),
+                  ],
                 ),
               ],
             ),
