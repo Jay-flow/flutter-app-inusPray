@@ -1,13 +1,17 @@
+import 'dart:io' show Platform;
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/loading_container.dart';
-import 'package:flutter_inus_pray/components/rounded_button.dart';
+import 'package:flutter_inus_pray/components/image_button.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/screen/register.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:flutter_inus_pray/utils/constants.dart';
 import 'package:flutter_kakao_login/flutter_kakao_login.dart';
+import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
+import 'package:flutter_inus_pray/components/rounded_button.dart';
+
 
 const double iconSize = 80.0;
 
@@ -46,7 +50,7 @@ class _LoginState extends State<Login> {
           thumbnailImagePath: userThumbnailImagePath,
           phoneNumber: userPhoneNumber,
         );
-        Navigator.pushReplacementNamed(context, Register.id, arguments: user);
+        Navigator.pushNamed(context, Register.id, arguments: user);
       }
     } catch (e) {
       // 로그인 에러
@@ -83,38 +87,51 @@ class _LoginState extends State<Login> {
                     textStyle: kTitleTextStyle,
                   ),
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text:
-                                '로그인을 누르시면 이용약관 및 개인정보 취급 방침에 동의하는 것으로 간주됩니다.',
-                                recognizer: TapGestureRecognizer()
-                                ..onTap = () => print('HEY')
-                          ),
-                        ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                            text: '로그인을 누르시면 이용약관 및 개인정보 취급 방침에 동의하는 것으로 간주됩니다.',
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () => print('HEY')),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  height: Platform.isIOS ? 170: 130,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      RoundedButton(
+                        text: '회원가입',
+                        buttonColor: Colors.white,
+                        onPressed: () =>
+                            Navigator.pushNamed(context, Register.id),
                       ),
-                    ),
-                    RoundedButton(
-                      text: '회원가입',
-                      buttonColor: Colors.white,
-                      onPressed: () =>
-                          Navigator.pushReplacementNamed(context, Register.id),
-                    ),
-                    RoundedButton(
-                      text: '카카오 로그인',
-                      buttonColor: Theme.of(context).primaryColor,
-                      onPressed: () => _kakaoLogin(context),
-                    ),
-                    RoundedButton(
-                      text: 'Apple로 로그인',
-                      buttonColor: Colors.white,
-                      onPressed: () => _kakaoLogin(context),
-                    ),
-                  ],
+                      ImageButton(
+                        text: '카카오 로그인',
+                        buttonColor: Theme.of(context).primaryColor,
+                        iconImage: Asset.Icons.icKakao,
+                        onPressed: () => _kakaoLogin(context),
+                      ),
+                      Platform.isIOS ? 
+                      ImageButton(
+                        text: 'Apple로 로그인',
+                        buttonColor: Colors.white,
+                        iconImage: Asset.Icons.icKakao,
+                        onPressed: () {
+                          // TODO:: 애플 소셜로그인 구현
+                          // https://pub.dev/packages/sign_in_with_apple#-readme-tab-
+                        },
+                      ): Container(),
+                    ],
+                  ),
                 ),
               ],
             ),

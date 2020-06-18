@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class Icons {
   Icons._();
   static Image icLogo = Image.asset('res/icons/logo.png');
+  static AssetImage icKakao = AssetImage('res/icons/icKakako.png');
 }
 
 class Images {

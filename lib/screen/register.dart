@@ -123,17 +123,18 @@ class _RegisterState extends State<Register> {
   }
 
   Future<bool> _isExistUser() async {
-    Map<String, dynamic>userData = await user.getCloudUserData(user.phoneNumber);
+    Map<String, dynamic> userData =
+        await user.getCloudUserData(user.phoneNumber);
     if (userData != null) {
-      return true; 
+      return true;
     }
     return false;
   }
 
   _alreadyRegistedUserHandling() async {
     Fluttertoast.showToast(
-          msg:"이미 가입된 회원 정보가 있습니다.",
-          toastLength: Toast.LENGTH_LONG,
+      msg: "이미 가입된 회원 정보가 있습니다.",
+      toastLength: Toast.LENGTH_LONG,
     );
     await user.localUserDataSave();
     Navigator.pushReplacementNamed(context, InusPrayApp.id);
@@ -173,7 +174,7 @@ class _RegisterState extends State<Register> {
         child: InputPage(
           title: '이름',
           validator: (String value) {
-            if(value == '') return '이름을 공백으로 둘 수는 없습니다.';
+            if (value == '') return '이름을 공백으로 둘 수는 없습니다.';
             if (value.length > 10)
               return '이름이 너무깁니다. (10자 이하로 입력)';
             else
@@ -196,7 +197,7 @@ class _RegisterState extends State<Register> {
         child: InputPage(
           title: '교회 이름',
           validator: (String value) {
-            if(value == '') return '교회 이름을 공백으로 둘 수는 없습니다.';
+            if (value == '') return '교회 이름을 공백으로 둘 수는 없습니다.';
             if (value.length > 15)
               return '교회 이름이 너무깁니다. (15자 이하로 입력)';
             else
@@ -208,6 +209,7 @@ class _RegisterState extends State<Register> {
           buttonOnPressed: (GlobalKey<FormState> key) async {
             if (key.currentState.validate()) {
               await _validate();
+              Navigator.of(context).pushNamedAndRemoveUntil(Register.id, (Route<dynamic> route) => false);
               Navigator.pushReplacementNamed(context, InusPrayApp.id);
             }
           },
