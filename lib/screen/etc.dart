@@ -119,24 +119,31 @@ class _EtcState extends State<Etc> {
                         SizedBox(
                           width: 10,
                         ),
-                        RichText(
-                          text: TextSpan(
-                            style: TextStyle(color: Colors.black, height: 1.3),
-                            children: [
-                              TextSpan(text: '#개발자 정보\n'),
-                              TextSpan(
-                                text: 'Blog: https://medium.com/@kimpetro153\n',
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () =>
-                                      launch('https://medium.com/@kimpetro153'),
+                        Flexible(
+                          child: RichText(
+                            overflow: TextOverflow.fade,
+                            text: TextSpan(
+                              style: TextStyle(
+                                color: Colors.black,
+                                height: 1.3,
                               ),
-                              TextSpan(
-                                text: 'Github: https://github.com/Jay-flow',
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () =>
-                                      launch('https://github.com/Jay-flow'),
-                              ),
-                            ],
+                              children: [
+                                TextSpan(text: '#개발자 정보\n'),
+                                TextSpan(
+                                  text:
+                                      'Blog: https://medium.com/@kimpetro153\n',
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () => launch(
+                                        'https://medium.com/@kimpetro153'),
+                                ),
+                                TextSpan(
+                                  text: 'Github: https://github.com/Jay-flow',
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () =>
+                                        launch('https://github.com/Jay-flow'),
+                                ),
+                              ],
+                            ),
                           ),
                         )
                       ],
