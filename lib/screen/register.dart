@@ -8,6 +8,7 @@ import 'package:flutter_inus_pray/components/loading_container.dart';
 import 'package:flutter_inus_pray/main.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 
 class Register extends StatefulWidget {
   static const String id = 'register';
@@ -232,9 +233,9 @@ class _RegisterState extends State<Register> {
             children: <Widget>[
               LinearProgressIndicator(
                 value: progressValue,
-                backgroundColor: Theme.of(context).primaryColorLight,
+                backgroundColor: Asset.Colors.grey,
                 valueColor: AlwaysStoppedAnimation<Color>(
-                  Theme.of(context).accentColor,
+                  Asset.Colors.hotPink,
                 ),
               ),
               Expanded(

@@ -28,13 +28,13 @@ const kTextFieldDecoration = InputDecoration(
   border: UnderlineInputBorder(),
   enabledBorder: UnderlineInputBorder(
     borderSide: BorderSide(
-      color: Asset.Colors.yellow,
+      color: Asset.Colors.grey,
       width: 1.5,
     ),
   ),
   focusedBorder: UnderlineInputBorder(
     borderSide: BorderSide(
-      color: Asset.Colors.yellow,
+      color: Asset.Colors.hotPink,
       width: 2.0,
     ),
   ),

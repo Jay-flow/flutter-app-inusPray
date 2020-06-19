@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inus_pray/components/underline_text_field.dart';
 import 'package:flutter_inus_pray/utils/constants.dart';
+import 'package:flutter_inus_pray/components/rounded_button.dart';
+import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 
 class InputPage extends StatefulWidget {
   InputPage({
@@ -64,21 +66,26 @@ class _InputPageState extends State<InputPage> {
               inputFormatters: widget.inputFormatters,
             ),
           ),
-          ButtonTheme(
-            minWidth: double.infinity,
-            splashColor: Theme.of(context).accentColor,
-            height: 50.0,
-            child: RaisedButton(
-              color: Theme.of(context).primaryColorDark,
-              onPressed: () => widget.buttonOnPressed(_formKey),
-              child: Text(
-                widget.buttonText,
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
+          RoundedButton(
+            text: widget.buttonText,
+            buttonColor: Asset.Colors.white,
+            onPressed: () => widget.buttonOnPressed(_formKey)
+          )
+          // ButtonTheme(
+          //   minWidth: double.infinity,
+          //   splashColor: Theme.of(context).accentColor,
+          //   height: 50.0,
+          //   child: RaisedButton(
+          //     color: Theme.of(context).primaryColorDark,
+          //     onPressed: () => widget.buttonOnPressed(_formKey),
+          //     child: Text(
+          //       widget.buttonText,
+          //       style: TextStyle(
+          //         color: Colors.white,
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
