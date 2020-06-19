@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_inus_pray/utils/constants.dart';
 
 class ImageButton extends StatelessWidget {
-  ImageButton({
-    @required this.text,
-    @required this.buttonColor,
-    @required this.onPressed,
-    @required this.iconImage
-  });
+  ImageButton(
+      {@required this.text,
+      @required this.buttonColor,
+      @required this.onPressed,
+      @required this.iconImage});
 
   final String text;
   final Color buttonColor;
@@ -16,34 +14,38 @@ class ImageButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton.icon(
-      color: Color(0xFFFAE003),
-      padding: EdgeInsets.symmetric(
-        vertical: 8.0,
-        horizontal: 30.0,
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(
-            30.0,
+    return SizedBox(
+      width: double.infinity,
+      child: FlatButton.icon(
+        color: Colors.white,
+        padding: EdgeInsets.symmetric(
+          vertical: 12.0,
+          horizontal: 30.0,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(
+              30.0,
+            ),
           ),
         ),
-      ),
-      icon: Padding(
-        padding: EdgeInsets.only(right: 5.0),
-        child: Image(
+        icon: Image(
           image: iconImage,
-          width: 40.0,
-          height: 40.0,
+          width: 25.0,
+          height: 25.0,
         ),
-      ),
-      label: Text(
-        text,
-        style: TextStyle(
-          color: Colors.black,
+        label: Expanded(
+          child: Center(
+            child: Text(
+              text,
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+          ),
         ),
+        onPressed: onPressed,
       ),
-      onPressed: onPressed,
     );
   }
 }

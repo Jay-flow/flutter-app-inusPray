@@ -9,9 +9,7 @@ import 'package:flutter_inus_pray/screen/register.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:flutter_inus_pray/utils/constants.dart';
 import 'package:flutter_kakao_login/flutter_kakao_login.dart';
-import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:flutter_inus_pray/components/rounded_button.dart';
-
 
 const double iconSize = 80.0;
 
@@ -93,7 +91,8 @@ class _LoginState extends State<Login> {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                            text: '로그인을 누르시면 이용약관 및 개인정보 취급 방침에 동의하는 것으로 간주됩니다.',
+                            text:
+                                '로그인을 누르시면 이용약관 및 개인정보 취급 방침에 동의하는 것으로 간주됩니다.',
                             recognizer: TapGestureRecognizer()
                               ..onTap = () => print('HEY')),
                       ],
@@ -104,15 +103,15 @@ class _LoginState extends State<Login> {
                   height: 15,
                 ),
                 Container(
-                  height: Platform.isIOS ? 170: 130,
+                  height: Platform.isIOS ? 170 : 130,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      RoundedButton(
-                        text: '회원가입',
-                        buttonColor: Colors.white,
-                        onPressed: () =>
-                            Navigator.pushNamed(context, Register.id),
+                      ImageButton(
+                        text: '전화번호로 로그인',
+                        buttonColor: Theme.of(context).primaryColor,
+                        iconImage: Asset.Icons.icPhone,
+                        onPressed: () => Navigator.pushNamed(context, Register.id),
                       ),
                       ImageButton(
                         text: '카카오 로그인',
@@ -120,16 +119,23 @@ class _LoginState extends State<Login> {
                         iconImage: Asset.Icons.icKakao,
                         onPressed: () => _kakaoLogin(context),
                       ),
-                      Platform.isIOS ? 
-                      ImageButton(
-                        text: 'Apple로 로그인',
-                        buttonColor: Colors.white,
-                        iconImage: Asset.Icons.icKakao,
-                        onPressed: () {
-                          // TODO:: 애플 소셜로그인 구현
-                          // https://pub.dev/packages/sign_in_with_apple#-readme-tab-
-                        },
-                      ): Container(),
+                      Platform.isIOS
+                          ? ImageButton(
+                              text: 'Apple로 로그인',
+                              buttonColor: Colors.white,
+                              iconImage: Asset.Icons.icApple,
+                              onPressed: () async {
+                                // https://pub.dev/packages/sign_in_with_apple#-readme-tab-
+                                // final credential =
+                                //     await SignInWithApple.getAppleIDCredential(
+                                //   scopes: [
+                                //     AppleIDAuthorizationScopes.email,
+                                //     AppleIDAuthorizationScopes.fullName,
+                                //   ],
+                                // );
+                              },
+                            )
+                          : Container(),
                     ],
                   ),
                 ),

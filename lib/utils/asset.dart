@@ -4,6 +4,8 @@ class Icons {
   Icons._();
   static Image icLogo = Image.asset('res/icons/logo.png');
   static AssetImage icKakao = AssetImage('res/icons/icKakako.png');
+  static AssetImage icPhone = AssetImage('res/icons/icPhone.png');
+  static AssetImage icApple = AssetImage('res/icons/icApple.png');
 }
 
 class Images {
