@@ -33,6 +33,7 @@ dependencies:
   http: ^0.12.1
   flutter_swiper: ^1.1.6
   url_launcher: ^5.4.10
+  google_fonts: ^1.1.0
 
 dev_dependencies:
   flutter_native_splash: ^0.1.9

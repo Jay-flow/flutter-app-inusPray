@@ -82,3 +82,11 @@ BoxDecoration kCardContainerBoxDecoration = BoxDecoration(
   color: Colors.white,
   borderRadius: BorderRadius.circular(12),
 );
+
+const kGradientBackground = BoxDecoration(
+  gradient: LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [Asset.Colors.hotPink, Asset.Colors.skyBlue],
+  ),
+);
