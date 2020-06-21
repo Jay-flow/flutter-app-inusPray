@@ -23,9 +23,7 @@ class AdMob {
   init() {
     FirebaseAdMob.instance.initialize(appId: FirebaseAdMob.testAppId);
     RewardedVideoAd.instance.listener =
-        (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
-      print(rewardAmount);
-    };
+        (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {};
   }
 
   BannerAd createBannerAd({AdSize adSize}) {
@@ -33,9 +31,7 @@ class AdMob {
       adUnitId: BannerAd.testAdUnitId,
       size: adSize,
       targetingInfo: targetingInfo,
-      listener: (MobileAdEvent event) {
-        print("BannerAd event $event");
-      },
+      listener: (MobileAdEvent event) {},
     );
   }
 
@@ -56,7 +52,9 @@ class AdMob {
     _bannerAd ??= createBannerAd(adSize: adSize);
     _bannerAd
       ..load()
-      ..show(anchorOffset: anchorOffset);
+      ..show(
+        anchorOffset: anchorOffset,
+      );
   }
 
   removeBanner() {

@@ -1,10 +1,10 @@
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/navigations/mediator_top_tab.dart';
 import 'package:flutter_inus_pray/navigations/pray_top_tab.dart';
 import 'package:flutter_inus_pray/screen/etc.dart';
 import 'package:flutter_inus_pray/screen/my.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:flutter_inus_pray/screen/ad_banner.dart';
 
 class MainBottomTab extends StatefulWidget {
   static const String id = 'main_bottom_tab';
@@ -15,18 +15,13 @@ class MainBottomTab extends StatefulWidget {
 
 class _MainBottomTabState extends State<MainBottomTab> {
   int _currentIndex = 0;
+
   final List<Widget> _children = [
     My(),
     MediatorTopTab(),
     PrayTopTab(),
     Etc(),
-    // AdBanner(),
   ];
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   void _onTab(int index) {
     setState(() {

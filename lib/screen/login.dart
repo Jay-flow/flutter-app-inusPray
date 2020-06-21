@@ -141,7 +141,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                 height: 10,
               ),
               Container(
-                height: Platform.isIOS ? 170 : 130,
+                height: Platform.isIOS ? 170 : 120,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
