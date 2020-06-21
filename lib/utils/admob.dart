@@ -39,13 +39,11 @@ class AdMob {
     );
   }
 
-  InterstitialAd createInterstitialAd() {
+  InterstitialAd createInterstitialAd(Function eventCallback) {
     return InterstitialAd(
       adUnitId: InterstitialAd.testAdUnitId,
       targetingInfo: targetingInfo,
-      listener: (MobileAdEvent event) {
-        print("InterstitialAd event $event");
-      },
+      listener: (MobileAdEvent event) => eventCallback(event),
     );
   }
 
@@ -66,11 +64,12 @@ class AdMob {
     _bannerAd = null;
   }
 
-  showVideo(Function videoCallback) {
+  showVideo(Function eventCallback) {
     RewardedVideoAd.instance.load(
         adUnitId: RewardedVideoAd.testAdUnitId, targetingInfo: targetingInfo);
-    RewardedVideoAd.instance.listener = (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
-      videoCallback(event);
+    RewardedVideoAd.instance.listener =
+        (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
+      eventCallback(event);
     };
   }
 }

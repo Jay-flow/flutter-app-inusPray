@@ -1,3 +1,4 @@
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/no_exist_pray.dart';
 import 'package:flutter_inus_pray/models/mediator.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_inus_pray/models/user.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_inus_pray/components/pray_card.dart';
 import 'package:flutter_inus_pray/utils/constants.dart';
+import 'package:flutter_inus_pray/utils/admob.dart';
 
 const CARD_HORIZONTAL_PADDING = 40.0;
 
@@ -24,6 +26,8 @@ class _PrayCardsState extends State<PrayCards> {
   double cardWidth;
   double cardFeedbackWidth;
   double cardHeight;
+  AdMob _adMob = AdMob();
+  InterstitialAd _interstitalAd;
 
   @override
   void didChangeDependencies() {
@@ -62,14 +66,25 @@ class _PrayCardsState extends State<PrayCards> {
     setState(() {
       this._prayCards.removeLast();
     });
+    if (this._prayCards.length == 0) {
+      _showIntersititialAd();
+    }
     isRemoveCard = true;
+  }
+
+  _showIntersititialAd() {
+    _interstitalAd = _adMob.createInterstitialAd((MobileAdEvent event) {
+      if (event == MobileAdEvent.loaded) {
+        _interstitalAd.show();
+      }
+    })
+      ..load();
   }
 
   _getPrayCards() {
     // 카드 크기 사이즈를 지정 해주지 않으면 에러남(드래그시 크기를 몰라서 그런것 같음)
     // 패딩이 아닌 Center 위젯이나 다른 걸 통해 가운데 정렬했을 경우
     // 클릭시 원래 위젯이 있는 자리로 돌아가는 버그가 있음 => CARD_HORIZONTAL_PADDING를 정한 이유
-
     List<User> users = [this._user, ...this._mediator.users];
     for (int userIndex = 0; userIndex < users.length; userIndex++) {
       String name = users[userIndex].name;
@@ -127,6 +142,12 @@ class _PrayCardsState extends State<PrayCards> {
             );
       }
     }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _interstitalAd?.dispose();
   }
 
   @override

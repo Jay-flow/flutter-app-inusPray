@@ -2,14 +2,12 @@ import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/circle_image.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_inus_pray/components/icon_button_with_text.dart';
-import 'package:flutter_inus_pray/components/admob.dart';
+import 'package:flutter_inus_pray/utils/admob.dart';
 import 'package:flutter_inus_pray/components/loading_container.dart';
 
-//TODO:: 상단에 광고 달기
 //TODO:: 개발자 광고 데이터 베이스에서 불러오기
 //TODO:: 개발자 사진 경로 데이터 베이스에서 불러와서 세팅하기
 //TODO:: 하단 버튼들 기능 추가
@@ -154,7 +152,7 @@ class _EtcState extends State<Etc> {
                     Expanded(
                       child: SingleChildScrollView(
                         child: Text(
-                          '안녕하세요. 우리안에기도 앱 개발자 김성암입니다.\n해당앱은 100% 무료로 제공되고 있으나 서비스를 운영하는데에 있어 지속적인 비용이 발생되고 있습니다.\n계속해서 서비스 제공을 위해 마지못해 광고를 표시하고 있으니 양해 부탁드립니다 😭\n후원과 광고 비디오 시청은 저에게 큰힘이 됩니다.\n보다 좋은 앱이 되도록 노력하겠습니다. 감사합니다.\n\n날 더운데 몸 조심하시고 늘 건강하세요',
+                          '안녕하세요. 우리안에기도 앱 개발자 김성암입니다.\n해당앱은 100% 무료로 제공되고 있으나 서비스를 운영하는데에 있어 지속적인 비용이 발생되고 있습니다.\n계속해서 서비스 제공을 위해 마지못해 광고를 표시하고 있으니 양해 부탁드립니다 😭\n광고를 원하지 않으시는 분은 우측 상단에 광고제거를 통해 지우실 수 있습니다.\n보다 좋은 앱이 되도록 노력하겠습니다. 감사합니다.\n\n날 더운데 몸 조심하시고 늘 건강하세요',
                         ),
                       ),
                     ),
