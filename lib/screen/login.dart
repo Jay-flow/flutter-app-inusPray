@@ -1,5 +1,4 @@
 import 'dart:io' show Platform;
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/loading_container.dart';
@@ -9,7 +8,6 @@ import 'package:flutter_inus_pray/screen/register.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:flutter_inus_pray/utils/constants.dart';
 import 'package:flutter_kakao_login/flutter_kakao_login.dart';
-import 'package:flutter_inus_pray/components/rounded_button.dart';
 import 'package:flutter_inus_pray/utils/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 

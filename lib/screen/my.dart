@@ -101,7 +101,7 @@ class _MyState extends State<My> {
                                     Icon(
                                       Icons.send,
                                       color: Theme.of(context).primaryColor,
-                                      size: 10.0,
+                                      size: 12.0,
                                     )
                                   ],
                                 ),

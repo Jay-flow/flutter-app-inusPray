@@ -160,8 +160,14 @@ class _PrayCardsState extends State<PrayCards> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text('기도 카드가 더 이상 없습니다.'),
+            SizedBox(
+              height: 10,
+            ),
             IconButton(
-              icon: Icon(Icons.refresh),
+              iconSize: 35,
+              icon: Icon(
+                Icons.refresh,
+              ),
               tooltip: '되돌리기',
               onPressed: () {
                 setState(() {

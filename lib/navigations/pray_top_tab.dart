@@ -16,13 +16,31 @@ class PrayTopTab extends StatelessWidget {
       length: prayScreens.length,
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(50.0),
+          preferredSize: Size.fromHeight(60.0),
           child: AppBar(
             bottom: TabBar(
               indicatorColor: Colors.black,
               tabs: <Widget>[
-                Tab(icon: Icon(Icons.filter_none)),
-                Tab(icon: Icon(Icons.list)),
+                Container(
+                  height: 58,
+                  child: Center(
+                    child: Tab(
+                      icon: Icon(
+                        Icons.filter_none,
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 58,
+                  child: Center(
+                    child: Tab(
+                      icon: Icon(
+                        Icons.list,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
