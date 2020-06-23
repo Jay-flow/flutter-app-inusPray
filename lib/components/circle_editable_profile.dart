@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'circle_button.dart';
 import 'circle_image.dart';
 import 'package:flutter_inus_pray/screen/edit_profile.dart';
+import 'package:flutter_inus_pray/components/circle_icon_button.dart';
 
 class CircleEditableProfile extends StatelessWidget {
   CircleEditableProfile({
@@ -26,10 +27,11 @@ class CircleEditableProfile extends StatelessWidget {
             Positioned(
               bottom: 0,
               right: -25,
-              child: CircleButton(
+              child: CircleIconButton(
                 child: Icon(
                   Icons.create,
                 ),
+                padding: EdgeInsets.all(5.5),
                 onPressed: () => Navigator.pushNamed(context, EditProfile.id),
               ),
             ),

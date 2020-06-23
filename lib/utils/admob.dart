@@ -48,7 +48,7 @@ class AdMob {
     _interstitialAd?.dispose();
   }
 
-  showBanner({AdSize adSize, double anchorOffset}) {
+  showBanner({AdSize adSize, double anchorOffset=0}) {
     _bannerAd ??= createBannerAd(adSize: adSize);
     _bannerAd
       ..load()

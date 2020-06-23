@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/circle_button.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_inus_pray/components/circle_image.dart';
 import 'package:flutter_inus_pray/components/loading_container.dart';
 import 'package:flutter_inus_pray/components/underline_text_field.dart';
+import 'package:flutter_inus_pray/components/input_page.dart';
+import 'package:flutter_inus_pray/components/circle_icon_button.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -22,17 +24,12 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   String _name;
-  File _imageFile;
   User _user;
   bool _isLoading = false;
-  final double imageSize = 210.0;
 
   @override
   initState() {
     super.initState();
-    Fluttertoast.showToast(
-      msg: "뒤로가기시 자동으로 수정 내용이 저장됩니다.",
-    );
   }
 
   _pictureChange(context) {
@@ -155,67 +152,46 @@ class _EditProfileState extends State<EditProfile> {
             child: Consumer<User>(
               builder: (BuildContext context, User user, Widget widget) {
                 return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  // mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    CircleButton(
-                      child: Stack(
-                        children: <Widget>[
-                          Center(
-                            child: _imageFile == null
-                                ? CircleImage(
-                                    size: imageSize,
-                                    imagePath: user.profileImage,
-                                  )
-                                : ClipOval(
-                                    child: Image.file(
-                                      _imageFile,
-                                      width: imageSize,
-                                      height: imageSize,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.symmetric(vertical: 35),
+                          child: CircleImage(
+                            size: 200,
+                            imagePath: user.profileImage,
                           ),
-                          _imageFile == null
-                              ? Center(
-                                  child: Container(
-                                    width: imageSize,
-                                    height: imageSize,
-                                    child: Center(
-                                      child: Icon(
-                                        Icons.touch_app,
-                                        size: 30.0,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: Colors.black.withOpacity(0.4),
-                                      shape: BoxShape.circle,
-                                    ),
-                                  ),
-                                )
-                              : Container(),
-                        ],
-                      ),
-                      onPressed: () {
-                        _user = user;
-                        _pictureChange(context);
-                      },
+                        ),
+                      ],
                     ),
-                    Container(
-                      padding: EdgeInsets.only(top: 15.0),
-                      height: 100.0,
-                      width: 90.0,
-                      child: UnderlineTextField(
-                        textValue: user.name,
-                        onChanged: (name) {
-                          _user = user;
-                          _name = name;
-                        },
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.text,
-                        hintText: '이름 입력',
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: <Widget>[],
                       ),
                     ),
+                    // Container(
+                    //   padding: EdgeInsets.only(top: 15.0),
+                    //   height: 100.0,
+                    //   width: 90.0,
+                    //   child: Row(
+                    //     children: <Widget>[
+                    //       UnderlineTextField(
+                    //         textValue: user.name,
+                    //         onChanged: (name) {
+                    //           _user = user;
+                    //           _name = name;
+                    //         },
+                    //         textAlign: TextAlign.center,
+                    //         keyboardType: TextInputType.text,
+                    //         hintText: '이름 입력',
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                   ],
                 );
               },
