@@ -5,13 +5,14 @@ import 'package:flutter_inus_pray/utils/constants.dart';
 import 'package:flutter_inus_pray/utils/constants.dart';
 
 class PrayCard extends StatelessWidget {
-  PrayCard(
-      {@required this.name,
-      @required this.imagePath,
-      @required this.content,
-      this.isWriting = false,
-      this.cardWidth,
-      this.cardHeight});
+  PrayCard({
+    @required this.name,
+    @required this.imagePath,
+    @required this.content,
+    this.isWriting = false,
+    this.cardWidth,
+    this.cardHeight,
+  });
 
   final String name;
   final String imagePath;
@@ -36,11 +37,15 @@ class PrayCard extends StatelessWidget {
               margin: EdgeInsets.symmetric(vertical: 10.0),
               child: CircleImage(
                 imagePath: imagePath,
+                size: 150,
               ),
             ),
             Line(
-              width: 100,
+              width: 110,
               height: 1.0,
+            ),
+            SizedBox(
+              height: 9,
             ),
             content,
           ],

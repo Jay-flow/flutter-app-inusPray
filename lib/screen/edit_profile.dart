@@ -35,12 +35,6 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  _saveMyProfile() {
-    if (_name != null && _user != null) {
-      _user.updateUserName(_name);
-    }
-  }
-
   _pictureChange(context) {
     showModalBottomSheet(
         context: context,
@@ -84,12 +78,15 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   Future<bool> _backPressEvent() {
-    _name = _name.trim();
-    if(_validate()) {
-      _saveMyProfile();
-      return Future.value(true);
+    if (_name != null && _user != null) {
+      _name = _name.trim();
+      if (_validate()) {
+        _user.updateUserName(_name);
+      } else {
+        return Future.value(false);
+      }
     }
-    return Future.value(false);
+    return Future.value(true);
   }
 
   bool _validate() {

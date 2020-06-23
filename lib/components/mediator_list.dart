@@ -3,6 +3,7 @@ import 'package:flutter_inus_pray/components/mediator_item.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 
 class MediatorList extends StatefulWidget {
   MediatorList({
@@ -46,12 +47,12 @@ class _MediatorListState extends State<MediatorList> {
           title: mediator.name,
           subtitle: mediator.church,
           chipBackgroundColor:
-              mediator.isIAddedMediatorForYou ? Colors.grey : Theme.of(context).primaryColorLight,
+              mediator.isIAddedMediatorForYou ? Asset.Colors.grey : Theme.of(context).primaryColorLight,
           label: mediator.isIAddedMediatorForYou
               ? Text(
                   '기도취소',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                   ),
                 )
               : Text(

@@ -40,10 +40,10 @@ class _EdgeDecorationListTileState extends State<EdgeDecorationListTile> {
       ),
       decoration: BoxDecoration(
         border: Border(
-          left: BorderSide(
-            color: widget.edgeColor,
-            width: widget.edgeWidth,
-          ),
+          // left: BorderSide(
+          //   color: widget.edgeColor,
+          //   width: widget.edgeWidth,
+          // ),
           top: BorderSide(
             color: Asset.Colors.grey,
           ),

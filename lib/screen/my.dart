@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/circle_editable_profile.dart';
 import 'package:flutter_inus_pray/components/edge_decoration_list_tile.dart';
@@ -21,42 +19,31 @@ class My extends StatefulWidget {
 }
 
 class _MyState extends State<My> {
-  List<Color> colors = [
-    Colors.red,
-    Colors.blue,
-    Colors.purple,
-    Colors.orange,
-    Asset.Colors.blueBlack,
-    Asset.Colors.green,
-    Asset.Colors.yellow,
-    Asset.Colors.mint,
-  ];
-
-  // Future _confirmDeletePray(int index, Function deleteUserPray) {
-  //   return showDialog(
-  //       context: context,
-  //       builder: (BuildContext context) {
-  //         return AlertDialog(
-  //           title: const Text('기도 삭제'),
-  //           content: const Text('삭제하신 뒤에는 복구 할 수 없습니다.\n정말 삭제하시겠습니까?'),
-  //           actions: <Widget>[
-  //             FlatButton(
-  //               child: const Text('취소'),
-  //               onPressed: () {
-  //                 Navigator.of(context).pop();
-  //               },
-  //             ),
-  //             FlatButton(
-  //               child: const Text('삭제'),
-  //               onPressed: () {
-  //                 deleteUserPray(index);
-  //                 Navigator.of(context).pop();
-  //               },
-  //             )
-  //           ],
-  //         );
-  //       });
-  // }
+  Future _confirmDeletePray(int index, Function deleteUserPray) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('기도 삭제'),
+            content: const Text('삭제하신 뒤에는 복구 할 수 없습니다.\n정말 삭제하시겠습니까?'),
+            actions: <Widget>[
+              FlatButton(
+                child: const Text('취소'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              FlatButton(
+                child: const Text('삭제'),
+                onPressed: () {
+                  deleteUserPray(index);
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
+  }
 
   _shareMyPrays(User user) async {
     if (user.prays.isEmpty) {
@@ -85,115 +72,145 @@ class _MyState extends State<My> {
                 SliverAppBar(
                   expandedHeight: 210.0,
                   flexibleSpace: FlexibleSpaceBar(
-                    background: Stack(
-                      children: <Widget>[
-                        Align(
-                          alignment: Alignment.center,
-                          child: CircleEditableProfile(
-                            name: user.name,
-                            profileImagePath: user.profileImage,
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.bottomRight,
-                          child: InkWell(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Text(
-                                    '기도공유',
-                                    style: TextStyle(
-                                        color: Theme.of(context).primaryColor),
-                                  ),
-                                  Icon(
-                                    Icons.send,
-                                    color: Theme.of(context).primaryColor,
-                                    size: 10.0,
-                                  )
-                                ],
-                              ),
+                    background: Container(
+                      decoration: BoxDecoration(color: Colors.black),
+                      child: Stack(
+                        children: <Widget>[
+                          Align(
+                            alignment: Alignment.center,
+                            child: CircleEditableProfile(
+                              name: user.name,
+                              profileImagePath: user.profileImage,
                             ),
-                            onTap: () => _shareMyPrays(user),
                           ),
-                        )
-                      ],
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: InkWell(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text(
+                                      '기도공유',
+                                      style: TextStyle(
+                                        color: Theme.of(context).primaryColor,
+                                      ),
+                                    ),
+                                    Icon(
+                                      Icons.send,
+                                      color: Theme.of(context).primaryColor,
+                                      size: 10.0,
+                                    )
+                                  ],
+                                ),
+                              ),
+                              onTap: () => _shareMyPrays(user),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
                 SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) {
-                      return Slidable(
-                        actionPane: SlidableDrawerActionPane(),
-                        actionExtentRatio: 0.25,
-                        child: user.prays.length == 0
-                            ? ListTile(
-                                title: Text(
-                                  '등록된 기도가 없습니다.',
-                                ),
-                                subtitle: Text('우측 하단의 + 버튼을 눌러 기도를 등록해주세요.'),
-                                leading: Icon(
-                                  Icons.info_outline,
-                                  color: Colors.red,
-                                ),
-                              )
-                            : EdgeDecorationListTile(
-                                title: Container(
-                                  child: Text(
-                                    user.prays[index],
+                    delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                    return user.prays.length == 0
+                        ? ListTile(
+                            title: Text(
+                              '등록된 기도가 없습니다.',
+                            ),
+                            subtitle: Text('우측 하단의 + 버튼을 눌러 기도를 등록해주세요.'),
+                            leading: Icon(
+                              Icons.info_outline,
+                              color: Colors.red,
+                            ),
+                          )
+                        : index < user.prays.length
+                            ? Container(
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 5, vertical: 5),
+                                child: Card(
+                                  elevation: 1.5,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 12.0, left: 12.0, right: 12.0),
+                                        child: Container(
+                                          constraints:
+                                              BoxConstraints(minHeight: 80),
+                                          child: Text(
+                                            user.prays[index],
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.bottomRight,
+                                        child: Container(
+                                          width: 110,
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: <Widget>[
+                                              InkWell(
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      12.0),
+                                                  child: Text(
+                                                    '삭제',
+                                                    style: TextStyle(
+                                                        color: Colors.grey),
+                                                  ),
+                                                ),
+                                                onTap: () => _confirmDeletePray(
+                                                  index,
+                                                  user.deleteUserPray,
+                                                ),
+                                              ),
+                                              InkWell(
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      12.0),
+                                                  child: Text(
+                                                    '수정',
+                                                    style: TextStyle(
+                                                        color: Colors.grey),
+                                                  ),
+                                                ),
+                                                onTap: () =>
+                                                    Navigator.pushNamed(
+                                                  context,
+                                                  PrayAdd.idUpdate,
+                                                  arguments: {
+                                                    'pray': user.prays[index],
+                                                    'index': index,
+                                                  },
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 ),
-                                edgeColor: colors[Random().nextInt(8)],
-                              ),
-                        secondaryActions: <Widget>[
-                          IconSlideAction(
-                            caption: '삭제',
-                            color: Theme.of(context).primaryColorDark,
-                            iconWidget: MyPrayIconButton(
-                              icon: Icons.delete_outline,
-                            ),
-                            onTap: () => user.deleteUserPray(index),
-                          ),
-                          IconSlideAction(
-                            caption: '수정',
-                            color: Theme.of(context).primaryColorLight,
-                            iconWidget: MyPrayIconButton(
-                              icon: Icons.mode_edit,
-                            ),
-                            onTap: () => Navigator.pushNamed(
-                              context,
-                              PrayAdd.idUpdate,
-                              arguments: {
-                                'pray': user.prays[index],
-                                'index': index,
-                              },
-                            ),
-                          ),
-//                          IconSlideAction(
-//                            caption: '응답됨',
-//                            color: Colors.pink,
-//                            iconWidget: MyPrayIconButton(
-//                              icon: FontAwesomeIcons.crown,
-//                              padding: EdgeInsets.only(right: 5, bottom: 5),
-//                            ),
-//                            onTap: () => Navigator.pushNamed(
-//                              context,
-//                              PrayAdd.idUpdate,
-//                              arguments: {
-//                                'pray': user.prays[index],
-//                                'index': index,
-//                              },
-//                            ),
-//                          ),
-                        ],
-                      );
-                    },
-                    childCount: user.prays.length == 0 ? 1 : user.prays.length,
-                  ),
-                ),
+                              )
+                            : SizedBox(
+                                height: 80,
+                              );
+                  },
+                  childCount:
+                      user.prays.length == 0 ? 1 : user.prays.length + 1,
+                )),
               ],
             );
           },

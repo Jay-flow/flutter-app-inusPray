@@ -19,13 +19,16 @@ class MediatorTopTab extends StatelessWidget {
           preferredSize: Size.fromHeight(50.0),
           child: AppBar(
             bottom: TabBar(
-              indicatorWeight: 4.0,
+              indicatorColor: Colors.black,
               tabs: <Widget>[
                 Container(
                   height: 46,
                   child: Center(
                     child: Text(
                       '내가 기도 중인 사람',
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                 ),
@@ -34,6 +37,9 @@ class MediatorTopTab extends StatelessWidget {
                   child: Center(
                     child: Text(
                       '나를 기도 해주는 사람',
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                 ),

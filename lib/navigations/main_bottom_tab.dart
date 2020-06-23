@@ -1,4 +1,3 @@
-import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/navigations/mediator_top_tab.dart';
 import 'package:flutter_inus_pray/navigations/pray_top_tab.dart';
@@ -20,7 +19,7 @@ class _MainBottomTabState extends State<MainBottomTab> {
     My(),
     MediatorTopTab(),
     PrayTopTab(),
-    Etc(),
+    // Etc(),
   ];
 
   void _onTab(int index) {
@@ -76,15 +75,15 @@ class _MainBottomTabState extends State<MainBottomTab> {
               ),
             ),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.more_horiz),
-            title: Text(
-              '기타',
-              style: TextStyle(
-                color: Theme.of(context).primaryColorDark,
-              ),
-            ),
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.more_horiz),
+          //   title: Text(
+          //     '기타',
+          //     style: TextStyle(
+          //       color: Theme.of(context).primaryColorDark,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

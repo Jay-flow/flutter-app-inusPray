@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 
 class Line extends StatelessWidget {
   Line({this.height, this.width});
@@ -8,10 +9,9 @@ class Line extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10.0),
-      height: 1.0,
-      width: 100,
-      color: Theme.of(context).primaryColor,
+      height: height,
+      width: width,
+      color: Colors.grey,
     );
   }
 }

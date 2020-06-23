@@ -19,7 +19,7 @@ class PrayTopTab extends StatelessWidget {
           preferredSize: Size.fromHeight(50.0),
           child: AppBar(
             bottom: TabBar(
-              indicatorWeight: 4.0,
+              indicatorColor: Colors.black,
               tabs: <Widget>[
                 Tab(icon: Icon(Icons.filter_none)),
                 Tab(icon: Icon(Icons.list)),

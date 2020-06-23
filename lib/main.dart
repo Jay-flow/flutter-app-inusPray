@@ -98,8 +98,15 @@ class _InusPrayAppState extends State<InusPrayApp> {
                 primaryColorDark: Asset.Colors.blueBlack,
                 primaryColorLight: Asset.Colors.green,
                 appBarTheme: AppBarTheme(
-                  color: Colors.black,
-                ),
+                    color: Colors.white,
+                    textTheme: TextTheme(
+                      title: TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
+                    iconTheme: IconThemeData(
+                      color: Colors.black,
+                    )),
                 accentColor: Asset.Colors.mint,
                 textTheme: TextTheme(
                   body1: TextStyle(color: Asset.Colors.blueBlack),
@@ -108,6 +115,12 @@ class _InusPrayAppState extends State<InusPrayApp> {
                   title: TextStyle(
                     color: Asset.Colors.blueBlack,
                   ),
+                ),
+                floatingActionButtonTheme: FloatingActionButtonThemeData(
+                  backgroundColor: Asset.Colors.green,
+                ),
+                tabBarTheme: TabBarTheme(
+                  labelColor: Colors.black
                 ),
               ),
               initialRoute: _initialRoute,
