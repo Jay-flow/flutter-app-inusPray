@@ -2,13 +2,9 @@ import 'dart:async';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_inus_pray/components/circle_button.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_inus_pray/components/circle_image.dart';
+import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:flutter_inus_pray/components/loading_container.dart';
-import 'package:flutter_inus_pray/components/underline_text_field.dart';
-import 'package:flutter_inus_pray/components/input_page.dart';
-import 'package:flutter_inus_pray/components/circle_icon_button.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -150,52 +146,78 @@ class _EditProfileState extends State<EditProfile> {
           child: LoadingContainer(
             isLoading: _isLoading,
             child: Consumer<User>(
-              builder: (BuildContext context, User user, Widget widget) {
-                return Column(
+                builder: (BuildContext context, User user, Widget widget) {
+              return Container(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: Asset.Images.plantScreenBackground,
+                      fit: BoxFit.cover),
+                ),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  // mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                          padding: EdgeInsets.symmetric(vertical: 35),
-                          child: CircleImage(
-                            size: 200,
-                            imagePath: user.profileImage,
-                          ),
+                    Container(
+                      height: 170,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.5),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(8),
                         ),
-                      ],
-                    ),
-                    Expanded(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: <Widget>[],
+                      ),
+                      child: Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text:
+                                        '왕이여 우리가 섬기는 하나님이 계신다면 우리를 맹렬히 타는 풀무불 가운데에서 능히 건져내시겠고 왕의 손에서도 건져내시리이다. ',
+                                  ),
+                                  TextSpan(
+                                      text: "'그렇게 하지 아니하실지라도'",
+                                      style: TextStyle(
+                                        color: Asset.Colors.yellow,
+                                      )),
+                                  TextSpan(
+                                    text:
+                                        ' 왕이여 우리가 왕의 신들을 섬기지도 아니하고 왕이 세우신 금 신상에게 절하지도 아니할 줄을 아옵소서',
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: Text(
+                                '다니엘 3:17-18',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                    // Container(
-                    //   padding: EdgeInsets.only(top: 15.0),
-                    //   height: 100.0,
-                    //   width: 90.0,
-                    //   child: Row(
-                    //     children: <Widget>[
-                    //       UnderlineTextField(
-                    //         textValue: user.name,
-                    //         onChanged: (name) {
-                    //           _user = user;
-                    //           _name = name;
-                    //         },
-                    //         textAlign: TextAlign.center,
-                    //         keyboardType: TextInputType.text,
-                    //         hintText: '이름 입력',
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: <Widget>[
+                        CircleImage(
+                          imagePath: user.profileImage,
+                          size: 100,
+                        ),
+                      ],
+                    )
                   ],
-                );
-              },
-            ),
+                ),
+              );
+            }),
           ),
         ),
       ),
