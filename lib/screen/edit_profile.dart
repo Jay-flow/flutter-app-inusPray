@@ -10,6 +10,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_inus_pray/components/circle_icon_button.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class EditProfile extends StatefulWidget {
   static const String id = 'edit_profile';
@@ -28,7 +30,7 @@ class _EditProfileState extends State<EditProfile> {
     super.initState();
   }
 
-  _pictureChange(context) {
+  _changePicture() {
     showModalBottomSheet(
         context: context,
         builder: (_) {
@@ -149,70 +151,161 @@ class _EditProfileState extends State<EditProfile> {
                 builder: (BuildContext context, User user, Widget widget) {
               return Container(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: Asset.Images.plantScreenBackground,
-                      fit: BoxFit.cover),
-                ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    Container(
-                      height: 170,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 20,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.5),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(8),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(
+                            top: 15.0,
+                            bottom: 5.0,
+                          ),
+                          child: CircleImage(
+                            imagePath: user.profileImage,
+                          ),
+                        ),
+                        Text(
+                          user.name + ', ' + user.church,
+                          style: TextStyle(
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Expanded(
+                      child: Container(
+                        margin: EdgeInsets.symmetric(vertical: 15),
+                        height: 160,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.5),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(8),
+                          ),
+                        ),
+                        child: Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: <Widget>[
+                              RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text:
+                                          '왕이여 우리가 섬기는 하나님이 계신다면 우리를 맹렬히 타는 풀무불 가운데에서 능히 건져내시겠고 왕의 손에서도 건져내시리이다. ',
+                                    ),
+                                    TextSpan(
+                                        text: "'그렇게 하지 아니하실지라도'",
+                                        style: TextStyle(
+                                          color: Asset.Colors.yellow,
+                                        )),
+                                    TextSpan(
+                                      text:
+                                          ' 왕이여 우리가 왕의 신들을 섬기지도 아니하고 왕이 세우신 금 신상에게 절하지도 아니할 줄을 아옵소서',
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: Text(
+                                  '다니엘 3:17-18',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                      child: Center(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.end,
+                    ),
+                    Expanded(
+                      child: Container(
+                        margin: EdgeInsets.only(top:10),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text:
-                                        '왕이여 우리가 섬기는 하나님이 계신다면 우리를 맹렬히 타는 풀무불 가운데에서 능히 건져내시겠고 왕의 손에서도 건져내시리이다. ',
+                            Container(
+                              child: Column(
+                                children: <Widget>[
+                                  CircleIconButton(
+                                    child: Icon(
+                                      Icons.border_color,
+                                      color: Colors.white,
+                                    ),
+                                    padding: EdgeInsets.all(15),
+                                    onPressed: () {},
+                                    fillColor:
+                                        Theme.of(context).primaryColorLight,
+//                              onPressed: () => Navigator.pushNamed(
+//                                context,
+//                                Settings.id,
+//                              ),
                                   ),
-                                  TextSpan(
-                                      text: "'그렇게 하지 아니하실지라도'",
-                                      style: TextStyle(
-                                        color: Asset.Colors.yellow,
-                                      )),
-                                  TextSpan(
-                                    text:
-                                        ' 왕이여 우리가 왕의 신들을 섬기지도 아니하고 왕이 세우신 금 신상에게 절하지도 아니할 줄을 아옵소서',
+                                  SizedBox(
+                                    height: 10,
                                   ),
+                                  Text('이름 변경')
                                 ],
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 10),
-                              child: Text(
-                                '다니엘 3:17-18',
-                                style: TextStyle(color: Colors.white),
+                            Container(
+                              margin: EdgeInsets.only(top: 50.0),
+                              child: Column(
+                                children: <Widget>[
+                                  CircleIconButton(
+                                    child: Row(
+                                      children: <Widget>[
+                                        Icon(
+                                          FontAwesomeIcons.church,
+                                          color: Colors.white,
+                                        ),
+                                        SizedBox(
+                                          width: 5.8,
+                                        ),
+                                      ],
+                                    ),
+                                    fillColor:
+                                        Theme.of(context).primaryColorLight,
+                                    padding: EdgeInsets.all(15),
+                                    onPressed: () {},
+//                              onPressed: () => _pictureChange(),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text('교회명 변경')
+                                ],
                               ),
-                            )
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(bottom: 50.0, right: 15.0),
+                              child: Column(
+                                children: <Widget>[
+                                  CircleIconButton(
+                                    child: Icon(
+                                      Icons.camera_alt,
+                                      color: Colors.white,
+                                    ),
+                                    fillColor: Theme.of(context).primaryColorLight,
+                                    padding: EdgeInsets.all(15),
+                                    onPressed: () => _changePicture(),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text('사진 변경')
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: <Widget>[
-                        CircleImage(
-                          imagePath: user.profileImage,
-                          size: 100,
-                        ),
-                      ],
                     )
                   ],
                 ),

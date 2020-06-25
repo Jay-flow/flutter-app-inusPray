@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 class CircleIconButton extends StatelessWidget {
   CircleIconButton({
     this.onPressed,
-    this.padding,
+    @required this.padding,
     @required this.child,
+    this.fillColor = Colors.white
   });
 
   final Widget child;
   final Function onPressed;
   final EdgeInsetsGeometry padding;
+  final Color fillColor;
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +19,8 @@ class CircleIconButton extends StatelessWidget {
       onPressed: onPressed,
       child: child,
       shape: CircleBorder(),
-      elevation: 2.0,
-      fillColor: Colors.white,
+      elevation: 8.0,
+      fillColor: fillColor,
       padding: padding,
     );
   }

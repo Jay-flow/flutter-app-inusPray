@@ -12,8 +12,6 @@ class Images {
   Images._();
   static AssetImage loginScreenBackground =
       AssetImage('res/images/login_bk.png');
-  static AssetImage plantScreenBackground =
-      AssetImage('res/images/plant_bk.jpg');
 }
 
 class Colors {

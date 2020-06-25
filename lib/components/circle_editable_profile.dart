@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'circle_button.dart';
 import 'circle_image.dart';
 import 'package:flutter_inus_pray/screen/edit_profile.dart';
 import 'package:flutter_inus_pray/components/circle_icon_button.dart';
