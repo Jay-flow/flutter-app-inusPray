@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/circle_editable_profile.dart';
-import 'package:flutter_inus_pray/components/edge_decoration_list_tile.dart';
-import 'package:flutter_inus_pray/components/my_pray_icon_button.dart';
 import 'package:flutter_inus_pray/models/settings.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/screen/pray_add.dart';
-import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
