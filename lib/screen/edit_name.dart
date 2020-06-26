@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -13,7 +12,7 @@ class EditName extends StatefulWidget {
 }
 
 class _EditNameState extends State<EditName> {
-  String _name;
+  String _name = '';
   User _user;
 
   @override
@@ -27,25 +26,14 @@ class _EditNameState extends State<EditName> {
     _user = Provider.of<User>(context);
   }
 
-  void _modifyName() {
-    if (_name != null && _user != null) {
-      _name = _name.trim();
-      if (_validate()) {
-        _user.updateUserName(_name);
-      }
+  String _validate(String name) {
+    if (name.length > 10) {
+      return "이름이 너무깁니다. (10자 이하로 입력)";
     }
-  }
-
-  bool _validate() {
-    if (_name.length > 10) {
-      Fluttertoast.showToast(msg: "이름이 너무깁니다. (10자 이하로 입력)");
-      return false;
+    if (name.isEmpty) {
+      return "이름은 공백으로 둘 수 없습니다.";
     }
-    if (_name == '') {
-      Fluttertoast.showToast(msg: "이름은 공백으로 둘 수 없습니다.");
-      return false;
-    }
-    return true;
+    return null;
   }
 
   @override
@@ -55,13 +43,21 @@ class _EditNameState extends State<EditName> {
         appBar: AppBar(
           title: Text('프로필 수정'),
         ),
-        body: InputPage(
-          title: '이름 수정',
-          hintText: '변경할 이름을 입력해주세요',
-          keyboardType: TextInputType.text,
-          buttonText: '수정',
-          onChange: (name) => _name,
-          buttonOnPressed: () => _modifyName,
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: InputPage(
+              title: '이름 수정',
+              hintText: '변경할 이름을 입력해주세요',
+              keyboardType: TextInputType.text,
+              buttonText: '수정',
+              validator: (String value) => _validate(value),
+              textValue: _user.name,
+              onChange: (name) => _name = name,
+              buttonOnPressed: (GlobalKey<FormState> key) {
+                if (key.currentState.validate()) {
+                  _user.updateUserName(_name.trim());
+                }
+              }),
         ),
       ),
     );
