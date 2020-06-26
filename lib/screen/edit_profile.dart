@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/circle_image.dart';
+import 'package:flutter_inus_pray/screen/edit_name.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:flutter_inus_pray/components/loading_container.dart';
 import 'package:flutter_inus_pray/models/user.dart';
@@ -224,7 +225,7 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                     Expanded(
                       child: Container(
-                        margin: EdgeInsets.only(top:10),
+                        margin: EdgeInsets.only(top: 10),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisSize: MainAxisSize.max,
@@ -239,13 +240,12 @@ class _EditProfileState extends State<EditProfile> {
                                       color: Colors.white,
                                     ),
                                     padding: EdgeInsets.all(15),
-                                    onPressed: () {},
+                                    onPressed: () => Navigator.pushNamed(
+                                      context,
+                                      EditName.id,
+                                    ),
                                     fillColor:
                                         Theme.of(context).primaryColorLight,
-//                              onPressed: () => Navigator.pushNamed(
-//                                context,
-//                                Settings.id,
-//                              ),
                                   ),
                                   SizedBox(
                                     height: 10,
@@ -284,7 +284,8 @@ class _EditProfileState extends State<EditProfile> {
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.only(bottom: 50.0, right: 15.0),
+                              margin:
+                                  EdgeInsets.only(bottom: 50.0, right: 15.0),
                               child: Column(
                                 children: <Widget>[
                                   CircleIconButton(
@@ -292,7 +293,8 @@ class _EditProfileState extends State<EditProfile> {
                                       Icons.camera_alt,
                                       color: Colors.white,
                                     ),
-                                    fillColor: Theme.of(context).primaryColorLight,
+                                    fillColor:
+                                        Theme.of(context).primaryColorLight,
                                     padding: EdgeInsets.all(15),
                                     onPressed: () => _changePicture(),
                                   ),
