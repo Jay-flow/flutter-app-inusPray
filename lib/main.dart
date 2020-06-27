@@ -123,8 +123,7 @@ class _InusPrayAppState extends State<InusPrayApp> {
                 ),
                 tabBarTheme: TabBarTheme(labelColor: Colors.black),
               ),
-//              initialRoute: _initialRoute,
-              initialRoute: Login.id,
+              initialRoute: _initialRoute,
               routes: {
                 InusPrayApp.id: (context) => InusPrayApp(),
                 Login.id: (context) => Login(),
