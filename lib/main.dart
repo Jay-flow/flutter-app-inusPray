@@ -4,7 +4,8 @@ import 'package:flutter_inus_pray/models/mediator.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/navigations/main_bottom_tab.dart';
 import 'package:flutter_inus_pray/screen/ad_banner.dart';
-import 'package:flutter_inus_pray/screen/edit_name.dart';
+import 'package:flutter_inus_pray/screen/edit_church_name.dart';
+import 'package:flutter_inus_pray/screen/edit_user_name.dart';
 import 'package:flutter_inus_pray/screen/edit_profile.dart';
 import 'package:flutter_inus_pray/screen/login.dart';
 import 'package:flutter_inus_pray/screen/pray_add.dart';
@@ -137,7 +138,8 @@ class _InusPrayAppState extends State<InusPrayApp> {
                       inputType: InputType.Update,
                     ),
                 EditProfile.id: (context) => EditProfile(),
-                EditName.id: (context) => EditName(),
+                EditUserName.id: (context) => EditUserName(),
+                EditChurchName.id: (context) => EditChurchName(),
                 AdBanner.id: (context) => AdBanner(),
               },
             ),

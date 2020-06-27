@@ -3,7 +3,8 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/circle_image.dart';
-import 'package:flutter_inus_pray/screen/edit_name.dart';
+import 'package:flutter_inus_pray/screen/edit_church_name.dart';
+import 'package:flutter_inus_pray/screen/edit_user_name.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:flutter_inus_pray/components/loading_container.dart';
 import 'package:flutter_inus_pray/models/user.dart';
@@ -219,7 +220,7 @@ class _EditProfileState extends State<EditProfile> {
                                     padding: EdgeInsets.all(15),
                                     onPressed: () => Navigator.pushNamed(
                                       context,
-                                      EditName.id,
+                                      EditUserName.id,
                                     ),
                                     fillColor:
                                         Theme.of(context).primaryColorLight,
@@ -250,8 +251,10 @@ class _EditProfileState extends State<EditProfile> {
                                     fillColor:
                                         Theme.of(context).primaryColorLight,
                                     padding: EdgeInsets.all(15),
-                                    onPressed: () {},
-//                              onPressed: () => _pictureChange(),
+                                    onPressed: () => Navigator.pushNamed(
+                                      context,
+                                      EditChurchName.id,
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 10,

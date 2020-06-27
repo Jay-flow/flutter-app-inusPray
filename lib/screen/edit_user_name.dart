@@ -4,14 +4,14 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_inus_pray/components/input_page.dart';
 
-class EditName extends StatefulWidget {
+class EditUserName extends StatefulWidget {
   static const String id = 'edit_name';
 
   @override
-  _EditNameState createState() => _EditNameState();
+  _EditUserNameState createState() => _EditUserNameState();
 }
 
-class _EditNameState extends State<EditName> {
+class _EditUserNameState extends State<EditUserName> {
   User _user;
 
   @override
