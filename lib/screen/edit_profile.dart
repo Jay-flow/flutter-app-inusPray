@@ -188,37 +188,39 @@ class _EditProfileState extends State<EditProfile> {
                           ),
                         ),
                         child: Center(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: <Widget>[
-                              RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text:
-                                          '왕이여 우리가 섬기는 하나님이 계신다면 우리를 맹렬히 타는 풀무불 가운데에서 능히 건져내시겠고 왕의 손에서도 건져내시리이다. ',
-                                    ),
-                                    TextSpan(
-                                        text: "'그렇게 하지 아니하실지라도'",
-                                        style: TextStyle(
-                                          color: Asset.Colors.yellow,
-                                        )),
-                                    TextSpan(
-                                      text:
-                                          ' 왕이여 우리가 왕의 신들을 섬기지도 아니하고 왕이 세우신 금 신상에게 절하지도 아니할 줄을 아옵소서',
-                                    ),
-                                  ],
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: <Widget>[
+                                RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text:
+                                            '왕이여 우리가 섬기는 하나님이 계신다면 우리를 맹렬히 타는 풀무불 가운데에서 능히 건져내시겠고 왕의 손에서도 건져내시리이다. ',
+                                      ),
+                                      TextSpan(
+                                          text: "'그렇게 하지 아니하실지라도'",
+                                          style: TextStyle(
+                                            color: Asset.Colors.yellow,
+                                          )),
+                                      TextSpan(
+                                        text:
+                                            ' 왕이여 우리가 왕의 신들을 섬기지도 아니하고 왕이 세우신 금 신상에게 절하지도 아니할 줄을 아옵소서',
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 10),
-                                child: Text(
-                                  '다니엘 3:17-18',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              )
-                            ],
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 10),
+                                  child: Text(
+                                    '다니엘 3:17-18',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -226,86 +228,88 @@ class _EditProfileState extends State<EditProfile> {
                     Expanded(
                       child: Container(
                         margin: EdgeInsets.only(top: 10),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Container(
-                              child: Column(
-                                children: <Widget>[
-                                  CircleIconButton(
-                                    child: Icon(
-                                      Icons.border_color,
-                                      color: Colors.white,
+                        child: SingleChildScrollView(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Column(
+                                  children: <Widget>[
+                                    CircleIconButton(
+                                      child: Icon(
+                                        Icons.border_color,
+                                        color: Colors.white,
+                                      ),
+                                      padding: EdgeInsets.all(15),
+                                      onPressed: () => Navigator.pushNamed(
+                                        context,
+                                        EditName.id,
+                                      ),
+                                      fillColor:
+                                          Theme.of(context).primaryColorLight,
                                     ),
-                                    padding: EdgeInsets.all(15),
-                                    onPressed: () => Navigator.pushNamed(
-                                      context,
-                                      EditName.id,
+                                    SizedBox(
+                                      height: 10,
                                     ),
-                                    fillColor:
-                                        Theme.of(context).primaryColorLight,
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text('이름 변경')
-                                ],
+                                    Text('이름 변경')
+                                  ],
+                                ),
                               ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top: 50.0),
-                              child: Column(
-                                children: <Widget>[
-                                  CircleIconButton(
-                                    child: Row(
-                                      children: <Widget>[
-                                        Icon(
-                                          FontAwesomeIcons.church,
-                                          color: Colors.white,
-                                        ),
-                                        SizedBox(
-                                          width: 5.8,
-                                        ),
-                                      ],
-                                    ),
-                                    fillColor:
-                                        Theme.of(context).primaryColorLight,
-                                    padding: EdgeInsets.all(15),
-                                    onPressed: () {},
+                              Container(
+                                margin: EdgeInsets.only(top: 50.0),
+                                child: Column(
+                                  children: <Widget>[
+                                    CircleIconButton(
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(
+                                            FontAwesomeIcons.church,
+                                            color: Colors.white,
+                                          ),
+                                          SizedBox(
+                                            width: 5.8,
+                                          ),
+                                        ],
+                                      ),
+                                      fillColor:
+                                          Theme.of(context).primaryColorLight,
+                                      padding: EdgeInsets.all(15),
+                                      onPressed: () {},
 //                              onPressed: () => _pictureChange(),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text('교회명 변경')
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin:
-                                  EdgeInsets.only(bottom: 50.0, right: 15.0),
-                              child: Column(
-                                children: <Widget>[
-                                  CircleIconButton(
-                                    child: Icon(
-                                      Icons.camera_alt,
-                                      color: Colors.white,
                                     ),
-                                    fillColor:
-                                        Theme.of(context).primaryColorLight,
-                                    padding: EdgeInsets.all(15),
-                                    onPressed: () => _changePicture(),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text('사진 변경')
-                                ],
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text('교회명 변경')
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                              Container(
+                                margin:
+                                    EdgeInsets.only(bottom: 50.0, right: 15.0),
+                                child: Column(
+                                  children: <Widget>[
+                                    CircleIconButton(
+                                      child: Icon(
+                                        Icons.camera_alt,
+                                        color: Colors.white,
+                                      ),
+                                      fillColor:
+                                          Theme.of(context).primaryColorLight,
+                                      padding: EdgeInsets.all(15),
+                                      onPressed: () => _changePicture(),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text('사진 변경')
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     )

@@ -12,7 +12,6 @@ class EditName extends StatefulWidget {
 }
 
 class _EditNameState extends State<EditName> {
-  String _name = '';
   User _user;
 
   @override
@@ -27,11 +26,12 @@ class _EditNameState extends State<EditName> {
   }
 
   String _validate(String name) {
-    if (name.length > 10) {
-      return "이름이 너무깁니다. (10자 이하로 입력)";
-    }
+    name = name.trim();
     if (name.isEmpty) {
       return "이름은 공백으로 둘 수 없습니다.";
+    }
+    if (name.length > 10) {
+      return "이름이 너무깁니다. (10자 이하로 입력)";
     }
     return null;
   }
@@ -52,10 +52,12 @@ class _EditNameState extends State<EditName> {
               buttonText: '수정',
               validator: (String value) => _validate(value),
               textValue: _user.name,
-              onChange: (name) => _name = name,
+              onChange: (name) => _user.name = name,
               buttonOnPressed: (GlobalKey<FormState> key) {
                 if (key.currentState.validate()) {
-                  _user.updateUserName(_name.trim());
+                  _user.updateUserName(_user.name.trim());
+                  Fluttertoast.showToast(msg: "이름이 정상적으로 변경되었습니다");
+                  Navigator.pop(context);
                 }
               }),
         ),
