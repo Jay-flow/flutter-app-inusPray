@@ -5,16 +5,16 @@ import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/navigations/main_bottom_tab.dart';
 import 'package:flutter_inus_pray/screen/ad_banner.dart';
 import 'package:flutter_inus_pray/screen/edit_church_name.dart';
-import 'package:flutter_inus_pray/screen/edit_user_name.dart';
 import 'package:flutter_inus_pray/screen/edit_profile.dart';
+import 'package:flutter_inus_pray/screen/edit_user_name.dart';
 import 'package:flutter_inus_pray/screen/login.dart';
 import 'package:flutter_inus_pray/screen/pray_add.dart';
 import 'package:flutter_inus_pray/screen/register.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
+import 'package:flutter_inus_pray/utils/notification_fcm.dart';
 import 'package:flutter_inus_pray/utils/settings.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_inus_pray/utils/notification_fcm.dart';
 
 void main() => runApp(InusPrayApp());
 
@@ -121,11 +121,10 @@ class _InusPrayAppState extends State<InusPrayApp> {
                 floatingActionButtonTheme: FloatingActionButtonThemeData(
                   backgroundColor: Asset.Colors.green,
                 ),
-                tabBarTheme: TabBarTheme(
-                  labelColor: Colors.black
-                ),
+                tabBarTheme: TabBarTheme(labelColor: Colors.black),
               ),
-              initialRoute: _initialRoute,
+//              initialRoute: _initialRoute,
+              initialRoute: Login.id,
               routes: {
                 InusPrayApp.id: (context) => InusPrayApp(),
                 Login.id: (context) => Login(),

@@ -1,14 +1,15 @@
 import 'dart:io' show Platform;
+
+import 'package:apple_sign_in/apple_sign_in.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_inus_pray/components/loading_container.dart';
 import 'package:flutter_inus_pray/components/image_button.dart';
+import 'package:flutter_inus_pray/components/loading_container.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/screen/register.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:flutter_inus_pray/utils/constants.dart';
 import 'package:flutter_kakao_login/flutter_kakao_login.dart';
-import 'package:flutter_inus_pray/utils/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 const double iconSize = 80.0;
@@ -33,11 +34,44 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
   @override
   initState() {
     super.initState();
+    _addTitleAnimation();
+    _initIOSLogin();
+  }
+
+  void _initIOSLogin() {
+    if (Platform.isIOS) {
+      AppleSignIn.onCredentialRevoked.listen((_) {
+        print("Credentials revoked");
+      });
+    }
+  }
+
+  void _addTitleAnimation() {
     controller = AnimationController(
         duration: const Duration(milliseconds: 2000), vsync: this);
     animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
-
     controller.forward();
+  }
+
+  _appleLogIn() async {
+    // TODO:: I have to solve the next bug
+    // resolve for Sign in failed: The operation couldn’t be completed. (com.apple.AuthenticationServices.AuthorizationError error 1000.)
+    // https://github.com/invertase/react-native-apple-authentication/issues/9
+    if (await AppleSignIn.isAvailable()) {
+      final AuthorizationResult result = await AppleSignIn.performRequests([
+        AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
+      ]);
+      switch (result.status) {
+        case AuthorizationStatus.authorized:
+          return print(result.credential.user); //All the required credentials
+        case AuthorizationStatus.error:
+          print("Sign in failed: ${result.error.localizedDescription}");
+          break;
+        case AuthorizationStatus.cancelled:
+          print('User cancelled');
+          break;
+      }
+    }
   }
 
   _kakaoLogin(context) async {
@@ -161,16 +195,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                             text: 'Apple로 로그인',
                             buttonColor: Colors.white,
                             iconImage: Asset.Icons.icApple,
-                            onPressed: () async {
-                              // https://pub.dev/packages/sign_in_with_apple#-readme-tab-
-                              // final credential =
-                              //     await SignInWithApple.getAppleIDCredential(
-                              //   scopes: [
-                              //     AppleIDAuthorizationScopes.email,
-                              //     AppleIDAuthorizationScopes.fullName,
-                              //   ],
-                              // );
-                            },
+                            onPressed: _appleLogIn,
                           )
                         : Container(),
                   ],

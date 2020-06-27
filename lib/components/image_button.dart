@@ -31,8 +31,8 @@ class ImageButton extends StatelessWidget {
         ),
         icon: Image(
           image: iconImage,
-          width: 25.0,
-          height: 25.0,
+          width: 23.0,
+          height: 23.0,
         ),
         label: Expanded(
           child: Center(
