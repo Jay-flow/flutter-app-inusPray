@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_inus_pray/models/input_type.dart';
 import 'package:flutter_inus_pray/models/mediator.dart';
 import 'package:flutter_inus_pray/models/user.dart';
@@ -71,8 +72,14 @@ class _InusPrayAppState extends State<InusPrayApp> {
     });
   }
 
+  void _preventLandscape() {
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  }
+
   @override
   Widget build(BuildContext context) {
+    _preventLandscape();
     return _isLoading
         ? MaterialApp(
             debugShowCheckedModeBanner: false,
