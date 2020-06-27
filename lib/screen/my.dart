@@ -137,10 +137,10 @@ class _MyState extends State<My> {
                                     children: <Widget>[
                                       Padding(
                                         padding: const EdgeInsets.only(
-                                            top: 12.0, left: 12.0, right: 12.0),
+                                            top: 20.0, left: 20.0, right: 20.0),
                                         child: Container(
                                           constraints:
-                                              BoxConstraints(minHeight: 80),
+                                              BoxConstraints(minHeight: 40),
                                           child: Text(
                                             user.prays[index],
                                           ),

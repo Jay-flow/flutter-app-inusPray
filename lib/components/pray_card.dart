@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/circle_image.dart';
 import 'package:flutter_inus_pray/components/line.dart';
 import 'package:flutter_inus_pray/utils/constants.dart';
-import 'package:flutter_inus_pray/utils/constants.dart';
 
 class PrayCard extends StatelessWidget {
   PrayCard({
@@ -27,7 +26,7 @@ class PrayCard extends StatelessWidget {
       width: cardWidth,
       height: cardHeight,
       decoration: kCardContainerBoxDecoration,
-      padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 23.0),
+      padding: EdgeInsets.all(30),
       child: Material(
         color: Colors.white,
         child: Column(
@@ -45,7 +44,7 @@ class PrayCard extends StatelessWidget {
               height: 1.0,
             ),
             SizedBox(
-              height: 9,
+              height: 10,
             ),
             content,
           ],
