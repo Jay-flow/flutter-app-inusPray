@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 
 class ImageButton extends StatelessWidget {
   ImageButton(
@@ -17,7 +18,7 @@ class ImageButton extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: FlatButton.icon(
-        color: Colors.white,
+        color: Asset.Colors.white,
         padding: EdgeInsets.symmetric(
           vertical: 12.0,
           horizontal: 30.0,

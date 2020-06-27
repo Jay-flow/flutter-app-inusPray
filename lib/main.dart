@@ -109,7 +109,7 @@ class _InusPrayAppState extends State<InusPrayApp> {
                     iconTheme: IconThemeData(
                       color: Colors.black,
                     )),
-                accentColor: Asset.Colors.mint,
+                accentColor: Asset.Colors.yellow,
                 textTheme: TextTheme(
                   body1: TextStyle(color: Asset.Colors.blueBlack),
                   subhead: TextStyle(color: Asset.Colors.blueBlack),

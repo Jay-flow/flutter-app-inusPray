@@ -34,7 +34,7 @@ const kTextFieldDecoration = InputDecoration(
   ),
   focusedBorder: UnderlineInputBorder(
     borderSide: BorderSide(
-      color: Asset.Colors.hotPink,
+      color: Asset.Colors.yellow,
       width: 2.0,
     ),
   ),

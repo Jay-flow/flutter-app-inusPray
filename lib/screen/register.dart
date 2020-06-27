@@ -235,7 +235,7 @@ class _RegisterState extends State<Register> {
                 value: progressValue,
                 backgroundColor: Asset.Colors.grey,
                 valueColor: AlwaysStoppedAnimation<Color>(
-                  Asset.Colors.hotPink,
+                  Theme.of(context).primaryColor
                 ),
               ),
               Expanded(

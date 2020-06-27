@@ -109,7 +109,8 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
         isLoading: _isLoading,
         child: Container(
           padding: EdgeInsets.all(30),
-          decoration: kGradientBackground,
+//          decoration: kGradientBackground,
+          decoration: BoxDecoration(color: Theme.of(context).primaryColorDark),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
@@ -124,7 +125,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                         style: GoogleFonts.dancingScript(
                           textStyle: TextStyle(
                             fontSize: 50.0,
-                            color: Asset.Colors.white,
+                            color: Theme.of(context).primaryColor,
                           ),
                         ),
                       ),
@@ -136,6 +137,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: RichText(
                   text: TextSpan(
+                    style: TextStyle(color: Asset.Colors.white),
                     children: [
                       TextSpan(
                         text: '로그인을 누르시면 ',
