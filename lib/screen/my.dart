@@ -6,6 +6,7 @@ import 'package:flutter_inus_pray/screen/pray_add.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
+import 'package:flutter_inus_pray/utils/admob.dart';
 
 class My extends StatefulWidget {
   static const String id = 'my';
@@ -15,6 +16,8 @@ class My extends StatefulWidget {
 }
 
 class _MyState extends State<My> {
+  AdMob _adMob = AdMob();
+
   Future _confirmDeletePray(int index, Function deleteUserPray) {
     return showDialog(
         context: context,
@@ -33,6 +36,7 @@ class _MyState extends State<My> {
                 child: const Text('삭제'),
                 onPressed: () {
                   deleteUserPray(index);
+                  _adMob.showVideoAd();
                   Navigator.of(context).pop();
                 },
               )
@@ -164,13 +168,16 @@ class _MyState extends State<My> {
                                                   child: Text(
                                                     '삭제',
                                                     style: TextStyle(
-                                                        color: Colors.grey),
+                                                      color: Colors.grey,
+                                                    ),
                                                   ),
                                                 ),
-                                                onTap: () => _confirmDeletePray(
-                                                  index,
-                                                  user.deleteUserPray,
-                                                ),
+                                                onTap: () {
+                                                  _confirmDeletePray(
+                                                    index,
+                                                    user.deleteUserPray,
+                                                  );
+                                                },
                                               ),
                                               InkWell(
                                                 child: Padding(

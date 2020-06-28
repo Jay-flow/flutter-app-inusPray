@@ -48,7 +48,7 @@ class AdMob {
     _interstitialAd?.dispose();
   }
 
-  showBanner({AdSize adSize, double anchorOffset=0}) {
+  showBanner({AdSize adSize, double anchorOffset = 0}) {
     _bannerAd ??= createBannerAd(adSize: adSize);
     _bannerAd
       ..load()
@@ -62,15 +62,16 @@ class AdMob {
     _bannerAd = null;
   }
 
-  showVideo(Function eventCallback) {
+  showVideoAd() {
     RewardedVideoAd.instance.load(
         adUnitId: RewardedVideoAd.testAdUnitId, targetingInfo: targetingInfo);
     RewardedVideoAd.instance.listener =
         (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
-      eventCallback(event);
+      if (event == RewardedVideoAdEvent.loaded) {
+        RewardedVideoAd.instance.show();
+      }
     };
   }
-
 
   InterstitialAd showInterstitialAd() {
     _interstitialAd = this.createInterstitialAd((MobileAdEvent event) {

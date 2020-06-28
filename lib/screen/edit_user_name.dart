@@ -3,6 +3,7 @@ import 'package:flutter_inus_pray/models/user.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_inus_pray/components/input_page.dart';
+import 'package:flutter_inus_pray/utils/admob.dart';
 
 class EditUserName extends StatefulWidget {
   static const String id = 'edit_name';
@@ -46,20 +47,22 @@ class _EditUserNameState extends State<EditUserName> {
         body: Padding(
           padding: const EdgeInsets.all(20.0),
           child: InputPage(
-              title: '이름 수정',
-              hintText: '변경할 이름을 입력해주세요',
-              keyboardType: TextInputType.text,
-              buttonText: '수정',
-              validator: (String value) => _validate(value),
-              textValue: _user.name,
-              onChange: (name) => _user.name = name,
-              buttonOnPressed: (GlobalKey<FormState> key) {
-                if (key.currentState.validate()) {
-                  _user.updateUserName(_user.name.trim());
-                  Fluttertoast.showToast(msg: "이름이 정상적으로 변경되었습니다");
-                  Navigator.pop(context);
-                }
-              }),
+            title: '이름 수정',
+            hintText: '변경할 이름을 입력해주세요',
+            keyboardType: TextInputType.text,
+            buttonText: '수정',
+            validator: (String value) => _validate(value),
+            textValue: _user.name,
+            onChange: (name) => _user.name = name,
+            buttonOnPressed: (GlobalKey<FormState> key) {
+              if (key.currentState.validate()) {
+                _user.updateUserName(_user.name.trim());
+                Fluttertoast.showToast(msg: "이름이 정상적으로 변경되었습니다");
+                AdMob().showInterstitialAd();
+                Navigator.pop(context);
+              }
+            },
+          ),
         ),
       ),
     );

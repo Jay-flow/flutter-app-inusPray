@@ -14,6 +14,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_inus_pray/components/circle_icon_button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_inus_pray/utils/admob.dart';
 
 class EditProfile extends StatefulWidget {
   static const String id = 'edit_profile';
@@ -25,12 +26,20 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
   User _user;
   bool _isLoading = false;
+  AdMob _adMob = AdMob();
 
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _user = Provider.of<User>(context);
+  }
+
+
+  @override
+  void dispose() {
+    super.dispose();
+    _adMob.dispose();
   }
 
   _changePicture() {
@@ -112,6 +121,7 @@ class _EditProfileState extends State<EditProfile> {
     Fluttertoast.showToast(
       msg: "이미지가 변경되었습니다.",
     );
+    _adMob.showVideoAd();
   }
 
   @override

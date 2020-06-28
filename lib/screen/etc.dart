@@ -38,24 +38,24 @@ class _EtcState extends State<Etc> {
     print(items);
   }
 
-  void _videoCallback(RewardedVideoAdEvent event) {
-    if (event == RewardedVideoAdEvent.loaded) {
-      RewardedVideoAd.instance.show();
-      setState(() {
-        _isLoading = false;
-      });
-    }
-    if (event == RewardedVideoAdEvent.closed) {
-      Fluttertoast.showToast(
-          msg: "감사합니다. 광고 비디오 시청은 저에게 큰 힘이 됩니다.",
-          toastLength: Toast.LENGTH_LONG);
-    }
-    if (event == RewardedVideoAdEvent.failedToLoad) {
-      Fluttertoast.showToast(
-          msg: "광고 비디오를 불러오지 못했습니다. 관리자에게 문의 바랍니다.",
-          toastLength: Toast.LENGTH_LONG);
-    }
-  }
+//  void _videoCallback(RewardedVideoAdEvent event) {
+//    if (event == RewardedVideoAdEvent.loaded) {
+//      RewardedVideoAd.instance.show();
+//      setState(() {
+//        _isLoading = false;
+//      });
+//    }
+//    if (event == RewardedVideoAdEvent.closed) {
+//      Fluttertoast.showToast(
+//          msg: "감사합니다. 광고 비디오 시청은 저에게 큰 힘이 됩니다.",
+//          toastLength: Toast.LENGTH_LONG);
+//    }
+//    if (event == RewardedVideoAdEvent.failedToLoad) {
+//      Fluttertoast.showToast(
+//          msg: "광고 비디오를 불러오지 못했습니다. 관리자에게 문의 바랍니다.",
+//          toastLength: Toast.LENGTH_LONG);
+//    }
+//  }
 
   @override
   void dispose() {
@@ -97,7 +97,7 @@ class _EtcState extends State<Etc> {
                       setState(() {
                         _isLoading = true;
                       });
-                      _adMob.showVideo(_videoCallback);
+                      _adMob.showVideoAd();
                     },
                   ),
                   IconButtonWithText(

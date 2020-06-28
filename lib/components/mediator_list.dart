@@ -4,6 +4,7 @@ import 'package:flutter_inus_pray/models/user.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
+import 'package:flutter_inus_pray/utils/admob.dart';
 
 class MediatorList extends StatefulWidget {
   MediatorList({
@@ -22,6 +23,7 @@ class MediatorList extends StatefulWidget {
 
 class _MediatorListState extends State<MediatorList> {
   User myUser;
+  AdMob _adMob = AdMob();
 
   @override
   void didChangeDependencies() {
@@ -64,6 +66,7 @@ class _MediatorListState extends State<MediatorList> {
           onPress: () {
             if (mediator.isIAddedMediatorForYou) {
               widget.deleteMediator(mediator);
+              _adMob.showVideoAd();
             } else {
               widget.addMediator(context, mediator);
             }
