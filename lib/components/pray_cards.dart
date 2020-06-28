@@ -26,8 +26,6 @@ class _PrayCardsState extends State<PrayCards> {
   double cardWidth;
   double cardFeedbackWidth;
   double cardHeight;
-  AdMob _adMob = AdMob();
-  InterstitialAd _interstitalAd;
 
   @override
   void didChangeDependencies() {
@@ -66,20 +64,9 @@ class _PrayCardsState extends State<PrayCards> {
     setState(() {
       this._prayCards.removeLast();
     });
-    if (this._prayCards.length == 0) {
-      _showIntersititialAd();
-    }
     isRemoveCard = true;
   }
 
-  _showIntersititialAd() {
-    _interstitalAd = _adMob.createInterstitialAd((MobileAdEvent event) {
-      if (event == MobileAdEvent.loaded) {
-        _interstitalAd.show();
-      }
-    })
-      ..load();
-  }
 
   _getPrayCards() {
     // 카드 크기 사이즈를 지정 해주지 않으면 에러남(드래그시 크기를 몰라서 그런것 같음)
@@ -142,12 +129,6 @@ class _PrayCardsState extends State<PrayCards> {
             );
       }
     }
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _interstitalAd?.dispose();
   }
 
   @override

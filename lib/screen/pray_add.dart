@@ -1,3 +1,4 @@
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/models/input_type.dart';
 import 'package:flutter_inus_pray/models/user.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_inus_pray/utils/constants.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_inus_pray/api/notification_fcm.dart';
+import 'package:flutter_inus_pray/utils/admob.dart';
 
 class PrayAdd extends StatefulWidget {
   static const String idCreate = 'pray_add_create';
@@ -20,6 +22,7 @@ class PrayAdd extends StatefulWidget {
 
 class _PrayAddState extends State<PrayAdd> {
   final _textController = TextEditingController();
+  AdMob _adMob = AdMob();
   InputType inputType;
   int index;
 
@@ -49,6 +52,11 @@ class _PrayAddState extends State<PrayAdd> {
       return false;
     }
     return true;
+  }
+
+  String handlingInputText() {
+    String inputText = _textController.text.trim();
+    return inputText.replaceAll(RegExp(r"\n\n+"), "\n\n");
   }
 
   @override
@@ -90,9 +98,7 @@ class _PrayAddState extends State<PrayAdd> {
                     shape: kBottomBorderRadiusStyle,
                     color: Theme.of(context).primaryColor,
                     onPressed: () {
-                      String inputText = _textController.text.trim();
-                      inputText =
-                          inputText.replaceAll(RegExp(r"\n\n+"), "\n\n");
+                      String inputText = handlingInputText();
                       if (_validate(inputText)) {
                         if (inputType == InputType.Update) {
                           user.updateUserPray(index, inputText);
@@ -103,6 +109,7 @@ class _PrayAddState extends State<PrayAdd> {
                           userID: user.phoneNumber,
                           pray: inputText,
                         );
+                        _adMob.showInterstitialAd();
                         Navigator.pop(context);
                       }
                     },

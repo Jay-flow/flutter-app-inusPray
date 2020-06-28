@@ -70,4 +70,15 @@ class AdMob {
       eventCallback(event);
     };
   }
+
+
+  InterstitialAd showInterstitialAd() {
+    _interstitialAd = this.createInterstitialAd((MobileAdEvent event) {
+      if (event == MobileAdEvent.loaded) {
+        _interstitialAd.show();
+      }
+    })
+      ..load();
+    return _interstitialAd;
+  }
 }
