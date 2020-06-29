@@ -195,7 +195,7 @@ PODS:
     - Firebase/Core
     - Flutter
   - firebase_auth (0.0.1):
-    - Firebase/Auth (~> 6.0)
+    - Firebase/Auth (~> 6.3)
     - Firebase/Core
     - Flutter
   - firebase_auth_web (0.1.0):
@@ -494,9 +494,9 @@ SPEC CHECKSUMS:
   cloud_firestore: c5d1e4d114eecb1dfb535f008435685bcf6063f1
   Firebase: 458d109512200d1aca2e1b9b6cf7d68a869a4a46
   firebase_admob: d8c2bc95b5e0069406280ce6adb816cdee6aa595
-  firebase_auth: 48dca46d6a22ab8522633c6257715c4ee5afb0f9
+  firebase_auth: af8784c4d8d87c36f730a305f97bfbcb24db024b
   firebase_auth_web: 0955c07bcc06e84af76b9d4e32e6f31518f2d7de
-  firebase_core: 1ddb540658affe241faeb5ff5599756c3197af8e
+  firebase_core: 335c02abd48672b7c83c683df833d0488a72e73e
   firebase_core_web: d501d8b946b60c8af265428ce483b0fff5ad52d1
   firebase_messaging: 21344b3b3a7d9d325d63a70e3750c0c798fe1e03
   firebase_storage: cee2383f53c26690269ab667b4dbfe25452c6caa

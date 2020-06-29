@@ -1,14 +1,17 @@
 import 'dart:io' show Platform;
 
 import 'package:apple_sign_in/apple_sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_inus_pray/components/image_button.dart';
 import 'package:flutter_inus_pray/components/loading_container.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/screen/register.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:flutter_kakao_login/flutter_kakao_login.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 const double iconSize = 80.0;
@@ -53,25 +56,88 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
   }
 
   _appleLogIn() async {
-    // TODO:: I have to solve the next bug
-    // resolve for Sign in failed: The operation couldn’t be completed. (com.apple.AuthenticationServices.AuthorizationError error 1000.)
-    // https://github.com/invertase/react-native-apple-authentication/issues/9
     if (await AppleSignIn.isAvailable()) {
-      final AuthorizationResult result = await AppleSignIn.performRequests([
+      final AuthorizationResult appleResponse =
+          await AppleSignIn.performRequests([
         AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
       ]);
-      switch (result.status) {
-        case AuthorizationStatus.authorized:
-          // TODO:: https://medium.com/@karlwhiteprivate/flutter-firebase-sign-in-with-apple-c99967df142f
-          return print(result); //All the required credentials
-        case AuthorizationStatus.error:
-          print("Sign in failed: ${result.error.localizedDescription}");
-          break;
-        case AuthorizationStatus.cancelled:
-          print('User cancelled');
-          break;
-      }
+      setState(() {
+        _isLoading = true;
+      });
+      await _appleAuthHandling(appleResponse);
+      setState(() {
+        _isLoading = false;
+      });
     }
+  }
+
+  _appleAuthHandling(AuthorizationResult appleResponse) async {
+    final AppleIdCredential appleIdCredential = appleResponse.credential;
+    User user;
+    try {
+      if (appleResponse.status == AuthorizationStatus.authorized) {
+        FirebaseUser firebaseUser = await FirebaseAuth.instance.currentUser();
+        if (firebaseUser == null) {
+          user = await _addFirebaseAuth(appleIdCredential);
+        } else {
+          user = await _updateFirebaseAuth(appleIdCredential, firebaseUser);
+        }
+        Navigator.pushNamed(context, Register.id, arguments: user);
+      } else if (appleResponse.status == AuthorizationStatus.error) {
+        throw Exception;
+      }
+    } on PlatformException catch (e) {
+      if (e.code == "ERROR_USER_NOT_FOUND") {
+        return await _appleAuthHandling(appleResponse);
+      }
+      _printLoginError();
+    } catch (e) {
+      _printLoginError();
+    }
+  }
+
+  _getAppleDisplayName(String displayName) {
+    if (displayName == "null null") {
+      return null;
+    }
+    return displayName;
+  }
+
+  _addFirebaseAuth(AppleIdCredential appleIdCredential) async {
+    OAuthProvider oAuthProvider = new OAuthProvider(providerId: "apple.com");
+    final AuthCredential credential = oAuthProvider.getCredential(
+      idToken: String.fromCharCodes(appleIdCredential.identityToken),
+      accessToken: String.fromCharCodes(appleIdCredential.authorizationCode),
+    );
+    final AuthResult _res =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+    return User(
+      email: _res.user.email,
+      name: _getAppleDisplayName(_res.user.displayName),
+      phoneNumber: _res.user.phoneNumber,
+      profileImagePath: _res.user.photoUrl,
+      thumbnailImagePath: _res.user.photoUrl,
+    );
+  }
+
+  _updateFirebaseAuth(
+    AppleIdCredential appleIdCredential,
+    FirebaseUser firebaseUser,
+  ) async {
+    UserUpdateInfo updateUser = UserUpdateInfo();
+    updateUser.displayName =
+        "${appleIdCredential.fullName.givenName} ${appleIdCredential.fullName.familyName}";
+    await firebaseUser.updateProfile(updateUser);
+    return User(
+      name: _getAppleDisplayName(firebaseUser.displayName),
+      phoneNumber: firebaseUser.phoneNumber,
+      profileImagePath: firebaseUser.photoUrl,
+      thumbnailImagePath: firebaseUser.photoUrl,
+    );
+  }
+
+  void _printLoginError() {
+    Fluttertoast.showToast(msg: "에러가 발생했습니다. 다른 방법으로 가입을 진행 해주세요.");
   }
 
   _kakaoLogin(context) async {
@@ -97,7 +163,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
         Navigator.pushNamed(context, Register.id, arguments: user);
       }
     } catch (e) {
-      // 로그인 에러
+      _printLoginError();
     }
     _loadingStateChange(false);
   }
