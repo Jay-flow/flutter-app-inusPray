@@ -1,20 +1,21 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_inus_pray/components/circle_icon_button.dart';
 import 'package:flutter_inus_pray/components/circle_image.dart';
-import 'package:flutter_inus_pray/screen/edit_church_name.dart';
-import 'package:flutter_inus_pray/screen/edit_user_name.dart';
-import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:flutter_inus_pray/components/loading_container.dart';
 import 'package:flutter_inus_pray/models/user.dart';
+import 'package:flutter_inus_pray/screen/edit_church_name.dart';
+import 'package:flutter_inus_pray/screen/edit_user_name.dart';
+import 'package:flutter_inus_pray/utils/admob.dart';
+import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_inus_pray/components/circle_icon_button.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:flutter_inus_pray/utils/admob.dart';
 
 class EditProfile extends StatefulWidget {
   static const String id = 'edit_profile';
@@ -28,13 +29,11 @@ class _EditProfileState extends State<EditProfile> {
   bool _isLoading = false;
   AdMob _adMob = AdMob();
 
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _user = Provider.of<User>(context);
   }
-
 
   @override
   void dispose() {
@@ -211,93 +210,97 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                   ),
                   Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(top: 10),
-                      child: SingleChildScrollView(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Container(
-                              child: Column(
-                                children: <Widget>[
-                                  CircleIconButton(
-                                    child: Icon(
-                                      Icons.border_color,
-                                      color: Colors.white,
-                                    ),
-                                    padding: EdgeInsets.all(15),
-                                    onPressed: () => Navigator.pushNamed(
-                                      context,
-                                      EditUserName.id,
-                                    ),
-                                    fillColor:
-                                        Theme.of(context).primaryColorLight,
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text('이름 변경')
-                                ],
-                              ),
+                    child: LayoutBuilder(
+                      builder: (context, constraint) {
+                        return SingleChildScrollView(
+                          child: Container(
+                            margin: EdgeInsets.only(top: 10),
+                            constraints: BoxConstraints(
+                              minHeight: constraint.maxHeight,
                             ),
-                            Container(
-                              margin: EdgeInsets.only(top: 50.0),
-                              child: Column(
-                                children: <Widget>[
-                                  CircleIconButton(
-                                    child: Row(
-                                      children: <Widget>[
-                                        Icon(
-                                          FontAwesomeIcons.church,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                Container(
+                                  child: Column(
+                                    children: <Widget>[
+                                      CircleIconButton(
+                                        child: Icon(
+                                          Icons.border_color,
                                           color: Colors.white,
                                         ),
-                                        SizedBox(
-                                          width: 5.8,
+                                        padding: EdgeInsets.all(15),
+                                        onPressed: () => Navigator.pushNamed(
+                                          context,
+                                          EditUserName.id,
                                         ),
-                                      ],
-                                    ),
-                                    fillColor:
-                                        Theme.of(context).primaryColorLight,
-                                    padding: EdgeInsets.all(15),
-                                    onPressed: () => Navigator.pushNamed(
-                                      context,
-                                      EditChurchName.id,
-                                    ),
+                                        fillColor:
+                                            Theme.of(context).primaryColorLight,
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text('이름 변경')
+                                    ],
                                   ),
-                                  SizedBox(
-                                    height: 10,
+                                ),
+                                Container(
+                                  child: Column(
+                                    children: <Widget>[
+                                      CircleIconButton(
+                                        child: Row(
+                                          children: <Widget>[
+                                            Icon(
+                                              FontAwesomeIcons.church,
+                                              color: Colors.white,
+                                            ),
+                                            SizedBox(
+                                              width: 5.8,
+                                            ),
+                                          ],
+                                        ),
+                                        fillColor:
+                                            Theme.of(context).primaryColorLight,
+                                        padding: EdgeInsets.all(15),
+                                        onPressed: () => Navigator.pushNamed(
+                                          context,
+                                          EditChurchName.id,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text('교회명 변경')
+                                    ],
                                   ),
-                                  Text('교회명 변경')
-                                ],
-                              ),
+                                ),
+                                Container(
+                                  child: Column(
+                                    children: <Widget>[
+                                      CircleIconButton(
+                                        child: Icon(
+                                          Icons.camera_alt,
+                                          color: Colors.white,
+                                        ),
+                                        fillColor:
+                                            Theme.of(context).primaryColorLight,
+                                        padding: EdgeInsets.all(15),
+                                        onPressed: () => _changePicture(),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text('사진 변경')
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
-                            Container(
-                              margin:
-                                  EdgeInsets.only(bottom: 50.0, right: 15.0),
-                              child: Column(
-                                children: <Widget>[
-                                  CircleIconButton(
-                                    child: Icon(
-                                      Icons.camera_alt,
-                                      color: Colors.white,
-                                    ),
-                                    fillColor:
-                                        Theme.of(context).primaryColorLight,
-                                    padding: EdgeInsets.all(15),
-                                    onPressed: () => _changePicture(),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text('사진 변경')
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                          ),
+                        );
+                      },
                     ),
                   )
                 ],
