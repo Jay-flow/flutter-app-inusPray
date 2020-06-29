@@ -8,7 +8,6 @@ import 'package:flutter_inus_pray/components/loading_container.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/screen/register.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
-import 'package:flutter_inus_pray/utils/constants.dart';
 import 'package:flutter_kakao_login/flutter_kakao_login.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -63,7 +62,8 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
       ]);
       switch (result.status) {
         case AuthorizationStatus.authorized:
-          return print(result.credential.user); //All the required credentials
+          // TODO:: https://medium.com/@karlwhiteprivate/flutter-firebase-sign-in-with-apple-c99967df142f
+          return print(result); //All the required credentials
         case AuthorizationStatus.error:
           print("Sign in failed: ${result.error.localizedDescription}");
           break;
