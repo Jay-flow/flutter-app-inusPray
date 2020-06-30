@@ -1,5 +1,4 @@
-import 'dart:developer' as developer;
-
+import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,8 +6,8 @@ import 'package:flutter_inus_pray/components/input_page.dart';
 import 'package:flutter_inus_pray/components/loading_container.dart';
 import 'package:flutter_inus_pray/main.dart';
 import 'package:flutter_inus_pray/models/user.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Register extends StatefulWidget {
   static const String id = 'register';
@@ -22,8 +21,9 @@ class _RegisterState extends State<Register> {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   User user;
-  bool _isPhoneAuth;
   bool _isLoading = false;
+  String _verificationId;
+  String _smsCode;
 
   // 하드 코딩 해놓음  3 = pages.length.toDouble() 인데... 좋은 방법 찾기
   double progressValue = 1.0 / 3;
@@ -37,12 +37,17 @@ class _RegisterState extends State<Register> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     user = ModalRoute.of(context).settings.arguments ?? User();
-    _isPhoneAuth =
-        (user.phoneNumber == null || user.phoneNumber == '') ? true : false;
   }
 
   void nextPage() {
     _pageController.nextPage(
+      curve: Curves.easeInOut,
+      duration: Duration(milliseconds: 200),
+    );
+  }
+
+  void previousPage() {
+    _pageController.previousPage(
       curve: Curves.easeInOut,
       duration: Duration(milliseconds: 200),
     );
@@ -76,39 +81,47 @@ class _RegisterState extends State<Register> {
   }
 
   _phoneAuthMessage() {
-    _firebaseAuth.verifyPhoneNumber(
+    _firebaseAuth
+        .verifyPhoneNumber(
       phoneNumber: '+82 ${user.phoneNumber}',
       timeout: Duration(seconds: 30),
       verificationCompleted: _phoneVerificationCompleted,
       verificationFailed: _phoneVerificationFailed,
       codeSent: _phoneCodeSent,
       codeAutoRetrievalTimeout: _phoneCodeAutoRetrievalTimeout,
-    );
+    )
+        .catchError((e) {
+      Fluttertoast.showToast(
+        msg: "인증과정 중 에러가 발생했습니다",
+        gravity: ToastGravity.TOP,
+      );
+    });
   }
 
   _phoneCodeSent(String verificationId, [int forceResendingToken]) async {
-    Fluttertoast.showToast(
-      msg: '인증코드를 메세지로 보냈습니다.\n메시지를 수신시 코드를 입력하지 않아도 자동으로 인증됩니다.',
-      toastLength: Toast.LENGTH_LONG,
-    );
-    developer.log(verificationId);
+    BotToast.showText(text: "인증코드가 전송되었습니다. 잠시만 기다려주세요");
+    _verificationId = verificationId;
   }
 
   _phoneCodeAutoRetrievalTimeout(String verificationId) {
     Fluttertoast.showToast(
       msg: '인증 시간이 초과 되었습니다. 번호를 확인하신 후 재전송을 원할 경우 인증하기 버튼을 한번 더 클릭 해주세요.',
+      gravity: ToastGravity.TOP,
       toastLength: Toast.LENGTH_LONG,
     );
   }
 
   _phoneVerificationFailed(AuthException authException) {
-    Fluttertoast.showToast(msg: '인증에 실패하였습니다.\n관리자에게 문의해주세요.');
+    Fluttertoast.showToast(
+      msg: '인증에 실패하였습니다.\n관리자에게 문의해주세요.',
+      gravity: ToastGravity.TOP,
+    );
   }
 
   _phoneVerificationCompleted(AuthCredential auth) {
     _firebaseAuth.signInWithCredential(auth).then((AuthResult value) async {
       if (value.user != null) {
-        Fluttertoast.showToast(msg: '인증되었습니다.');
+        Fluttertoast.showToast(msg: '인증되었습니다.', gravity: ToastGravity.TOP);
         if (await _isExistUser()) return _alreadyRegistedUserHandling();
         nextPage();
       } else {
@@ -121,6 +134,14 @@ class _RegisterState extends State<Register> {
     }).catchError((error) {
       Fluttertoast.showToast(msg: '인증에 실패하였습니다.\n관리자에게 문의해주세요.');
     });
+  }
+
+  _verifyAuthNumber() {
+    AuthCredential credential = PhoneAuthProvider.getCredential(
+      verificationId: _verificationId,
+      smsCode: _smsCode,
+    );
+    _phoneVerificationCompleted(credential);
   }
 
   Future<bool> _isExistUser() async {
@@ -157,16 +178,35 @@ class _RegisterState extends State<Register> {
           keyboardType: TextInputType.phone,
           buttonText: '인증하기',
           buttonOnPressed: (GlobalKey<FormState> key) {
-            if (_isPhoneAuth) {
-              if (key.currentState.validate()) {
-                _phoneAuthMessage();
-              }
-            } else {
-              nextPage();
-            }
+//            if (key.currentState.validate()) {
+//              _phoneAuthMessage();
+//              nextPage();
+//            }
           },
           textValue: user.phoneNumber,
           onChange: (phoneNumber) => user.phoneNumber = phoneNumber.trim(),
+          inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+        ),
+      ),
+      Container(
+        padding: EdgeInsets.all(25.0),
+        child: InputPage(
+          title: '인증 번호',
+          validator: (String value) {
+            if (value == '')
+              return '인증 번호를 입력해주세요';
+            else
+              return null;
+          },
+          hintText: '인증 번호를 입력해주세요 (\'-\'제외)',
+          keyboardType: TextInputType.phone,
+          buttonText: '확인',
+          buttonOnPressed: (GlobalKey<FormState> key) {
+            if (key.currentState.validate()) {
+              _verifyAuthNumber();
+            }
+          },
+          onChange: (smsCode) => _smsCode = smsCode.trim(),
           inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
         ),
       ),
@@ -210,7 +250,8 @@ class _RegisterState extends State<Register> {
           buttonOnPressed: (GlobalKey<FormState> key) async {
             if (key.currentState.validate()) {
               await _validate();
-              Navigator.of(context).pushNamedAndRemoveUntil(Register.id, (Route<dynamic> route) => false);
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  Register.id, (Route<dynamic> route) => false);
               Navigator.pushReplacementNamed(context, InusPrayApp.id);
             }
           },
@@ -235,8 +276,7 @@ class _RegisterState extends State<Register> {
                 value: progressValue,
                 backgroundColor: Asset.Colors.grey,
                 valueColor: AlwaysStoppedAnimation<Color>(
-                  Theme.of(context).primaryColor
-                ),
+                    Theme.of(context).primaryColor),
               ),
               Expanded(
                 child: PageView.builder(
