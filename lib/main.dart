@@ -12,6 +12,7 @@ import 'package:flutter_inus_pray/screen/login.dart';
 import 'package:flutter_inus_pray/screen/pray_add.dart';
 import 'package:flutter_inus_pray/screen/register.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
+import 'package:flutter_inus_pray/utils/constants.dart';
 import 'package:flutter_inus_pray/utils/notification_fcm.dart';
 import 'package:flutter_inus_pray/utils/settings.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -100,7 +101,7 @@ class _InusPrayAppState extends State<InusPrayApp> {
               ),
             ],
             child: MaterialApp(
-              title: Asset.Text.appName,
+              title: appName,
               debugShowCheckedModeBanner: false,
               theme: ThemeData.light().copyWith(
                 primaryColor: Asset.Colors.yellow,

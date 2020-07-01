@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/navigations/mediator_top_tab.dart';
 import 'package:flutter_inus_pray/navigations/pray_top_tab.dart';
-import 'package:flutter_inus_pray/screen/etc.dart';
 import 'package:flutter_inus_pray/screen/my.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -27,6 +26,22 @@ class _MainBottomTabState extends State<MainBottomTab> {
       _currentIndex = index;
     });
   }
+
+  @override
+  void initState() {
+    super.initState();
+//    _initLocalPushNotification();
+  }
+
+//  void _initLocalPushNotification() async {
+//    WidgetsFlutterBinding.ensureInitialized();
+//    var initAndroidSetting =
+//        AndroidInitializationSettings('@drawable/ic_notification');
+//    var initIosSetting = IOSInitializationSettings();
+//    var initSetting =
+//        InitializationSettings(initAndroidSetting, initIosSetting);
+//    await FlutterLocalNotificationsPlugin().initialize(initSetting);
+//  }
 
   @override
   Widget build(BuildContext context) {

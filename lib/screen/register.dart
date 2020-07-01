@@ -1,4 +1,3 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,11 +26,6 @@ class _RegisterState extends State<Register> {
 
   // 하드 코딩 해놓음  3 = pages.length.toDouble() 인데... 좋은 방법 찾기
   double progressValue = 1.0 / 3;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   void didChangeDependencies() {
@@ -99,7 +93,6 @@ class _RegisterState extends State<Register> {
   }
 
   _phoneCodeSent(String verificationId, [int forceResendingToken]) async {
-    BotToast.showText(text: "인증코드가 전송되었습니다. 잠시만 기다려주세요");
     _verificationId = verificationId;
   }
 
@@ -178,6 +171,7 @@ class _RegisterState extends State<Register> {
           keyboardType: TextInputType.phone,
           buttonText: '인증하기',
           buttonOnPressed: (GlobalKey<FormState> key) {
+//            Fluttertoast.showToast(msg: "test", gravity: ToastGravity.CENTER);
 //            if (key.currentState.validate()) {
 //              _phoneAuthMessage();
 //              nextPage();

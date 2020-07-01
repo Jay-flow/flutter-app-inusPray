@@ -277,6 +277,8 @@ PODS:
   - flutter_kakao_login (0.0.8):
     - Flutter
     - KakaoOpenSDK (~> 1.17.2)
+  - flutter_local_notifications (0.0.1):
+    - Flutter
   - flutter_statusbarcolor (0.0.1):
     - Flutter
   - fluttertoast (0.0.2):
@@ -388,6 +390,7 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_inapp_purchase (from `.symlinks/plugins/flutter_inapp_purchase/ios`)
   - flutter_kakao_login (from `.symlinks/plugins/flutter_kakao_login/ios`)
+  - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - flutter_statusbarcolor (from `.symlinks/plugins/flutter_statusbarcolor/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - image_cropper (from `.symlinks/plugins/image_cropper/ios`)
@@ -458,6 +461,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_inapp_purchase/ios"
   flutter_kakao_login:
     :path: ".symlinks/plugins/flutter_kakao_login/ios"
+  flutter_local_notifications:
+    :path: ".symlinks/plugins/flutter_local_notifications/ios"
   flutter_statusbarcolor:
     :path: ".symlinks/plugins/flutter_statusbarcolor/ios"
   fluttertoast:
@@ -514,6 +519,7 @@ SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_inapp_purchase: 5c6a1ac3f11b11d0c8c0321c0c41c1f05805e4c8
   flutter_kakao_login: 792d15a6f07557cb703f759ffa85ce0206b1fe84
+  flutter_local_notifications: 9e4738ce2471c5af910d961a6b7eadcf57c50186
   flutter_statusbarcolor: 8afb1071ed8c58be929f1e32b36c629771fd2259
   fluttertoast: b644586ef3b16f67fae9a1f8754cef6b2d6b634b
   Google-Mobile-Ads-SDK: 4b855e61f9c5a1a97cb55734ea372a4c36d00242

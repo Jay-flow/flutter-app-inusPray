@@ -29,8 +29,3 @@ class Colors {
   static const grey = Color(0xFFE0E0E0);
   static const white = Color(0xFFF3F3F3);
 }
-
-class Text {
-  Text._();
-  static const appName = '우리안에기도';
-}

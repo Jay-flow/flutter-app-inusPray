@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'asset.dart' as Asset;
 
+const appName = '우리안에기도';
+
 const kTitleTextStyle = TextStyle(
   color: Colors.white,
   fontSize: 43.0,
