@@ -203,7 +203,9 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: RichText(
                   text: TextSpan(
-                    style: TextStyle(color: Asset.Colors.white),
+                    style: TextStyle(
+                      color: Asset.Colors.white,
+                    ),
                     children: [
                       TextSpan(
                         text: '로그인을 누르시면 ',

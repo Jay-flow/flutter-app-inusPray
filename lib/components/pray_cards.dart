@@ -1,12 +1,10 @@
-import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/no_exist_pray.dart';
+import 'package:flutter_inus_pray/components/pray_card.dart';
 import 'package:flutter_inus_pray/models/mediator.dart';
 import 'package:flutter_inus_pray/models/user.dart';
-import 'package:provider/provider.dart';
-import 'package:flutter_inus_pray/components/pray_card.dart';
 import 'package:flutter_inus_pray/utils/constants.dart';
-import 'package:flutter_inus_pray/utils/admob.dart';
+import 'package:provider/provider.dart';
 
 const CARD_HORIZONTAL_PADDING = 40.0;
 
@@ -34,7 +32,13 @@ class _PrayCardsState extends State<PrayCards> {
     _mediator = Provider.of<Mediator>(context);
     cardWidth = MediaQuery.of(context).size.width;
     cardFeedbackWidth = cardWidth - CARD_HORIZONTAL_PADDING * 2;
-    cardHeight = MediaQuery.of(context).size.height - 210;
+    if (MediaQuery.of(context).size.height < 670) {
+      cardHeight = MediaQuery.of(context).size.height - 220;
+    } else if (MediaQuery.of(context).size.height > 890) {
+      cardHeight = MediaQuery.of(context).size.height - 350;
+    } else {
+      cardHeight = MediaQuery.of(context).size.height - 270;
+    }
     _setDesignCards();
     _setPrayCards();
   }
@@ -66,7 +70,6 @@ class _PrayCardsState extends State<PrayCards> {
     });
     isRemoveCard = true;
   }
-
 
   _getPrayCards() {
     // 카드 크기 사이즈를 지정 해주지 않으면 에러남(드래그시 크기를 몰라서 그런것 같음)
