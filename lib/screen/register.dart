@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,6 +9,9 @@ import 'package:flutter_inus_pray/main.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:fluttertoast/fluttertoast.dart';
+
+// ignore: non_constant_identifier_names
+int INPUT_LIMIT_TIME = 30;
 
 class Register extends StatefulWidget {
   static const String id = 'register';
@@ -23,14 +28,17 @@ class _RegisterState extends State<Register> {
   bool _isLoading = false;
   String _verificationId;
   String _smsCode;
-
-  // 하드 코딩 해놓음  3 = pages.length.toDouble() 인데... 좋은 방법 찾기
-  double progressValue = 1.0 / 3;
+  Timer _timer;
+  int _inputLimitTime = INPUT_LIMIT_TIME;
+  List<Widget> _pages;
+  double _progressValue;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     user = ModalRoute.of(context).settings.arguments ?? User();
+    _pages = createPage();
+    _progressValue = 1.0 / _pages.length;
   }
 
   void nextPage() {
@@ -40,7 +48,7 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  void previousPage() {
+  void _previousPage() {
     _pageController.previousPage(
       curve: Curves.easeInOut,
       duration: Duration(milliseconds: 200),
@@ -49,6 +57,22 @@ class _RegisterState extends State<Register> {
 
   void _loadingStateChange(isLoading) {
     setState(() => _isLoading = isLoading);
+  }
+
+  void _inputLimitTimer() {
+    const oneSec = const Duration(seconds: 1);
+    _timer = new Timer.periodic(
+      oneSec,
+      (Timer timer) => setState(
+        () {
+          if (_inputLimitTime < 1) {
+            timer.cancel();
+          } else {
+            _inputLimitTime = _inputLimitTime - 1;
+          }
+        },
+      ),
+    );
   }
 
   // 값 비어있는거 걸러내기
@@ -74,21 +98,28 @@ class _RegisterState extends State<Register> {
     }
   }
 
+  _phoneAuthFail(String message) {
+    Fluttertoast.showToast(
+      msg: message,
+      gravity: ToastGravity.BOTTOM,
+    );
+    _previousPage();
+    _timer.cancel();
+    _inputLimitTime = INPUT_LIMIT_TIME;
+  }
+
   _phoneAuthMessage() {
     _firebaseAuth
         .verifyPhoneNumber(
       phoneNumber: '+82 ${user.phoneNumber}',
-      timeout: Duration(seconds: 30),
+      timeout: Duration(seconds: _inputLimitTime),
       verificationCompleted: _phoneVerificationCompleted,
       verificationFailed: _phoneVerificationFailed,
       codeSent: _phoneCodeSent,
       codeAutoRetrievalTimeout: _phoneCodeAutoRetrievalTimeout,
     )
         .catchError((e) {
-      Fluttertoast.showToast(
-        msg: "인증과정 중 에러가 발생했습니다",
-        gravity: ToastGravity.TOP,
-      );
+      _phoneAuthFail("인증과정 중 에러가 발생했습니다");
     });
   }
 
@@ -97,18 +128,12 @@ class _RegisterState extends State<Register> {
   }
 
   _phoneCodeAutoRetrievalTimeout(String verificationId) {
-    Fluttertoast.showToast(
-      msg: '인증 시간이 초과 되었습니다. 번호를 확인하신 후 재전송을 원할 경우 인증하기 버튼을 한번 더 클릭 해주세요.',
-      gravity: ToastGravity.TOP,
-      toastLength: Toast.LENGTH_LONG,
-    );
+    _phoneAuthFail(
+        "인증 시간이 초과 되었습니다. 번호를 확인하신 후 재전송을 원할 경우 인증하기 버튼을 한번 더 클릭 해주세요.");
   }
 
   _phoneVerificationFailed(AuthException authException) {
-    Fluttertoast.showToast(
-      msg: '인증에 실패하였습니다.\n관리자에게 문의해주세요.',
-      gravity: ToastGravity.TOP,
-    );
+    _phoneAuthFail("인증에 실패하였습니다.\n관리자에게 문의해주세요.");
   }
 
   _phoneVerificationCompleted(AuthCredential auth) {
@@ -118,14 +143,14 @@ class _RegisterState extends State<Register> {
         if (await _isExistUser()) return _alreadyRegistedUserHandling();
         nextPage();
       } else {
-        Fluttertoast.showToast(
-          msg:
-              '인증에 실패하였습니다. 번호를 확인하신 후 재전송을 원할 경우 인증하기 버튼을 한번 더 클릭 해주세요. 계속해서 실패할 경우 관리자에게 문의해주세요.',
-          toastLength: Toast.LENGTH_LONG,
+        _phoneAuthFail(
+          "인증에 실패하였습니다. 번호를 확인하신 후 재전송을 원할 경우 인증하기 버튼을 한번 더 클릭 해주세요. 계속해서 실패할 경우 관리자에게 문의해주세요.",
         );
       }
     }).catchError((error) {
-      Fluttertoast.showToast(msg: '인증에 실패하였습니다.\n관리자에게 문의해주세요.');
+      _phoneAuthFail(
+          "인증에 실패하였습니다.\n관리자에게 문의해주세요."
+      );
     });
   }
 
@@ -171,11 +196,11 @@ class _RegisterState extends State<Register> {
           keyboardType: TextInputType.phone,
           buttonText: '인증하기',
           buttonOnPressed: (GlobalKey<FormState> key) {
-//            Fluttertoast.showToast(msg: "test", gravity: ToastGravity.CENTER);
-//            if (key.currentState.validate()) {
-//              _phoneAuthMessage();
-//              nextPage();
-//            }
+            if (key.currentState.validate()) {
+              _phoneAuthMessage();
+              nextPage();
+              _inputLimitTimer();
+            }
           },
           textValue: user.phoneNumber,
           onChange: (phoneNumber) => user.phoneNumber = phoneNumber.trim(),
@@ -192,7 +217,7 @@ class _RegisterState extends State<Register> {
             else
               return null;
           },
-          hintText: '인증 번호를 입력해주세요 (\'-\'제외)',
+          hintText: '인증 번호를 입력해주세요 (\'-\'제외) $_inputLimitTime',
           keyboardType: TextInputType.phone,
           buttonText: '확인',
           buttonOnPressed: (GlobalKey<FormState> key) {
@@ -258,8 +283,6 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> pages = createPage();
-
     return Scaffold(
       body: SafeArea(
         child: LoadingContainer(
@@ -267,7 +290,7 @@ class _RegisterState extends State<Register> {
           child: Column(
             children: <Widget>[
               LinearProgressIndicator(
-                value: progressValue,
+                value: _progressValue,
                 backgroundColor: Asset.Colors.grey,
                 valueColor: AlwaysStoppedAnimation<Color>(
                     Theme.of(context).primaryColor),
@@ -278,12 +301,12 @@ class _RegisterState extends State<Register> {
 //                  physics: NeverScrollableScrollPhysics(),
                   controller: _pageController,
                   itemBuilder: (context, position) {
-                    return pages[position];
+                    return _pages[position];
                   },
-                  itemCount: pages.length,
+                  itemCount: _pages.length,
                   onPageChanged: (currentPosition) {
                     setState(() {
-                      progressValue = (currentPosition + 1) / pages.length;
+                      _progressValue = (currentPosition + 1) / _pages.length;
                     });
                   },
                 ),
