@@ -1,9 +1,9 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/circle_editable_profile.dart';
 import 'package:flutter_inus_pray/models/settings.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/screen/pray_add.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:flutter_inus_pray/utils/admob.dart';
@@ -47,9 +47,8 @@ class _MyState extends State<My> {
 
   _shareMyPrays(User user) async {
     if (user.prays.isEmpty) {
-      BotToast.showSimpleNotification(
-        title: '공유가능한 기도제목이 없습니다.',
-        hideCloseButton: true,
+      Fluttertoast.showToast(
+        msg: '공유가능한 기도제목이 없습니다.',
       );
     } else {
       String downloadURL = await Settings().getStoreURL();

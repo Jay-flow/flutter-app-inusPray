@@ -1,7 +1,6 @@
 import 'dart:io' show Platform;
 
 import 'package:apple_sign_in/apple_sign_in.dart';
-import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +11,7 @@ import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/screen/register.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:flutter_kakao_login/flutter_kakao_login.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 const double iconSize = 80.0;
@@ -137,10 +137,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
   }
 
   void _printLoginError() {
-    BotToast.showSimpleNotification(
-      title: "에러가 발생했습니다. 다른 방법으로 가입을 진행 해주세요.",
-      hideCloseButton: true,
-    );
+    Fluttertoast.showToast(msg: "에러가 발생했습니다. 다른 방법으로 가입을 진행 해주세요.");
   }
 
   _kakaoLogin(context) async {
