@@ -1,12 +1,11 @@
-import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/models/input_type.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/utils/constants.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_inus_pray/api/notification_fcm.dart';
 import 'package:flutter_inus_pray/utils/admob.dart';
+import 'package:bot_toast/bot_toast.dart';
 
 class PrayAdd extends StatefulWidget {
   static const String idCreate = 'pray_add_create';
@@ -48,7 +47,10 @@ class _PrayAddState extends State<PrayAdd> {
 
   bool _validate(String inputText) {
     if (inputText == '') {
-      Fluttertoast.showToast(msg: '공백은 입력하실 수 없습니다.');
+      BotToast.showSimpleNotification(
+        title: '공백은 입력하실 수 없습니다.',
+        hideCloseButton: true,
+      );
       return false;
     }
     return true;

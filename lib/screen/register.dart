@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,7 +9,6 @@ import 'package:flutter_inus_pray/components/loading_container.dart';
 import 'package:flutter_inus_pray/main.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
-import 'package:fluttertoast/fluttertoast.dart';
 
 // ignore: non_constant_identifier_names
 int INPUT_LIMIT_TIME = 30;
@@ -86,9 +86,9 @@ class _RegisterState extends State<Register> {
         user.church == '' ||
         user.phoneNumber == null ||
         user.phoneNumber == '') {
-      Fluttertoast.showToast(
-        msg: "모든 항목은 필수 입력사항입니다.\n누락된 부분을 입력해주세요.",
-        gravity: ToastGravity.CENTER,
+      BotToast.showSimpleNotification(
+          title: "모든 항목은 필수 입력사항입니다.\n누락된 부분을 입력해주세요.",
+          hideCloseButton: true
       );
     } else {
       _loadingStateChange(true);
@@ -99,9 +99,9 @@ class _RegisterState extends State<Register> {
   }
 
   _phoneAuthFail(String message) {
-    Fluttertoast.showToast(
-      msg: message,
-      gravity: ToastGravity.BOTTOM,
+    BotToast.showSimpleNotification(
+        title: message,
+        hideCloseButton: true
     );
     _previousPage();
     _timer.cancel();
@@ -124,6 +124,10 @@ class _RegisterState extends State<Register> {
   }
 
   _phoneCodeSent(String verificationId, [int forceResendingToken]) async {
+    BotToast.showSimpleNotification(
+        title: "인증번호가 전송되었습니다",
+        hideCloseButton: true
+    );
     _verificationId = verificationId;
   }
 
@@ -139,7 +143,10 @@ class _RegisterState extends State<Register> {
   _phoneVerificationCompleted(AuthCredential auth) {
     _firebaseAuth.signInWithCredential(auth).then((AuthResult value) async {
       if (value.user != null) {
-        Fluttertoast.showToast(msg: '인증되었습니다.', gravity: ToastGravity.TOP);
+        BotToast.showSimpleNotification(
+            title: "인증되었습니다",
+            hideCloseButton: true
+        );
         if (await _isExistUser()) return _alreadyRegistedUserHandling();
         nextPage();
       } else {
@@ -148,9 +155,7 @@ class _RegisterState extends State<Register> {
         );
       }
     }).catchError((error) {
-      _phoneAuthFail(
-          "인증에 실패하였습니다.\n관리자에게 문의해주세요."
-      );
+      _phoneAuthFail("인증에 실패하였습니다.\n관리자에게 문의해주세요.");
     });
   }
 
@@ -172,9 +177,9 @@ class _RegisterState extends State<Register> {
   }
 
   _alreadyRegistedUserHandling() async {
-    Fluttertoast.showToast(
-      msg: "이미 가입된 회원 정보가 있습니다.",
-      toastLength: Toast.LENGTH_LONG,
+    BotToast.showSimpleNotification(
+        title: "이미 가입된 회원 정보가 있습니다",
+        hideCloseButton: true
     );
     await user.localUserDataSave();
     Navigator.pushReplacementNamed(context, InusPrayApp.id);

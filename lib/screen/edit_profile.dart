@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/components/circle_icon_button.dart';
@@ -11,7 +12,6 @@ import 'package:flutter_inus_pray/screen/edit_church_name.dart';
 import 'package:flutter_inus_pray/screen/edit_user_name.dart';
 import 'package:flutter_inus_pray/utils/admob.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -117,8 +117,9 @@ class _EditProfileState extends State<EditProfile> {
     setState(() {
       _isLoading = false;
     });
-    Fluttertoast.showToast(
-      msg: "이미지가 변경되었습니다.",
+    BotToast.showSimpleNotification(
+      title: "이미지가 변경되었습니다.",
+      hideCloseButton: true,
     );
     _adMob.showVideoAd();
   }

@@ -1,6 +1,6 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/models/user.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_inus_pray/components/input_page.dart';
 import 'package:flutter_inus_pray/utils/admob.dart';
@@ -57,7 +57,10 @@ class _EditUserNameState extends State<EditUserName> {
             buttonOnPressed: (GlobalKey<FormState> key) {
               if (key.currentState.validate()) {
                 _user.updateUserName(_user.name.trim());
-                Fluttertoast.showToast(msg: "이름이 정상적으로 변경되었습니다");
+                BotToast.showSimpleNotification(
+                  title: "이름이 정상적으로 변경되었습니다",
+                  hideCloseButton: true,
+                );
                 AdMob().showInterstitialAd();
                 Navigator.pop(context);
               }
