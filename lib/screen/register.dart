@@ -37,8 +37,6 @@ class _RegisterState extends State<Register> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     user = ModalRoute.of(context).settings.arguments ?? User();
-    _pages = createPage();
-    _progressValue = 1.0 / _pages.length;
   }
 
   void nextPage() {
@@ -283,6 +281,8 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
+    _pages = createPage();
+    _progressValue = 1.0 / _pages.length;
     return Scaffold(
       body: SafeArea(
         child: LoadingContainer(

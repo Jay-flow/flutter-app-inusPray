@@ -39,7 +39,7 @@ class _UnderlineTextFieldState extends State<UnderlineTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      // autofocus: true,
+      autofocus: true,
       validator: widget.validator,
       controller: _textController,
       style: TextStyle(color: Colors.black),
