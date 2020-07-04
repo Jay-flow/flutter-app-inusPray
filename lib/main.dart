@@ -17,8 +17,6 @@ import 'package:flutter_inus_pray/utils/notification_fcm.dart';
 import 'package:flutter_inus_pray/utils/settings.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
-import 'package:bot_toast/bot_toast.dart';
-
 
 void main() => runApp(InusPrayApp());
 
@@ -105,8 +103,6 @@ class _InusPrayAppState extends State<InusPrayApp> {
             child: MaterialApp(
               title: appName,
               debugShowCheckedModeBanner: false,
-              builder: BotToastInit(),
-              navigatorObservers: [BotToastNavigatorObserver()],
               theme: ThemeData.light().copyWith(
                 primaryColor: Asset.Colors.yellow,
                 primaryColorDark: Asset.Colors.blueBlack,
