@@ -8,26 +8,41 @@ class Test extends StatefulWidget {
 }
 
 class _TestState extends State<Test> with SingleTickerProviderStateMixin {
-  _showOverlay() async {
-    Tween<double> tweenOpacity = Tween<double>(begin: 0, end: 1);
-    AnimationController controller = AnimationController(
-      duration: const Duration(seconds: 2),
+  Tween<double> tweenOpacity = Tween<double>(begin: 0, end: 1);
+  AnimationController controller;
+  Animation<double> animation;
+  Animation<double> animationOpacity;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      duration: const Duration(milliseconds: 1200),
       vsync: this,
     );
-    Animation<double> animation = CurvedAnimation(
+    animation = CurvedAnimation(
       parent: controller,
       curve: Curves.decelerate,
     );
-    Animation<double> animationOpacity = tweenOpacity.animate(animation);
+    animationOpacity = tweenOpacity.animate(animation);
+    animation.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        controller.reverse();
+      } else if (status == AnimationStatus.dismissed) {
+//        controller.forward();
+      }
+    });
+  }
 
+  _showOverlay() async {
     OverlayState overlayState = Overlay.of(context);
     OverlayEntry overlayEntry = OverlayEntry(
-      builder: (context) => FadeTransition(
-        opacity: animationOpacity,
-        child: Positioned(
-          top: 30,
-          left: 10,
-          right: 10,
+      builder: (context) => Positioned(
+        top: 30,
+        left: 10,
+        right: 10,
+        child: FadeTransition(
+          opacity: animationOpacity,
           child: Container(
             child: Card(
               child: Padding(
@@ -45,8 +60,9 @@ class _TestState extends State<Test> with SingleTickerProviderStateMixin {
       ),
     );
     overlayState.insert(overlayEntry);
-    await Future.delayed(Duration(seconds: 2));
-    overlayEntry.remove();
+    controller.forward();
+//    await Future.delayed(Duration(seconds: 2));
+//    overlayEntry.remove();
   }
 
   @override
