@@ -23,7 +23,7 @@ class _TestState extends State<Test> with SingleTickerProviderStateMixin {
     );
     animation = CurvedAnimation(
       parent: controller,
-      curve: Curves.easeInOut,
+      curve: Curves.decelerate,
     );
     animationOpacity = tweenOpacity.animate(animation);
     animation.addStatusListener((status) async {
