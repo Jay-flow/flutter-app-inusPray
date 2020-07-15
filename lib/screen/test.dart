@@ -18,17 +18,17 @@ class _TestState extends State<Test> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     controller = AnimationController(
-      duration: const Duration(milliseconds: 1200),
+      duration: const Duration(milliseconds: 1700),
       vsync: this,
     );
     animation = CurvedAnimation(
       parent: controller,
-      curve: Curves.decelerate,
+      curve: Curves.easeInOut,
     );
     animationOpacity = tweenOpacity.animate(animation);
     animation.addStatusListener((status) async {
       if (status == AnimationStatus.completed) {
-        await Future.delayed(Duration(seconds: 2));
+        await Future.delayed(Duration(seconds: 3));
         controller.reverse();
       } else if (status == AnimationStatus.dismissed) {
 //        controller.forward();
@@ -36,7 +36,7 @@ class _TestState extends State<Test> with SingleTickerProviderStateMixin {
     });
     _offsetAnimation = Tween<Offset>(
       begin: Offset.zero,
-      end: const Offset(0, 1.0),
+      end: const Offset(0, 0.5),
     ).animate(
       CurvedAnimation(
         parent: controller,
@@ -49,7 +49,7 @@ class _TestState extends State<Test> with SingleTickerProviderStateMixin {
     OverlayState overlayState = Overlay.of(context);
     OverlayEntry overlayEntry = OverlayEntry(
       builder: (context) => Positioned(
-        top: -10,
+        top: 0,
         left: 10,
         right: 10,
         child: SlideTransition(
