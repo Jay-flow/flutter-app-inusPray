@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 
-class Test extends StatefulWidget {
-  static const String id = "test";
+class CustomNotification extends StatefulWidget {
+  static const String id = "custom_notification";
+
+  CustomNotification({
+    @required this.child,
+  });
+
+  final Widget child;
 
   @override
-  _TestState createState() => _TestState();
+  _CustomNotificationState createState() => _CustomNotificationState();
 }
 
-class _TestState extends State<Test> with SingleTickerProviderStateMixin {
+class _CustomNotificationState extends State<CustomNotification>
+    with SingleTickerProviderStateMixin {
   Tween<double> tweenOpacity = Tween<double>(begin: 0, end: 1);
   AnimationController controller;
   Animation<double> animation;
@@ -17,8 +24,23 @@ class _TestState extends State<Test> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    _setVariables();
+    animation.addStatusListener((status) async {
+      if (status == AnimationStatus.completed) {
+        await Future.delayed(Duration(seconds: 2));
+        controller.reverse();
+      } else if (status == AnimationStatus.dismissed) {
+//        controller.forward();
+      }
+    });
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _initOverlayWidget();
+    });
+  }
+
+  _setVariables() {
     controller = AnimationController(
-      duration: const Duration(milliseconds: 1700),
+      duration: const Duration(milliseconds: 600),
       vsync: this,
     );
     animation = CurvedAnimation(
@@ -26,14 +48,6 @@ class _TestState extends State<Test> with SingleTickerProviderStateMixin {
       curve: Curves.decelerate,
     );
     animationOpacity = tweenOpacity.animate(animation);
-    animation.addStatusListener((status) async {
-      if (status == AnimationStatus.completed) {
-        await Future.delayed(Duration(seconds: 3));
-        controller.reverse();
-      } else if (status == AnimationStatus.dismissed) {
-//        controller.forward();
-      }
-    });
     _offsetAnimation = Tween<Offset>(
       begin: Offset.zero,
       end: const Offset(0, 0.5),
@@ -45,11 +59,11 @@ class _TestState extends State<Test> with SingleTickerProviderStateMixin {
     );
   }
 
-  _showOverlay() async {
+  _initOverlayWidget() async {
     OverlayState overlayState = Overlay.of(context);
     OverlayEntry overlayEntry = OverlayEntry(
       builder: (context) => Positioned(
-        top: 0,
+        top: 5,
         left: 10,
         right: 10,
         child: SlideTransition(
@@ -75,21 +89,10 @@ class _TestState extends State<Test> with SingleTickerProviderStateMixin {
     );
     overlayState.insert(overlayEntry);
     controller.forward();
-//    overlayEntry.remove();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            _showOverlay();
-          },
-          child: Text("Overlay"),
-        ),
-      ),
-    );
+    return widget.child;
   }
 }

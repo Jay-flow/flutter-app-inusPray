@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_inus_pray/components/custom_notification.dart';
 import 'package:flutter_inus_pray/models/input_type.dart';
 import 'package:flutter_inus_pray/models/mediator.dart';
 import 'package:flutter_inus_pray/models/user.dart';
@@ -11,7 +12,6 @@ import 'package:flutter_inus_pray/screen/edit_user_name.dart';
 import 'package:flutter_inus_pray/screen/login.dart';
 import 'package:flutter_inus_pray/screen/pray_add.dart';
 import 'package:flutter_inus_pray/screen/register.dart';
-import 'package:flutter_inus_pray/screen/test.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:flutter_inus_pray/utils/constants.dart';
 import 'package:flutter_inus_pray/utils/notification_fcm.dart';
@@ -132,8 +132,8 @@ class _InusPrayAppState extends State<InusPrayApp> {
                 ),
                 tabBarTheme: TabBarTheme(labelColor: Colors.black),
               ),
-              initialRoute: Test.id,
-//              initialRoute: _initialRoute,
+              initialRoute: _initialRoute,
+//              initialRoute: CustomNotification.id,
               routes: {
                 InusPrayApp.id: (context) => InusPrayApp(),
                 Login.id: (context) => Login(),
@@ -149,7 +149,7 @@ class _InusPrayAppState extends State<InusPrayApp> {
                 EditUserName.id: (context) => EditUserName(),
                 EditChurchName.id: (context) => EditChurchName(),
                 AdBanner.id: (context) => AdBanner(),
-                Test.id: (context) => Test(),
+                CustomNotification.id: (context) => CustomNotification(),
               },
             ),
           );

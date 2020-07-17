@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_inus_pray/components/custom_notification.dart';
 import 'package:flutter_inus_pray/components/image_button.dart';
 import 'package:flutter_inus_pray/components/loading_container.dart';
 import 'package:flutter_inus_pray/models/user.dart';
@@ -171,107 +172,109 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: LoadingContainer(
-        isLoading: _isLoading,
-        child: Container(
-          padding: EdgeInsets.all(30),
-//          decoration: kGradientBackground,
-          decoration: BoxDecoration(color: Theme.of(context).primaryColorDark),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(
-                child: Center(
-                  child: Container(
-                    child: FadeTransition(
-                      opacity: animation,
-                      child: Text(
-                        "Pray for you",
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.dancingScript(
-                          textStyle: TextStyle(
-                            fontSize: 50.0,
-                            color: Theme.of(context).primaryColor,
+      body: CustomNotification(
+        child: LoadingContainer(
+          isLoading: _isLoading,
+          child: Container(
+            padding: EdgeInsets.all(30),
+            decoration:
+                BoxDecoration(color: Theme.of(context).primaryColorDark),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Expanded(
+                  child: Center(
+                    child: Container(
+                      child: FadeTransition(
+                        opacity: animation,
+                        child: Text(
+                          "Pray for you",
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.dancingScript(
+                            textStyle: TextStyle(
+                              fontSize: 50.0,
+                              color: Theme.of(context).primaryColor,
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: RichText(
-                  text: TextSpan(
-                    style: TextStyle(
-                      color: Asset.Colors.white,
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: RichText(
+                    text: TextSpan(
+                      style: TextStyle(
+                        color: Asset.Colors.white,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: '로그인을 누르시면 ',
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () => print('HEY'),
+                        ),
+                        TextSpan(
+                          text: '이용약관',
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                        TextSpan(text: ' 및 '),
+                        TextSpan(
+                          text: '개인정보',
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                        TextSpan(
+                          text: ' ',
+                        ),
+                        TextSpan(
+                          text: '취급방침',
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                        TextSpan(text: '에 동의하는 것으로 간주됩니다.')
+                      ],
                     ),
-                    children: [
-                      TextSpan(
-                        text: '로그인을 누르시면 ',
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () => print('HEY'),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  height: Platform.isIOS ? 170 : 120,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      ImageButton(
+                        text: '전화번호로 로그인',
+                        buttonColor: Theme.of(context).primaryColor,
+                        iconImage: Asset.Icons.icPhone,
+                        onPressed: () =>
+                            Navigator.pushNamed(context, Register.id),
                       ),
-                      TextSpan(
-                        text: '이용약관',
-                        style: TextStyle(
-                          decoration: TextDecoration.underline,
-                        ),
+                      ImageButton(
+                        text: '카카오 로그인',
+                        buttonColor: Theme.of(context).primaryColor,
+                        iconImage: Asset.Icons.icKakao,
+                        onPressed: () => _kakaoLogin(context),
                       ),
-                      TextSpan(text: ' 및 '),
-                      TextSpan(
-                        text: '개인정보',
-                        style: TextStyle(
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                      TextSpan(
-                        text: ' ',
-                      ),
-                      TextSpan(
-                        text: '취급방침',
-                        style: TextStyle(
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                      TextSpan(text: '에 동의하는 것으로 간주됩니다.')
+                      Platform.isIOS
+                          ? ImageButton(
+                              text: 'Apple로 로그인',
+                              buttonColor: Colors.white,
+                              iconImage: Asset.Icons.icApple,
+                              onPressed: _appleLogIn,
+                            )
+                          : Container(),
                     ],
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                height: Platform.isIOS ? 170 : 120,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    ImageButton(
-                      text: '전화번호로 로그인',
-                      buttonColor: Theme.of(context).primaryColor,
-                      iconImage: Asset.Icons.icPhone,
-                      onPressed: () =>
-                          Navigator.pushNamed(context, Register.id),
-                    ),
-                    ImageButton(
-                      text: '카카오 로그인',
-                      buttonColor: Theme.of(context).primaryColor,
-                      iconImage: Asset.Icons.icKakao,
-                      onPressed: () => _kakaoLogin(context),
-                    ),
-                    Platform.isIOS
-                        ? ImageButton(
-                            text: 'Apple로 로그인',
-                            buttonColor: Colors.white,
-                            iconImage: Asset.Icons.icApple,
-                            onPressed: _appleLogIn,
-                          )
-                        : Container(),
-                  ],
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
