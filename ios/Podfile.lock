@@ -170,6 +170,8 @@ PODS:
     - Firebase/Core
     - Firebase/Firestore (~> 6.0)
     - Flutter
+  - cloud_firestore_web (0.1.0):
+    - Flutter
   - Firebase/AdMob (6.13.0):
     - Firebase/CoreOnly
     - Google-Mobile-Ads-SDK (~> 7.50)
@@ -279,6 +281,8 @@ PODS:
     - KakaoOpenSDK (~> 1.17.2)
   - flutter_local_notifications (0.0.1):
     - Flutter
+  - flutter_plugin_android_lifecycle (0.0.1):
+    - Flutter
   - flutter_statusbarcolor (0.0.1):
     - Flutter
   - fluttertoast (0.0.2):
@@ -365,12 +369,16 @@ PODS:
     - Flutter
   - shared_preferences (0.0.1):
     - Flutter
+  - shared_preferences_linux (0.0.1):
+    - Flutter
   - shared_preferences_macos (0.0.1):
     - Flutter
   - shared_preferences_web (0.0.1):
     - Flutter
   - TOCropViewController (2.5.2)
   - url_launcher (0.0.1):
+    - Flutter
+  - url_launcher_linux (0.0.1):
     - Flutter
   - url_launcher_macos (0.0.1):
     - Flutter
@@ -380,6 +388,7 @@ PODS:
 DEPENDENCIES:
   - apple_sign_in (from `.symlinks/plugins/apple_sign_in/ios`)
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
+  - cloud_firestore_web (from `.symlinks/plugins/cloud_firestore_web/ios`)
   - firebase_admob (from `.symlinks/plugins/firebase_admob/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_auth_web (from `.symlinks/plugins/firebase_auth_web/ios`)
@@ -391,6 +400,7 @@ DEPENDENCIES:
   - flutter_inapp_purchase (from `.symlinks/plugins/flutter_inapp_purchase/ios`)
   - flutter_kakao_login (from `.symlinks/plugins/flutter_kakao_login/ios`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
+  - flutter_plugin_android_lifecycle (from `.symlinks/plugins/flutter_plugin_android_lifecycle/ios`)
   - flutter_statusbarcolor (from `.symlinks/plugins/flutter_statusbarcolor/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - image_cropper (from `.symlinks/plugins/image_cropper/ios`)
@@ -400,9 +410,11 @@ DEPENDENCIES:
   - path_provider_macos (from `.symlinks/plugins/path_provider_macos/ios`)
   - share (from `.symlinks/plugins/share/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
+  - shared_preferences_linux (from `.symlinks/plugins/shared_preferences_linux/ios`)
   - shared_preferences_macos (from `.symlinks/plugins/shared_preferences_macos/ios`)
   - shared_preferences_web (from `.symlinks/plugins/shared_preferences_web/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
+  - url_launcher_linux (from `.symlinks/plugins/url_launcher_linux/ios`)
   - url_launcher_macos (from `.symlinks/plugins/url_launcher_macos/ios`)
   - url_launcher_web (from `.symlinks/plugins/url_launcher_web/ios`)
 
@@ -441,6 +453,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/apple_sign_in/ios"
   cloud_firestore:
     :path: ".symlinks/plugins/cloud_firestore/ios"
+  cloud_firestore_web:
+    :path: ".symlinks/plugins/cloud_firestore_web/ios"
   firebase_admob:
     :path: ".symlinks/plugins/firebase_admob/ios"
   firebase_auth:
@@ -463,6 +477,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_kakao_login/ios"
   flutter_local_notifications:
     :path: ".symlinks/plugins/flutter_local_notifications/ios"
+  flutter_plugin_android_lifecycle:
+    :path: ".symlinks/plugins/flutter_plugin_android_lifecycle/ios"
   flutter_statusbarcolor:
     :path: ".symlinks/plugins/flutter_statusbarcolor/ios"
   fluttertoast:
@@ -481,12 +497,16 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/share/ios"
   shared_preferences:
     :path: ".symlinks/plugins/shared_preferences/ios"
+  shared_preferences_linux:
+    :path: ".symlinks/plugins/shared_preferences_linux/ios"
   shared_preferences_macos:
     :path: ".symlinks/plugins/shared_preferences_macos/ios"
   shared_preferences_web:
     :path: ".symlinks/plugins/shared_preferences_web/ios"
   url_launcher:
     :path: ".symlinks/plugins/url_launcher/ios"
+  url_launcher_linux:
+    :path: ".symlinks/plugins/url_launcher_linux/ios"
   url_launcher_macos:
     :path: ".symlinks/plugins/url_launcher_macos/ios"
   url_launcher_web:
@@ -496,7 +516,8 @@ SPEC CHECKSUMS:
   abseil: 18063d773f5366ff8736a050fe035a28f635fd27
   apple_sign_in: 7716c7ddfa195aeab7dec0dc374ef4ff45d1adb4
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
-  cloud_firestore: c5d1e4d114eecb1dfb535f008435685bcf6063f1
+  cloud_firestore: 2a4f8f802fb0b701cf809b283b6bec7477ebaa6f
+  cloud_firestore_web: 9ec3dc7f5f98de5129339802d491c1204462bfec
   Firebase: 458d109512200d1aca2e1b9b6cf7d68a869a4a46
   firebase_admob: d8c2bc95b5e0069406280ce6adb816cdee6aa595
   firebase_auth: af8784c4d8d87c36f730a305f97bfbcb24db024b
@@ -504,7 +525,7 @@ SPEC CHECKSUMS:
   firebase_core: 335c02abd48672b7c83c683df833d0488a72e73e
   firebase_core_web: d501d8b946b60c8af265428ce483b0fff5ad52d1
   firebase_messaging: 21344b3b3a7d9d325d63a70e3750c0c798fe1e03
-  firebase_storage: cee2383f53c26690269ab667b4dbfe25452c6caa
+  firebase_storage: 22966fce4aa6e8848cbaa017df62107cee29f327
   FirebaseAnalytics: 45f36d9c429fc91d206283900ab75390cd05ee8a
   FirebaseAnalyticsInterop: d48b6ab67bcf016a05e55b71fc39c61c0cb6b7f3
   FirebaseAuth: 7d0f84873926f6648bbd1391a318dfb1a26b5e4f
@@ -520,6 +541,7 @@ SPEC CHECKSUMS:
   flutter_inapp_purchase: 5c6a1ac3f11b11d0c8c0321c0c41c1f05805e4c8
   flutter_kakao_login: 792d15a6f07557cb703f759ffa85ce0206b1fe84
   flutter_local_notifications: 9e4738ce2471c5af910d961a6b7eadcf57c50186
+  flutter_plugin_android_lifecycle: dc0b544e129eebb77a6bfb1239d4d1c673a60a35
   flutter_statusbarcolor: 8afb1071ed8c58be929f1e32b36c629771fd2259
   fluttertoast: b644586ef3b16f67fae9a1f8754cef6b2d6b634b
   Google-Mobile-Ads-SDK: 4b855e61f9c5a1a97cb55734ea372a4c36d00242
@@ -531,7 +553,7 @@ SPEC CHECKSUMS:
   gRPC-Core: c9aef9a261a1247e881b18059b84d597293c9947
   GTMSessionFetcher: 43b8b64263023d4f32caa0b40f4c8bfa3c5f36d8
   image_cropper: 3c16d7651730ffe85897f5a1c4e2547e6b54989a
-  image_picker: e3eacd46b94694dde7cf2705955cece853aa1a8f
+  image_picker: 9c3312491f862b28d21ecd8fdf0ee14e601b3f09
   KakaoOpenSDK: 1fc43f9025e30a7c1f7c5342bf51744c6c93a500
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
@@ -540,11 +562,13 @@ SPEC CHECKSUMS:
   path_provider_macos: f760a3c5b04357c380e2fddb6f9db6f3015897e0
   Protobuf: 394b2bf29ec303f4325e3ee4892c09e675647152
   share: 0b2c3e82132f5888bccca3351c504d0003b3b410
-  shared_preferences: 430726339841afefe5142b9c1f50cb6bd7793e01
+  shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
+  shared_preferences_linux: afefbfe8d921e207f01ede8b60373d9e3b566b78
   shared_preferences_macos: f3f29b71ccbb56bf40c9dd6396c9acf15e214087
   shared_preferences_web: 141cce0c3ed1a1c5bf2a0e44f52d31eeb66e5ea9
   TOCropViewController: e9da34f484aedd4e5d5a8ab230ba217cfe16c729
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
+  url_launcher_linux: ac237cb7a8058736e4aae38bdbcc748a4b394cc0
   url_launcher_macos: fd7894421cd39320dce5f292fc99ea9270b2a313
   url_launcher_web: e5527357f037c87560776e36436bf2b0288b965c
 

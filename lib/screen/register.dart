@@ -146,9 +146,7 @@ class _RegisterState extends State<Register> {
         );
       }
     }).catchError((error) {
-      _phoneAuthFail(
-          "인증에 실패하였습니다.\n관리자에게 문의해주세요."
-      );
+      _phoneAuthFail("인증에 실패하였습니다.\n관리자에게 문의해주세요.");
     });
   }
 
