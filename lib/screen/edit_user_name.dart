@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_inus_pray/components/input_page.dart';
 import 'package:flutter_inus_pray/utils/admob.dart';
+import 'package:flutter_inus_pray/utils/constants.dart' show kToastBackgroundColor;
 
 class EditUserName extends StatefulWidget {
   static const String id = 'edit_name';
@@ -57,7 +58,10 @@ class _EditUserNameState extends State<EditUserName> {
             buttonOnPressed: (GlobalKey<FormState> key) {
               if (key.currentState.validate()) {
                 _user.updateUserName(_user.name.trim());
-                Fluttertoast.showToast(msg: "이름이 정상적으로 변경되었습니다");
+                Fluttertoast.showToast(
+                    msg: "이름이 정상적으로 변경되었습니다",
+                    backgroundColor: kToastBackgroundColor,
+                );
                 AdMob().showInterstitialAd();
                 Navigator.pop(context);
               }

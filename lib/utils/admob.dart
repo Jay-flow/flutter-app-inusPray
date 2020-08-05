@@ -1,6 +1,7 @@
 import 'package:firebase_admob/firebase_admob.dart';
+import 'dart:io';
 
-const String testDevice = 'YOUR_DEVICE_ID';
+const String testDevice = null;
 
 enum AdType { BANNER, INTERSTITIAL, VIDEO }
 
@@ -21,7 +22,10 @@ class AdMob {
   InterstitialAd _interstitialAd;
 
   init() {
-    FirebaseAdMob.instance.initialize(appId: FirebaseAdMob.testAppId);
+    String appId = Platform.isAndroid
+        ? "ca-app-pub-7723933178431532~7033211783"
+        : "ca-app-pub-7723933178431532~7900065733";
+    FirebaseAdMob.instance.initialize(appId: appId);
     RewardedVideoAd.instance.listener =
         (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {};
   }

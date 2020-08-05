@@ -5,6 +5,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:flutter_inus_pray/utils/admob.dart';
+import 'package:flutter_inus_pray/utils/constants.dart'
+    show kToastBackgroundColor;
 
 class MediatorList extends StatefulWidget {
   MediatorList({
@@ -32,8 +34,11 @@ class _MediatorListState extends State<MediatorList> {
   }
 
   void _infoMessage(isIAddedMediatorForYou) {
-    String msg = isIAddedMediatorForYou ?  '중보자가 삭제되었습니다.': '중보자가 등록되었습니다.';
-    Fluttertoast.showToast(msg: msg);
+    String msg = isIAddedMediatorForYou ? '중보자가 삭제되었습니다.' : '중보자가 등록되었습니다.';
+    Fluttertoast.showToast(
+      msg: msg,
+      backgroundColor: kToastBackgroundColor,
+    );
   }
 
   @override
@@ -48,8 +53,9 @@ class _MediatorListState extends State<MediatorList> {
           imagePath: mediator.profileImage,
           title: mediator.name,
           subtitle: mediator.church,
-          chipBackgroundColor:
-              mediator.isIAddedMediatorForYou ? Asset.Colors.grey : Theme.of(context).primaryColorLight,
+          chipBackgroundColor: mediator.isIAddedMediatorForYou
+              ? Asset.Colors.grey
+              : Theme.of(context).primaryColorLight,
           label: mediator.isIAddedMediatorForYou
               ? Text(
                   '기도취소',

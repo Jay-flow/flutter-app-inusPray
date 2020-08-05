@@ -16,6 +16,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_inus_pray/utils/constants.dart' show kToastBackgroundColor;
 
 class EditProfile extends StatefulWidget {
   static const String id = 'edit_profile';
@@ -119,6 +120,7 @@ class _EditProfileState extends State<EditProfile> {
     });
     Fluttertoast.showToast(
       msg: "이미지가 변경되었습니다.",
+      backgroundColor: kToastBackgroundColor,
     );
     _adMob.showVideoAd();
   }

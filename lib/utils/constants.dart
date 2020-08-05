@@ -4,6 +4,8 @@ import 'asset.dart' as Asset;
 
 const appName = '우리안에기도';
 
+const kToastBackgroundColor = Colors.black;
+
 const kTitleTextStyle = TextStyle(
   color: Colors.white,
   fontSize: 43.0,

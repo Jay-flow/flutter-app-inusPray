@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inus_pray/models/user.dart';
+import 'package:flutter_inus_pray/utils/constants.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_inus_pray/components/input_page.dart';
 import 'package:flutter_inus_pray/utils/admob.dart';
-
 
 class EditChurchName extends StatefulWidget {
   static const String id = 'edit_church_name';
@@ -58,7 +58,10 @@ class _EditChurchNameState extends State<EditChurchName> {
               buttonOnPressed: (GlobalKey<FormState> key) {
                 if (key.currentState.validate()) {
                   _user.updateChurchName(_user.church.trim());
-                  Fluttertoast.showToast(msg: "교회 이름이 정상적으로 변경되었습니다");
+                  Fluttertoast.showToast(
+                    msg: "교회 이름이 정상적으로 변경되었습니다",
+                    backgroundColor: kToastBackgroundColor,
+                  );
                   AdMob().showInterstitialAd();
                   Navigator.pop(context);
                 }

@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:flutter_inus_pray/utils/admob.dart';
+import 'package:flutter_inus_pray/utils/constants.dart' show kToastBackgroundColor;
 
 class My extends StatefulWidget {
   static const String id = 'my';
@@ -48,7 +49,8 @@ class _MyState extends State<My> {
   _shareMyPrays(User user) async {
     if (user.prays.isEmpty) {
       Fluttertoast.showToast(
-        msg: '공유가능한 기도제목이 없습니다.',
+          msg: '공유가능한 기도제목이 없습니다.',
+          backgroundColor: kToastBackgroundColor,
       );
     } else {
       String downloadURL = await Settings().getStoreURL();
@@ -95,12 +97,16 @@ class _MyState extends State<My> {
                                     Text(
                                       '기도공유',
                                       style: TextStyle(
-                                        color: Theme.of(context).primaryColor,
+                                        color: Theme
+                                            .of(context)
+                                            .primaryColor,
                                       ),
                                     ),
                                     Icon(
                                       Icons.send,
-                                      color: Theme.of(context).primaryColor,
+                                      color: Theme
+                                          .of(context)
+                                          .primaryColor,
                                       size: 12.0,
                                     )
                                   ],
@@ -116,104 +122,104 @@ class _MyState extends State<My> {
                 ),
                 SliverList(
                     delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                    return user.prays.length == 0
-                        ? ListTile(
-                            title: Text(
-                              '등록된 기도가 없습니다.',
-                            ),
-                            subtitle: Text('우측 하단의 + 버튼을 눌러 기도를 등록해주세요.'),
-                            leading: Icon(
-                              Icons.info_outline,
-                              color: Colors.red,
-                            ),
-                          )
-                        : index < user.prays.length
+                          (BuildContext context, int index) {
+                        return user.prays.length == 0
+                            ? ListTile(
+                          title: Text(
+                            '등록된 기도가 없습니다.',
+                          ),
+                          subtitle: Text('우측 하단의 + 버튼을 눌러 기도를 등록해주세요.'),
+                          leading: Icon(
+                            Icons.info_outline,
+                            color: Colors.red,
+                          ),
+                        )
+                            : index < user.prays.length
                             ? Container(
-                                margin: EdgeInsets.symmetric(
-                                    horizontal: 5, vertical: 5),
-                                child: Card(
-                                  elevation: 1.5,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: <Widget>[
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 20.0, left: 20.0, right: 20.0),
-                                        child: Container(
-                                          constraints:
-                                              BoxConstraints(minHeight: 40),
-                                          child: Text(
-                                            user.prays[index],
-                                          ),
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment: Alignment.bottomRight,
-                                        child: Container(
-                                          width: 110,
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
-                                            children: <Widget>[
-                                              InkWell(
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      12.0),
-                                                  child: Text(
-                                                    '삭제',
-                                                    style: TextStyle(
-                                                      color: Colors.grey,
-                                                    ),
-                                                  ),
-                                                ),
-                                                onTap: () {
-                                                  _confirmDeletePray(
-                                                    index,
-                                                    user.deleteUserPray,
-                                                  );
-                                                },
-                                              ),
-                                              InkWell(
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      12.0),
-                                                  child: Text(
-                                                    '수정',
-                                                    style: TextStyle(
-                                                        color: Colors.grey),
-                                                  ),
-                                                ),
-                                                onTap: () =>
-                                                    Navigator.pushNamed(
-                                                  context,
-                                                  PrayAdd.idUpdate,
-                                                  arguments: {
-                                                    'pray': user.prays[index],
-                                                    'index': index,
-                                                  },
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      )
-                                    ],
+                          margin: EdgeInsets.symmetric(
+                              horizontal: 5, vertical: 5),
+                          child: Card(
+                            elevation: 1.5,
+                            child: Column(
+                              crossAxisAlignment:
+                              CrossAxisAlignment.stretch,
+                              mainAxisSize: MainAxisSize.max,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 20.0, left: 20.0, right: 20.0),
+                                  child: Container(
+                                    constraints:
+                                    BoxConstraints(minHeight: 40),
+                                    child: Text(
+                                      user.prays[index],
+                                    ),
                                   ),
                                 ),
-                              )
+                                Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: Container(
+                                    width: 110,
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.end,
+                                      children: <Widget>[
+                                        InkWell(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(
+                                                12.0),
+                                            child: Text(
+                                              '삭제',
+                                              style: TextStyle(
+                                                color: Colors.grey,
+                                              ),
+                                            ),
+                                          ),
+                                          onTap: () {
+                                            _confirmDeletePray(
+                                              index,
+                                              user.deleteUserPray,
+                                            );
+                                          },
+                                        ),
+                                        InkWell(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(
+                                                12.0),
+                                            child: Text(
+                                              '수정',
+                                              style: TextStyle(
+                                                  color: Colors.grey),
+                                            ),
+                                          ),
+                                          onTap: () =>
+                                              Navigator.pushNamed(
+                                                context,
+                                                PrayAdd.idUpdate,
+                                                arguments: {
+                                                  'pray': user.prays[index],
+                                                  'index': index,
+                                                },
+                                              ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        )
                             : SizedBox(
-                                height: 80,
-                              );
-                  },
-                  childCount:
+                          height: 80,
+                        );
+                      },
+                      childCount:
                       user.prays.length == 0 ? 1 : user.prays.length + 1,
-                )),
+                    )),
               ],
             );
           },
