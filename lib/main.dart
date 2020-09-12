@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_inus_pray/components/custom_notification.dart';
 import 'package:flutter_inus_pray/models/input_type.dart';
 import 'package:flutter_inus_pray/models/mediator.dart';
 import 'package:flutter_inus_pray/models/user.dart';
@@ -111,7 +110,7 @@ class _InusPrayAppState extends State<InusPrayApp> {
                 appBarTheme: AppBarTheme(
                     color: Colors.white,
                     textTheme: TextTheme(
-                      title: TextStyle(
+                      headline6: TextStyle(
                         color: Colors.black,
                       ),
                     ),
@@ -120,10 +119,10 @@ class _InusPrayAppState extends State<InusPrayApp> {
                     )),
                 accentColor: Asset.Colors.yellow,
                 textTheme: TextTheme(
-                  body1: TextStyle(color: Asset.Colors.blueBlack),
-                  subhead: TextStyle(color: Asset.Colors.blueBlack),
+                  bodyText2: TextStyle(color: Asset.Colors.blueBlack),
+                  subtitle1: TextStyle(color: Asset.Colors.blueBlack),
                   caption: TextStyle(color: Asset.Colors.blueBlack),
-                  title: TextStyle(
+                  headline6: TextStyle(
                     color: Asset.Colors.blueBlack,
                   ),
                 ),
@@ -149,7 +148,6 @@ class _InusPrayAppState extends State<InusPrayApp> {
                 EditUserName.id: (context) => EditUserName(),
                 EditChurchName.id: (context) => EditChurchName(),
                 AdBanner.id: (context) => AdBanner(),
-                CustomNotification.id: (context) => CustomNotification(),
               },
             ),
           );
