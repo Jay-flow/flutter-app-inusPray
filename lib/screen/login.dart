@@ -9,11 +9,12 @@ import 'package:flutter_inus_pray/components/image_button.dart';
 import 'package:flutter_inus_pray/components/loading_container.dart';
 import 'package:flutter_inus_pray/models/user.dart';
 import 'package:flutter_inus_pray/screen/register.dart';
+import 'package:flutter_inus_pray/screen/terms_of_use.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
+import 'package:flutter_inus_pray/utils/constants.dart' show kToastBackgroundColor;
 import 'package:flutter_kakao_login/flutter_kakao_login.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_inus_pray/utils/constants.dart' show kToastBackgroundColor;
 
 const double iconSize = 80.0;
 
@@ -217,6 +218,8 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                       ),
                       TextSpan(
                         text: '이용약관',
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () => Navigator.pushNamed(context, TermsOfUse.id),
                         style: TextStyle(
                           decoration: TextDecoration.underline,
                         ),

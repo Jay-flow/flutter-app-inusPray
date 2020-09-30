@@ -11,6 +11,7 @@ import 'package:flutter_inus_pray/screen/edit_user_name.dart';
 import 'package:flutter_inus_pray/screen/login.dart';
 import 'package:flutter_inus_pray/screen/pray_add.dart';
 import 'package:flutter_inus_pray/screen/register.dart';
+import 'package:flutter_inus_pray/screen/terms_of_use.dart';
 import 'package:flutter_inus_pray/utils/asset.dart' as Asset;
 import 'package:flutter_inus_pray/utils/constants.dart';
 import 'package:flutter_inus_pray/utils/notification_fcm.dart';
@@ -135,6 +136,7 @@ class _InusPrayAppState extends State<InusPrayApp> {
 //              initialRoute: CustomNotification.id,
               routes: {
                 InusPrayApp.id: (context) => InusPrayApp(),
+                TermsOfUse.id: (context) => TermsOfUse(),
                 Login.id: (context) => Login(),
                 Register.id: (context) => Register(),
                 MainBottomTab.id: (context) => MainBottomTab(),
